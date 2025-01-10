@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<BaseOutputPath>..\bin</BaseOutputPath>
+		<RootNamespace>drz</RootNamespace>
+				<!--атрибуты сборки-->
+	<!--<GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>-->
+		<!--<Title>Updater prep Title</Title>-->
+		<Product>FileOpenClose</Product>
+		<Company>doctorRaz@gmail.com</Company>
+		<Authors>Разыграев Андрей</Authors>
+		<Description>Тест баги с падением нано при пакетной обрабоике в гпафическом редакторе</Description>
+		<Copyright>Разыграев Андрей</Copyright>
+		<Trademark>©doctorRAZ 2014-2025</Trademark>
+		<AssemblyName>FileOpenClose.NET</AssemblyName>
+		<!--атрибуты сборки-->
+		
+		<!--<Version />-->
+		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+		<Deterministic>False</Deterministic>
+		<GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+		<AssemblyVersion>0.0.*</AssemblyVersion>
+		<!--<Version />-->
+
+
+		<PlatformTarget>x64</PlatformTarget>
+
+		<!--<PackageReleaseNotes>заметки о выпуске</PackageReleaseNotes>
+
+		<PackageTags>теги;слова</PackageTags>-->
+
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);NC</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);NC</DefineConstants>
+	</PropertyGroup>
+
+	<!--<ItemGroup>
+	  --><!--<Compile Remove="MesagServise\**" />
+	  <EmbeddedResource Remove="MesagServise\**" />
+	  <None Remove="MesagServise\**" />
+	  <Page Remove="MesagServise\**" />--><!--
+	</ItemGroup>-->
+
+	<ItemGroup>
+	  <Compile Include="..\src\AsmInfo.cs" Link="AsmInfo.cs" />
+	  <Compile Include="..\src\CadCommand.cs" Link="CadCommand.cs" />
+	  <Compile Include="..\src\CmdInfo.cs" Link="CmdInfo.cs" />
+	  <Compile Include="..\src\Msg.cs" Link="Msg.cs" />
+	</ItemGroup>
+<ItemGroup>
+  <PackageReference Include="nanoCadCoreMC24.1.NET" Version="1.0.0" />
+</ItemGroup>
+</Project>
