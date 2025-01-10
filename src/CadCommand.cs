@@ -103,8 +103,10 @@ namespace drz.FileOpenClose
         [Description("Тест баги с падением nanoCAD при пакетной обработке в графическом редакторе")]
         public void test_Bug()
         {
+
             FolderBrowserDialog FDB = new FolderBrowserDialog();
             FDB.Description = "Выберите каталог";
+     
             string sPath = "";
             if (FDB.ShowDialog() == DialogResult.OK)
             {
