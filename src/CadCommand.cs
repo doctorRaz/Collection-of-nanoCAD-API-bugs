@@ -75,12 +75,9 @@ namespace drz.FileOpenClose
         [Description("Информация о командах сборки")]
         public void ListCMD()
         {
-
-
             string sTitleAttribute = AI.sTitleAttribute;
             string sVersion = AI.sVersionFull;
             string sDateRliz = AI.sDateRelis();
-
 
             msgService.MsgConsole(sTitleAttribute + ": v." + sVersion + " от " + sDateRliz);
 
@@ -95,10 +92,7 @@ namespace drz.FileOpenClose
 
             if (!string.IsNullOrEmpty(CDI.sDuplInfo))
             {
-                //msgService.MsgConsole("_____________________");
                 msgService.MsgConsole(CDI.sDuplInfo);
-                //msgService.MsgConsole("_____________________");
-
             }
         }
 
@@ -106,7 +100,7 @@ namespace drz.FileOpenClose
         /// Tests the command.
         /// </summary>
         [Rtm.CommandMethod("drz_FileOpenClose")]
-        [Description("Тест баги с падением нано при пакетной обрабоике в гпафическом редакторе")]
+        [Description("Тест баги с падением nanoCAD при пакетной обработке в графическом редакторе")]
         public void test_Bug()
         {
             FolderBrowserDialog FDB = new FolderBrowserDialog();
@@ -141,8 +135,6 @@ namespace drz.FileOpenClose
 
         class McUtilWorkFil
         {
-
-
             /// <summary>Получить список путей фалов в директории</summary>
             /// <param name="sPath">Директория с файлами</param>
             /// <param name="WithSubfolders">Учитывать поддиректории</param>
