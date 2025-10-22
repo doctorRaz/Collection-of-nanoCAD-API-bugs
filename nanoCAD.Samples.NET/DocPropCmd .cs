@@ -1,9 +1,12 @@
 //! Created by dRz on 09.01.2025 at 14:45
+using System.Collections;
 using System.ComponentModel;
 using System.IO;
 using System.Reflection;
-
+using System.Runtime.CompilerServices;
 using drz.Infrastructure.CAD.Services;
+using Teigha.DatabaseServices;
+
 
 
 #if NC
@@ -21,15 +24,14 @@ using Gem = Autodesk.AutoCAD.Geometry;
 using Rtm = Autodesk.AutoCAD.Runtime;
 #endif
 
-namespace drz.nanoCAD.NET
+namespace drz.NC.NET
 {
     /// <summary> 
     /// Команды
     /// </summary>
     internal partial class CadCommand
     {
-        //знаю что так лучше не надо делать
-        Msg msgService = new Msg();
+        //https://adn-cis.org/forum/index.php?topic=9374.msg39381#msg39381
 
         /// <summary>
         /// Тест записи чтения пользовательских свойств документа
@@ -44,8 +46,39 @@ namespace drz.nanoCAD.NET
 
             string filName = Path.Combine(tempDirectory, AI.sAsmFileNameWithoutExtension + ".dwg");
 
+            App.Document doc = Cad.DocumentManager.MdiActiveDocument;
+
+            var db = doc.Database;
+            //SetDrawingProperty(db, "key", "val");
+            //SetDrawingProperty(db, "key2", "val");
+            //SetDrawingProperty(db, "key", "val00");
+
+            //return;
+            Dictionary<string, string> customProperties = new Dictionary<string, string>()
+                 {
+                     {"prop10", "val1"},
+                     {"prop2", "val2"},
+                     {"prop3", "val3"},
+                     {"prop4", "val3"},
+                 };
+
+            foreach (var item in customProperties)
+            {
+                var k = item.Key;
+                var v = item.Value;
+            }
+
             //пишем
-            SetDwgCustomPropCommand();
+            SetDwgCustomPropCommand(customProperties);
+
+            customProperties = new Dictionary<string, string>()
+                 {
+                     {"prop3", "val3dd"},
+                     {"prop2", "val2dd"},
+                     {"prop1", "val1ddd"},
+                 };
+
+            SetDwgCustomPropCommand(customProperties);
 
             //сохранили закрыли
             SaveCloseDwg(filName);
@@ -55,43 +88,44 @@ namespace drz.nanoCAD.NET
 
         }
 
-        void SaveCloseDwg(string filName)
+        /// <summary>
+        /// Пишем пользовательские свойства в документ
+        /// </summary>
+        void SetDwgCustomPropCommand(Dictionary<string, string> customProperties)
         {
             App.Document doc = Cad.DocumentManager.MdiActiveDocument;
 
-            doc.CloseAndSave(filName);
+            //dynamic comDoc = doc.AcadDocument;
+            nanoCAD.Document comDoc = doc.AcadDocument as nanoCAD.Document;
 
-            msgService.MsgConsole("Записали и закрыли");
+            string val;
 
-        }
-
-        void SetDwgCustomPropCommand()
-        {
-            App.Document doc = Cad.DocumentManager.MdiActiveDocument;
-
-            Dictionary<string, string> customProperties = new Dictionary<string, string>()
+            foreach(var item in customProperties)
             {
-                {"prop1", "val1"},
-                {"prop2", "val2"},
-                {"prop3", "val3"},
-            };
 
-            dynamic comDoc = doc.AcadDocument;
+            }
 
             // Нет контроля на предмет повтора ключа / наличия аналогичных свойств
             for (int index = 0; index < customProperties.Count; index++)
             {
+               
+
                 var pair = customProperties.ElementAt(index);
+
+                //comDoc.SummaryInfo.GetCustomByKey(pair.Key, out val);
+
                 comDoc.SummaryInfo.AddCustomInfo(pair.Key, pair.Value);
+                comDoc.SummaryInfo.SetCustomByKey(pair.Key, pair.Value);
             }
         }
 
-        void ReadDwgCustomPropCommand(string filName)
+        Dictionary<string, string> ReadDwgCustomPropCommand(string filName)
         {
 
             App.Document doc = Cad.DocumentManager.Open(filName);
 
-            dynamic comDoc = doc.AcadDocument;
+            nanoCAD.Document comDoc = doc.AcadDocument as nanoCAD.Document;
+            //dynamic comDoc = doc.AcadDocument;
 
             Dictionary<string, string> customProperties = new Dictionary<string, string>();
 
@@ -106,6 +140,64 @@ namespace drz.nanoCAD.NET
                 msgService.MsgConsole(pair.Key + "\" => \"" + pair.Value + "\"");
 
             }
+
+            return customProperties;
         }
+
+        //bool IsKeyExist(this)
+        //{
+        //    return true;
+        //}
+
+        /// <summary>
+        /// Сохраняем закрываем, но это не обязательно, можно и руками
+        /// </summary>
+        /// <param name="filName"></param>
+        void SaveCloseDwg(string filName)
+        {
+            App.Document doc = Cad.DocumentManager.MdiActiveDocument;
+
+            doc.CloseAndSave(filName);
+
+            msgService.MsgConsole("Записали и закрыли");
+
+        }
+
+        //https://adn-cis.org/forum/index.php?topic=9374.msg39381#msg39381
+
+        /// <summary>
+        /// Запись в свойства чертежа нового свойства или изменение старого
+        /// сохраняет все имеющиеся свойства чертежа
+        /// Document должен быть заблокирован
+        /// </summary>
+        /// <param name="ProrertyName">имя свойства. недопустимы двоеточия</param>
+        /// <param name="Value">значение свойства. будет преобразовано в строку</param>
+        /// <param name="doc">какому чертежу назначать. если null - текущему</param>
+        /// <returns>успех</returns>
+        bool SetDrawingProperty(/*this*/ Database db, string ProrertyName, object Value)
+        {
+            if (db == null || string.IsNullOrEmpty(ProrertyName) || Value == null) return false;
+            DatabaseSummaryInfoBuilder ib = new DatabaseSummaryInfoBuilder(db.SummaryInfo);// GetSummary(db);
+            //IDictionaryEnumerator ff = db.SummaryInfo.CustomProperties;
+            //while (ff.MoveNext())
+            //{
+            //    if (ff.Key.ToString() != ProrertyName)
+            //        ib.CustomPropertyTable.Add(ff.Key, ff.Value);
+            //}
+            if (ib.CustomPropertyTable.Contains(ProrertyName))
+            {
+                ib.CustomPropertyTable[ProrertyName] = Value.ToString();
+            }
+            else
+            {
+            ib.CustomPropertyTable.Add(ProrertyName, Value.ToString());
+            }
+            
+            db.SummaryInfo = ib.ToDatabaseSummaryInfo();
+            return true;
+        }
+
+        Msg msgService = new Msg();
+
     }
 }
