@@ -48,14 +48,14 @@ namespace drz.nanoCAD.NET
             SetDwgCustomPropCommand();
 
             //сохранили закрыли
-            CloseOPen(filName);
+            SaveCloseDwg(filName);
 
             //открыли прочитали
             ReadDwgCustomPropCommand(filName);
 
         }
 
-        void CloseOPen(string filName)
+        void SaveCloseDwg(string filName)
         {
             App.Document doc = Cad.DocumentManager.MdiActiveDocument;
 
