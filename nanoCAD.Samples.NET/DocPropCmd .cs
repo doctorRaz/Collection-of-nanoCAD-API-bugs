@@ -42,7 +42,7 @@ namespace drz.NC.NET
         public void DocProp()
         {
             AsmInfo AI = new AsmInfo(Assembly.GetExecutingAssembly());
-
+  
             string tempDirectory = Path.GetTempPath();
 
             string filName = Path.Combine(tempDirectory, AI.sAsmFileNameWithoutExtension + ".dwg");
@@ -54,100 +54,31 @@ namespace drz.NC.NET
                      {"prop2", "val2"},
                      {"prop3", "val3"},
                      {"prop4", "val3"},
+                     {"prop40", ""},
                  };
 
             EditorDocProp editorDocProp = new EditorDocProp();
 
+            //пишем
             editorDocProp.CustomProperties=customProperties;
-
-            customProperties = new Dictionary<string, string>()
-                 {
-                     {"prop3", "val3dd"},
-                     {"prop2", "val2dd"},
-                     {"prop1", "val1ddd"},
-                 };
-
-            editorDocProp.CustomProperties=customProperties;
-
-            var prop = editorDocProp.CustomProperties;
-
-            return;
-                        //пишем
-            SetDwgCustomProp(customProperties);
-
-
-            SetDwgCustomProp(customProperties);
 
             //сохранили закрыли
             SaveCloseDwg(filName);
+            
+            Cad.DocumentManager.Open(filName);
+            //читаем
+            Dictionary<string, string> prop = editorDocProp.CustomProperties;
 
-            //открыли прочитали
-            ReadDwgCustomPropCommand(filName);
-
-        }
-
-        /// <summary>
-        /// Пишем пользовательские свойства в документ
-        /// </summary>
-        void SetDwgCustomProp(Dictionary<string, string> customProperties)
-        {
-            App.Document doc = Cad.DocumentManager.MdiActiveDocument;
-
-            Database db = doc.Database;
-            foreach (var item in customProperties)
+            if(prop is null || prop.Count<1)
             {
-                db.SetDrawingProperty(item.Key, item.Value);
+                msgService.MsgConsole("Err");
             }
-
-
-            ////dynamic comDoc = doc.AcadDocument;
-            //nanoCAD.Document comDoc = doc.AcadDocument as nanoCAD.Document;
-
-
-
-            //// Нет контроля на предмет повтора ключа / наличия аналогичных свойств
-            //for (int index = 0; index < customProperties.Count; index++)
-            //{
-
-
-            //    var pair = customProperties.ElementAt(index);
-
-            //    //comDoc.SummaryInfo.GetCustomByKey(pair.Key, out val);
-
-            //    comDoc.SummaryInfo.AddCustomInfo(pair.Key, pair.Value);
-            //    comDoc.SummaryInfo.SetCustomByKey(pair.Key, pair.Value);
-            //}
-        }
-
-        Dictionary<string, string> ReadDwgCustomPropCommand(string filName)
-        {
-
-            App.Document doc = Cad.DocumentManager.Open(filName);
-
-            nanoCAD.Document comDoc = doc.AcadDocument as nanoCAD.Document;
-            //dynamic comDoc = doc.AcadDocument;
-
-            Dictionary<string, string> customProperties = new Dictionary<string, string>();
-
-            for (int propIndex = 0; propIndex < comDoc.SummaryInfo.NumCustomInfo(); propIndex++)
+            else
             {
-                comDoc.SummaryInfo.GetCustomByIndex(propIndex, out string key, out string value);
-                customProperties.Add(key, value);
-            }
-
-            foreach (KeyValuePair<string, string> pair in customProperties)
-            {
-                msgService.MsgConsole(pair.Key + "\" => \"" + pair.Value + "\"");
+                msgService.MsgConsole("Ok");
 
             }
-
-            return customProperties;
-        }
-
-        //bool IsKeyExist(this)
-        //{
-        //    return true;
-        //}
+        }     
 
         /// <summary>
         /// Сохраняем закрываем, но это не обязательно, можно и руками
