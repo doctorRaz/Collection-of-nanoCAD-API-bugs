@@ -34,7 +34,7 @@ using Rtm = Autodesk.AutoCAD.Runtime;
 
 //https://learn.microsoft.com/en-us/visualstudio/ide/template-parameters?view=vs-2022
 
-namespace drz.nanoCAD.NET
+namespace drz.NC.NET
 {
     /// <summary> 
     /// Команды
