@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileOpenClose.NET", "FileOpenClose.NET\FileOpenClose.NET.csproj", "{5118133C-9DDD-49F6-9BF3-F45A95387AE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nanoCAD.Samples.NET", "nanoCAD.Samples.NET\nanoCAD.Samples.NET.csproj", "{5118133C-9DDD-49F6-9BF3-F45A95387AE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

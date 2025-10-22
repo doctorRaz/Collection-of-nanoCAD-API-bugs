@@ -1,10 +1,4 @@
-﻿using System.Windows.Forms;
-
-
-
-
-
-#if NC
+﻿#if NC
 using HostMgd.ApplicationServices;
 using HostMgd.EditorInput;
 
@@ -18,7 +12,7 @@ using Autodesk.AutoCAD.EditorInput;
 #endif
 
 
-namespace drz.Infrastructure.CAD.MessageService
+namespace drz.Infrastructure.CAD.Services
 {
     /// <summary>
     /// сервис сообщений
@@ -63,9 +57,12 @@ namespace drz.Infrastructure.CAD.MessageService
             {
                 MsgInfo(message);
             }
+            else
+            {
+                Editor ed = doc.Editor;
 
-            Editor ed = doc.Editor;
-            ed.WriteMessage("\n" + message);
+                ed.WriteMessage("\n" + message);
+            }
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 
-namespace drz.Infrastructure.CAD.Service
+namespace drz.Infrastructure.CAD.Services
 {
     /// <summary>
     /// 
@@ -210,7 +209,7 @@ namespace drz.Infrastructure.CAD.Service
         /// <summary>Имя машины</summary>
         public string sMachineName => Environment.MachineName;
 
-               
+
 
         #endregion
 

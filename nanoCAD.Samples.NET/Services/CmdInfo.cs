@@ -1,8 +1,6 @@
 ﻿//https://autolisp.ru/2024/10/29/nanocad-vyvod-komand-s-ix-opisaniem-cherez-net/ 
 //https://adn-cis.org/programmnoe-opredelenie-dublirovannyix-imen-.net-komand.html
 using System.Reflection;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 
 #if NC
@@ -15,7 +13,7 @@ using Autodesk.AutoCAD.Runtime;
 #endif  
 
 
-namespace drz.Infrastructure.CAD.Service
+namespace drz.Infrastructure.CAD.Services
 {
     /// <summary>
     /// Информация о командах CAD
@@ -24,7 +22,7 @@ namespace drz.Infrastructure.CAD.Service
     {
         #region AsmInfo
 
-        
+
 
 
 
