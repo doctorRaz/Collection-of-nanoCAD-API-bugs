@@ -36,6 +36,7 @@ namespace drz.NC.NET
         /// <summary>
         /// Тест записи чтения пользовательских свойств документа
         /// </summary>
+        [Rtm.CommandMethod("ttd")]
         [Rtm.CommandMethod("drz_DocProp")]
         [Description("Тест записи чтения пользовательских свойств документа")]
         public void DocProp()
@@ -46,14 +47,7 @@ namespace drz.NC.NET
 
             string filName = Path.Combine(tempDirectory, AI.sAsmFileNameWithoutExtension + ".dwg");
 
-            App.Document doc = Cad.DocumentManager.MdiActiveDocument;
 
-            var db = doc.Database;
-            //SetDrawingProperty(db, "key", "val");
-            //SetDrawingProperty(db, "key2", "val");
-            //SetDrawingProperty(db, "key", "val00");
-
-            //return;
             Dictionary<string, string> customProperties = new Dictionary<string, string>()
                  {
                      {"prop10", "val1"},
@@ -62,14 +56,9 @@ namespace drz.NC.NET
                      {"prop4", "val3"},
                  };
 
-            foreach (var item in customProperties)
-            {
-                var k = item.Key;
-                var v = item.Value;
-            }
+            EditorDocProp editorDocProp = new EditorDocProp();
 
-            //пишем
-            SetDwgCustomPropCommand(customProperties);
+            editorDocProp.CustomProperties=customProperties;
 
             customProperties = new Dictionary<string, string>()
                  {
@@ -78,7 +67,16 @@ namespace drz.NC.NET
                      {"prop1", "val1ddd"},
                  };
 
-            SetDwgCustomPropCommand(customProperties);
+            editorDocProp.CustomProperties=customProperties;
+
+            var prop = editorDocProp.CustomProperties;
+
+            return;
+                        //пишем
+            SetDwgCustomProp(customProperties);
+
+
+            SetDwgCustomProp(customProperties);
 
             //сохранили закрыли
             SaveCloseDwg(filName);
@@ -91,32 +89,34 @@ namespace drz.NC.NET
         /// <summary>
         /// Пишем пользовательские свойства в документ
         /// </summary>
-        void SetDwgCustomPropCommand(Dictionary<string, string> customProperties)
+        void SetDwgCustomProp(Dictionary<string, string> customProperties)
         {
             App.Document doc = Cad.DocumentManager.MdiActiveDocument;
 
-            //dynamic comDoc = doc.AcadDocument;
-            nanoCAD.Document comDoc = doc.AcadDocument as nanoCAD.Document;
-
-            string val;
-
-            foreach(var item in customProperties)
+            Database db = doc.Database;
+            foreach (var item in customProperties)
             {
-
+                db.SetDrawingProperty(item.Key, item.Value);
             }
 
-            // Нет контроля на предмет повтора ключа / наличия аналогичных свойств
-            for (int index = 0; index < customProperties.Count; index++)
-            {
-               
 
-                var pair = customProperties.ElementAt(index);
+            ////dynamic comDoc = doc.AcadDocument;
+            //nanoCAD.Document comDoc = doc.AcadDocument as nanoCAD.Document;
 
-                //comDoc.SummaryInfo.GetCustomByKey(pair.Key, out val);
 
-                comDoc.SummaryInfo.AddCustomInfo(pair.Key, pair.Value);
-                comDoc.SummaryInfo.SetCustomByKey(pair.Key, pair.Value);
-            }
+
+            //// Нет контроля на предмет повтора ключа / наличия аналогичных свойств
+            //for (int index = 0; index < customProperties.Count; index++)
+            //{
+
+
+            //    var pair = customProperties.ElementAt(index);
+
+            //    //comDoc.SummaryInfo.GetCustomByKey(pair.Key, out val);
+
+            //    comDoc.SummaryInfo.AddCustomInfo(pair.Key, pair.Value);
+            //    comDoc.SummaryInfo.SetCustomByKey(pair.Key, pair.Value);
+            //}
         }
 
         Dictionary<string, string> ReadDwgCustomPropCommand(string filName)
@@ -163,41 +163,12 @@ namespace drz.NC.NET
 
         }
 
-        //https://adn-cis.org/forum/index.php?topic=9374.msg39381#msg39381
 
-        /// <summary>
-        /// Запись в свойства чертежа нового свойства или изменение старого
-        /// сохраняет все имеющиеся свойства чертежа
-        /// Document должен быть заблокирован
-        /// </summary>
-        /// <param name="ProrertyName">имя свойства. недопустимы двоеточия</param>
-        /// <param name="Value">значение свойства. будет преобразовано в строку</param>
-        /// <param name="doc">какому чертежу назначать. если null - текущему</param>
-        /// <returns>успех</returns>
-        bool SetDrawingProperty(/*this*/ Database db, string ProrertyName, object Value)
-        {
-            if (db == null || string.IsNullOrEmpty(ProrertyName) || Value == null) return false;
-            DatabaseSummaryInfoBuilder ib = new DatabaseSummaryInfoBuilder(db.SummaryInfo);// GetSummary(db);
-            //IDictionaryEnumerator ff = db.SummaryInfo.CustomProperties;
-            //while (ff.MoveNext())
-            //{
-            //    if (ff.Key.ToString() != ProrertyName)
-            //        ib.CustomPropertyTable.Add(ff.Key, ff.Value);
-            //}
-            if (ib.CustomPropertyTable.Contains(ProrertyName))
-            {
-                ib.CustomPropertyTable[ProrertyName] = Value.ToString();
-            }
-            else
-            {
-            ib.CustomPropertyTable.Add(ProrertyName, Value.ToString());
-            }
-            
-            db.SummaryInfo = ib.ToDatabaseSummaryInfo();
-            return true;
-        }
 
         Msg msgService = new Msg();
 
     }
+
+    
+
 }
