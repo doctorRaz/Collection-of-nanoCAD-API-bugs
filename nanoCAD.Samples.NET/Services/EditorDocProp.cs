@@ -83,14 +83,39 @@ namespace drz.Infrastructure.CAD.Services
                     {constProp.Keywords.ToString(), _summaryInfoBuilder.Keywords },
                     {constProp.HyperlinkBase.ToString(), _summaryInfoBuilder.HyperlinkBase },
                     {constProp.Comments.ToString(), _summaryInfoBuilder.Comments },
-                    {constProp.Autor.ToString(), _summaryInfoBuilder.Author },
+                    {constProp.Author.ToString(), _summaryInfoBuilder.Author },
                 };
                 return _constProperties;
             }
             set
             {
-                //todo проверку на наличие ключа!!!
-                _summaryInfoBuilder.Title = value[constProp.Title.ToString()];
+                // проверка на наличие ключа и пишем
+                if (value.ContainsKey(constProp.Title.ToString()))
+                    _summaryInfoBuilder.Title = value[constProp.Title.ToString()]; 
+                
+                
+                if (value.ContainsKey(constProp.Subject.ToString()))
+                    _summaryInfoBuilder.Subject = value[constProp.Subject.ToString()];
+                
+                if (value.ContainsKey(constProp.RevisionNumber.ToString()))
+                    _summaryInfoBuilder.RevisionNumber = value[constProp.RevisionNumber.ToString()];
+                
+                if (value.ContainsKey(constProp.LastSavedBy.ToString()))
+                    _summaryInfoBuilder.LastSavedBy = value[constProp.LastSavedBy.ToString()];
+                
+                if (value.ContainsKey(constProp.Keywords.ToString()))
+                    _summaryInfoBuilder.Keywords = value[constProp.Keywords.ToString()];
+                
+                if (value.ContainsKey(constProp.HyperlinkBase.ToString()))
+                    _summaryInfoBuilder.HyperlinkBase = value[constProp.HyperlinkBase.ToString()];
+                
+                if (value.ContainsKey(constProp.Comments.ToString()))
+                    _summaryInfoBuilder.Comments = value[constProp.Comments.ToString()];
+                
+                if (value.ContainsKey(constProp.Author.ToString()))
+                    _summaryInfoBuilder.Author = value[constProp.Author.ToString()];
+                
+               
 
                 _db.SummaryInfo = _summaryInfoBuilder.ToDatabaseSummaryInfo();
             }
@@ -153,6 +178,8 @@ namespace drz.Infrastructure.CAD.Services
             }
         }
 
+        //internal 
+
         DatabaseSummaryInfoBuilder _summaryInfoBuilder;
 
         IDictionary _customPropTable;
@@ -164,7 +191,7 @@ namespace drz.Infrastructure.CAD.Services
         Dictionary<string, string> _constProperties;
     }
 
-
+  
     public static class Ext
     {
         //https://adn-cis.org/forum/index.php?topic=9374.msg39381#msg39381
@@ -222,7 +249,7 @@ namespace drz.Infrastructure.CAD.Services
         Keywords,
         HyperlinkBase,
         Comments,
-        Autor,
+        Author,
     }
 
 }

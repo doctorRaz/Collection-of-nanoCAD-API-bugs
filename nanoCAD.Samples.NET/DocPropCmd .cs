@@ -44,9 +44,14 @@ namespace drz.NC.NET
         {
             Dictionary<string, string> customProperties = new Dictionary<string, string>()
                  {
-                     {constProp.Autor.ToString(), "space"},
-                     {constProp.Title.ToString(), "val1"},
-
+                        {constProp.Title.ToString(),"Title"},
+                        {constProp.Subject.ToString(),"Subject"},
+                        {constProp.RevisionNumber.ToString(),"RevisionNumber"},
+                        {constProp.LastSavedBy.ToString(),"LastSavedBy"},
+                        {constProp.Keywords.ToString(),"Keywords"},
+                        {constProp.HyperlinkBase.ToString(),"HyperlinkBase"},
+                        {constProp.Comments.ToString(),"Comments"},
+                        {constProp.Author.ToString(),"Author"},
                  };
 
             EditorDocProp editorDocProp = new EditorDocProp();
