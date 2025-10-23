@@ -89,33 +89,34 @@ namespace drz.Infrastructure.CAD.Services
             }
             set
             {
+                //todo add Value Trim
                 // проверка на наличие ключа и пишем
                 if (value.ContainsKey(constProp.Title.ToString()))
-                    _summaryInfoBuilder.Title = value[constProp.Title.ToString()]; 
-                
-                
+                    _summaryInfoBuilder.Title = value[constProp.Title.ToString()];
+
+
                 if (value.ContainsKey(constProp.Subject.ToString()))
                     _summaryInfoBuilder.Subject = value[constProp.Subject.ToString()];
-                
+
                 if (value.ContainsKey(constProp.RevisionNumber.ToString()))
                     _summaryInfoBuilder.RevisionNumber = value[constProp.RevisionNumber.ToString()];
-                
+
                 if (value.ContainsKey(constProp.LastSavedBy.ToString()))
                     _summaryInfoBuilder.LastSavedBy = value[constProp.LastSavedBy.ToString()];
-                
+
                 if (value.ContainsKey(constProp.Keywords.ToString()))
                     _summaryInfoBuilder.Keywords = value[constProp.Keywords.ToString()];
-                
+
                 if (value.ContainsKey(constProp.HyperlinkBase.ToString()))
                     _summaryInfoBuilder.HyperlinkBase = value[constProp.HyperlinkBase.ToString()];
-                
+
                 if (value.ContainsKey(constProp.Comments.ToString()))
                     _summaryInfoBuilder.Comments = value[constProp.Comments.ToString()];
-                
+
                 if (value.ContainsKey(constProp.Author.ToString()))
                     _summaryInfoBuilder.Author = value[constProp.Author.ToString()];
-                
-               
+
+
 
                 _db.SummaryInfo = _summaryInfoBuilder.ToDatabaseSummaryInfo();
             }
@@ -134,7 +135,7 @@ namespace drz.Infrastructure.CAD.Services
             {
                 if (_db == null) return null;
 
-                _customProperties   /*Dictionary<string, string> customProperties*/ = new Dictionary<string, string>();
+                _customProperties = new Dictionary<string, string>();
 
                 foreach (DictionaryEntry item in _customPropTable)
                 {
@@ -145,6 +146,7 @@ namespace drz.Infrastructure.CAD.Services
             }
             set
             {
+                 //todo add Key and Value Trim
                 if (_db == null) return;
 
                 foreach (KeyValuePair<string, string> item in value)
@@ -178,7 +180,30 @@ namespace drz.Infrastructure.CAD.Services
             }
         }
 
-        //internal 
+        /// <summary>
+        ////Все свойства документа
+        /// </summary>
+        internal Dictionary<string, Dictionary<string, string>> Props
+        {
+            get
+            {
+                _props = new Dictionary<string, Dictionary<string, string>>
+                {
+                    { propProp.Const.ToString(), ConstProperties },
+                    { propProp.Custom.ToString(), CustomProperties }
+                };
+
+                return _props;
+            }
+            set
+            {
+                if (value.ContainsKey(propProp.Const.ToString()))
+                    ConstProperties = value[propProp.Const.ToString()];
+
+                if (value.ContainsKey(propProp.Custom.ToString()))
+                    CustomProperties = value[propProp.Custom.ToString()];
+            }
+        }
 
         DatabaseSummaryInfoBuilder _summaryInfoBuilder;
 
@@ -189,9 +214,14 @@ namespace drz.Infrastructure.CAD.Services
         Dictionary<string, string> _customProperties;
 
         Dictionary<string, string> _constProperties;
+
+        Dictionary<string, Dictionary<string, string>> _props;
     }
 
-  
+    //public class prop
+    //  {
+    //      public CustomProperties Cs { get; set; }
+    //  }
     public static class Ext
     {
         //https://adn-cis.org/forum/index.php?topic=9374.msg39381#msg39381
@@ -239,6 +269,9 @@ namespace drz.Infrastructure.CAD.Services
         }
     }
 
+    /// <summary>
+    /// перечисление основных свойств
+    /// </summary>
     internal enum constProp
     {
         None,
@@ -252,4 +285,13 @@ namespace drz.Infrastructure.CAD.Services
         Author,
     }
 
+    /// <summary>
+    /// имена словарей основного и кастомного
+    /// </summary>
+    internal enum propProp
+    {
+        None,
+        Const,
+        Custom,
+    }
 }

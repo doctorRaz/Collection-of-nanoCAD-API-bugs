@@ -35,6 +35,66 @@ namespace drz.NC.NET
 
 
         /// <summary>
+        /// Тест записи всех свойств документа  через класс
+        /// </summary>
+        [Rtm.CommandMethod("tps")]
+        [Rtm.CommandMethod("drz_SetProp")]
+        [Description("Тест чтения основных свойств документа")]
+        public void SetProp()
+        {
+            Dictionary<string, string> constProperties = new Dictionary<string, string>()
+                  {
+                         {constProp.Title.ToString(),"Title"},
+                         {constProp.Subject.ToString(),"Subject"},
+                         {constProp.RevisionNumber.ToString(),"RevisionNumber"},
+                         {constProp.LastSavedBy.ToString(),"LastSavedBy"},
+                         {constProp.Keywords.ToString(),"Keywords"},
+                         {constProp.HyperlinkBase.ToString(),"HyperlinkBase"},
+                         {constProp.Comments.ToString(),"Comments"},
+                         {constProp.Author.ToString(),"Author"},
+                  };
+
+            Dictionary<string, string> customProperties = new Dictionary<string, string>()
+                  {
+                      {"prop10<>/\":;?*|,='Ok<>/\":;?*|,='Ok", "val1"},
+                      {" ", " spa ce "},
+                      {"", "  empty  "},
+                      {"pr\nop3", "va\nl3"},
+                      {"prop4", "val3"},
+                      {"prop40", " x  "},
+                  };
+
+            Dictionary<string, Dictionary<string, string>> prop = new Dictionary<string, Dictionary<string, string>>
+            {
+                { propProp.Const.ToString(), constProperties },
+                { propProp.Custom.ToString(), customProperties }
+            };
+
+            EditorDocProp editorDocProp = new EditorDocProp();
+
+            editorDocProp.Props = prop;
+        }
+
+
+        /// <summary>
+        /// Тест чтения всех свойств документа  через класс
+        /// </summary>
+        [Rtm.CommandMethod("tpr")]
+        [Rtm.CommandMethod("drz_GetProp")]
+        [Description("Тест чтения основных свойств документа")]
+        public void GetProp()
+        {
+            EditorDocProp editorDocProp = new EditorDocProp();
+            Dictionary<string, Dictionary<string, string>> prop = editorDocProp.Props;
+
+            //foreach (var sinf in prop)
+            //{
+            //    var ii=sinf.Value;
+
+            //}
+        }
+
+        /// <summary>
         /// Тест записи основных свойств документа  через класс
         /// </summary>
         [Rtm.CommandMethod("tcs")]
@@ -57,8 +117,6 @@ namespace drz.NC.NET
             EditorDocProp editorDocProp = new EditorDocProp();
 
             editorDocProp.ConstProperties = customProperties;
-
-
         }
 
         /// <summary>
@@ -92,9 +150,9 @@ namespace drz.NC.NET
         /// Тест чтения пользовательских свойств документа  через класс
         /// </summary>
         [Rtm.CommandMethod("ttr")]
-        [Rtm.CommandMethod("drz_GetDocProp")]
+        [Rtm.CommandMethod("drz_GetCustomcProp")]
         [Description("Тест чтения пользовательских свойств документа")]
-        public void GetDocProp()
+        public void GetCustomcProp()
         {
             EditorDocProp editorDocProp = new EditorDocProp();
 
@@ -119,9 +177,9 @@ namespace drz.NC.NET
         /// Тест записи пользовательских свойств документа через класс
         /// </summary>
         [Rtm.CommandMethod("tts")]
-        [Rtm.CommandMethod("drz_SetDocProp")]
+        [Rtm.CommandMethod("drz_SetCustomProp")]
         [Description("Тест записи пользовательских свойств документа")]
-        public void SetDocProp()
+        public void SetCustomProp()
         {
             Dictionary<string, string> customProperties = new Dictionary<string, string>()
                  {

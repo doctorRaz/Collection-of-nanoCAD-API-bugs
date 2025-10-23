@@ -40,9 +40,9 @@ namespace ConsoleApp
 
                var vkey = key.Split( "\n");
 
-                var rkey = Regex.Replace(key, "\n", "###");
+                var rkey = Regex.Replace(key, "\n", "<<###>>");
                 Console.WriteLine(rkey);
-                var rr = Regex.Replace(rkey, "###", "\n");
+                var rr = Regex.Replace(rkey, "<<###>>", "\n");
                 Console.WriteLine(rr);
 
               key=  string.Join( "###",vkey);
