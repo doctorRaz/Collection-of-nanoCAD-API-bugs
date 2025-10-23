@@ -211,4 +211,18 @@ namespace drz.Infrastructure.CAD.Services
             return customProperties;
         }
     }
+
+    internal enum constProp
+    {
+        None,
+        Title,
+        Subject,
+        RevisionNumber,
+        LastSavedBy,
+        Keywords,
+        HyperlinkBase,
+        Comments,
+        Autor,
+    }
+
 }
