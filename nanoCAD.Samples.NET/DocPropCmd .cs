@@ -33,25 +33,96 @@ namespace drz.NC.NET
     {
         //https://adn-cis.org/forum/index.php?topic=9374.msg39381#msg39381
 
+
         /// <summary>
-        /// Тест записи чтения пользовательских свойств документа
+        /// Тест записи основных свойств документа  через класс
         /// </summary>
-        [Rtm.CommandMethod("ttd")]
-        [Rtm.CommandMethod("drz_DocProp")]
-        [Description("Тест записи чтения пользовательских свойств документа")]
-        public void DocProp()
+        [Rtm.CommandMethod("tcs")]
+        [Rtm.CommandMethod("drz_SetConstProp")]
+        [Description("Тест записи основных свойств документа")]
+        public void SetConstProp()
         {
-            AsmInfo AI = new AsmInfo(Assembly.GetExecutingAssembly());
-  
-            string tempDirectory = Path.GetTempPath();
-
-            string filName = Path.Combine(tempDirectory, AI.sAsmFileNameWithoutExtension + ".dwg");
-
-
             Dictionary<string, string> customProperties = new Dictionary<string, string>()
                  {
-                     {"prop10", "val1"},
-                     {"prop2", "val2"},
+                     {constProp.Autor.ToString(), "space"},
+                     {constProp.Title.ToString(), "val1"},
+
+                 };
+
+            EditorDocProp editorDocProp = new EditorDocProp();
+
+            editorDocProp.ConstProperties = customProperties;
+
+
+        }
+
+        /// <summary>
+        /// Тест чтения основных свойств документа  через класс
+        /// </summary>
+        [Rtm.CommandMethod("tcr")]
+        [Rtm.CommandMethod("drz_GetConstProp")]
+        [Description("Тест чтения основных свойств документа")]
+        public void GetConstProp()
+        {
+            EditorDocProp editorDocProp = new EditorDocProp();
+
+            //читаем
+            Dictionary<string, string> prop = editorDocProp.ConstProperties;
+
+            if (prop is null || prop.Count < 1)
+            {
+                msgService.MsgConsole("Err");
+            }
+            else
+            {
+                foreach (var item in prop)
+                {
+                    msgService.MsgConsole($"{item.Key} -> {item.Value}");
+                }
+                //msgService.MsgConsole("Ok");
+            }
+
+        }
+        /// <summary>
+        /// Тест чтения пользовательских свойств документа  через класс
+        /// </summary>
+        [Rtm.CommandMethod("ttr")]
+        [Rtm.CommandMethod("drz_GetDocProp")]
+        [Description("Тест чтения пользовательских свойств документа")]
+        public void GetDocProp()
+        {
+            EditorDocProp editorDocProp = new EditorDocProp();
+
+            //читаем
+            Dictionary<string, string> prop = editorDocProp.CustomProperties;
+
+            if (prop is null || prop.Count < 1)
+            {
+                msgService.MsgConsole("Err");
+            }
+            else
+            {
+                foreach (var item in prop)
+                {
+                    msgService.MsgConsole($"{item.Key} -> {item.Value}");
+                }
+                //msgService.MsgConsole("Ok");
+            }
+        }
+
+        /// <summary>
+        /// Тест записи пользовательских свойств документа через класс
+        /// </summary>
+        [Rtm.CommandMethod("tts")]
+        [Rtm.CommandMethod("drz_SetDocProp")]
+        [Description("Тест записи пользовательских свойств документа")]
+        public void SetDocProp()
+        {
+            Dictionary<string, string> customProperties = new Dictionary<string, string>()
+                 {
+                     {"prop10<>/\":;?*|,='Ok<>/\":;?*|,='Ok", "val1"},
+                     {" ", "space"},
+                     {"", "empty"},
                      {"prop3", "val3"},
                      {"prop4", "val3"},
                      {"prop40", ""},
@@ -60,32 +131,28 @@ namespace drz.NC.NET
             EditorDocProp editorDocProp = new EditorDocProp();
 
             //пишем
-            editorDocProp.CustomProperties=customProperties;
+            editorDocProp.CustomProperties = customProperties;
 
             //сохранили закрыли
-            SaveCloseDwg(filName);
-            
-            Cad.DocumentManager.Open(filName);
-            //читаем
-            Dictionary<string, string> prop = editorDocProp.CustomProperties;
+            //SaveCloseDwg();           
 
-            if(prop is null || prop.Count<1)
-            {
-                msgService.MsgConsole("Err");
-            }
-            else
-            {
-                msgService.MsgConsole("Ok");
-
-            }
-        }     
+        }
 
         /// <summary>
         /// Сохраняем закрываем, но это не обязательно, можно и руками
         /// </summary>
         /// <param name="filName"></param>
-        void SaveCloseDwg(string filName)
+        void SaveCloseDwg(string filName = null)
         {
+            if (filName == null)
+            {
+                AsmInfo AI = new AsmInfo(Assembly.GetExecutingAssembly());
+
+                string tempDirectory = Path.GetTempPath();
+
+                filName = Path.Combine(tempDirectory, AI.sAsmFileNameWithoutExtension + ".dwg");
+            }
+
             App.Document doc = Cad.DocumentManager.MdiActiveDocument;
 
             doc.CloseAndSave(filName);
@@ -94,12 +161,10 @@ namespace drz.NC.NET
 
         }
 
-
-
         Msg msgService = new Msg();
 
     }
 
-    
+
 
 }

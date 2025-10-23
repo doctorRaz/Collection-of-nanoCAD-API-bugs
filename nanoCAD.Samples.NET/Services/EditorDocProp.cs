@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using drz.Infrastructure.CAD.Services;
 using Teigha.DatabaseServices;
 
@@ -27,29 +28,72 @@ namespace drz.Infrastructure.CAD.Services
 {
     internal class EditorDocProp
     {
-
-        public EditorDocProp()
+        public EditorDocProp(Database db = null)
         {
-            doc = Cad.DocumentManager.MdiActiveDocument;
+            if (db != null)
+            {
+                _db = db;
+            }
+            else
+            {
+                App.Document doc = Cad.DocumentManager.MdiActiveDocument;
+                _db = doc.Database;
+            }
 
-            LoaderDoc();
+            _summaryInfoBuilder = new DatabaseSummaryInfoBuilder(_db.SummaryInfo);
+
+            _customPropTable = _summaryInfoBuilder.CustomPropertyTable;
+
         }
 
-        public EditorDocProp(App.Document _doc)
+        /// <summary>
+        /// Удаляем пользовательские свойств
+        /// </summary>
+        /// <param name="removCustomProperties">словарик удаляемых параметров, значения не нужны</param>
+        internal void RemoveCustomProps(Dictionary<string, string> removCustomProperties)
         {
-            doc = _doc;
 
-            LoaderDoc();
+            foreach (var prop in removCustomProperties)
+            {
+                if (_customPropTable.Contains(prop.Key))
+                    _customPropTable.Remove(prop.Key);
+            }
+            _customPropTable = _summaryInfoBuilder.CustomPropertyTable;
         }
 
-
-        void LoaderDoc()
+        internal void ClearCustomProps()
         {
-            db = doc.Database;
+            _customPropTable.Clear();
+            _customPropTable = _summaryInfoBuilder.CustomPropertyTable;
 
-            ib = new DatabaseSummaryInfoBuilder(db.SummaryInfo);
+        }
 
-            customPropTable = ib.CustomPropertyTable;
+        internal Dictionary<string, string> ConstProperties
+        {
+            get
+            {
+                if (_db == null) return null;
+
+                _constProperties = new Dictionary<string, string>
+                {
+                    {constProp.Title.ToString(), _summaryInfoBuilder.Title },
+                    {constProp.Subject.ToString(), _summaryInfoBuilder.Subject },
+                    {constProp.RevisionNumber.ToString(), _summaryInfoBuilder.RevisionNumber },
+                    {constProp.LastSavedBy.ToString(), _summaryInfoBuilder.LastSavedBy },
+                    {constProp.Keywords.ToString(), _summaryInfoBuilder.Keywords },
+                    {constProp.HyperlinkBase.ToString(), _summaryInfoBuilder.HyperlinkBase },
+                    {constProp.Comments.ToString(), _summaryInfoBuilder.Comments },
+                    {constProp.Autor.ToString(), _summaryInfoBuilder.Author },
+                };
+                return _constProperties;
+            }
+            set
+            {
+                //todo проверку на наличие ключа!!!
+                _summaryInfoBuilder.Title = value[constProp.Title.ToString()];
+
+                _db.SummaryInfo = _summaryInfoBuilder.ToDatabaseSummaryInfo();
+            }
 
         }
 
@@ -63,45 +107,61 @@ namespace drz.Infrastructure.CAD.Services
         {
             get
             {
-                if (db == null) return null;
+                if (_db == null) return null;
 
-                Dictionary<string, string> customProperties = new Dictionary<string, string>();
+                _customProperties   /*Dictionary<string, string> customProperties*/ = new Dictionary<string, string>();
 
-                foreach (DictionaryEntry item in customPropTable)
+                foreach (DictionaryEntry item in _customPropTable)
                 {
-                    customProperties.Add(item.Key.ToString(), item.Value.ToString());
+                    _customProperties.Add(item.Key.ToString(), item.Value.ToString());
                 }
 
-
-                return customProperties;
+                return _customProperties;
             }
             set
             {
-                if (db == null) return;
+                if (_db == null) return;
 
                 foreach (KeyValuePair<string, string> item in value)
                 {
-                    if (customPropTable.Contains(item.Key))
+                    string key = item.Key;
+
+                    if (string.IsNullOrWhiteSpace(key))//если ключ без имени
                     {
-                        customPropTable[item.Key] = item.Value;
+                        key = "_";
+                    }
+
+                    //проверка Key на запрещенные символы, менять на _
+                    //<>/\":;?*|,='
+                    string pattern = @"[\<\>\/\:\\\"";\?\*\|\,\=\']";
+
+                    key = Regex.Replace(key, pattern, "_");
+
+                    key = Regex.Replace(key, @"_+", "_");//несколько _ на один
+
+                    if (_customPropTable.Contains(key))
+                    {
+                        _customPropTable[key] = item.Value;
                     }
                     else
                     {
-                        customPropTable.Add(item.Key, item.Value);
+                        _customPropTable.Add(key, item.Value);
                     }
-
                 }
 
-                db.SummaryInfo = ib.ToDatabaseSummaryInfo();
+                _db.SummaryInfo = _summaryInfoBuilder.ToDatabaseSummaryInfo();
             }
         }
 
-        DatabaseSummaryInfoBuilder ib;
-        IDictionary customPropTable;
-        App.Document doc;
-        Database db;
+        DatabaseSummaryInfoBuilder _summaryInfoBuilder;
+
+        IDictionary _customPropTable;
+
+        Database _db;
 
         Dictionary<string, string> _customProperties;
+
+        Dictionary<string, string> _constProperties;
     }
 
 
