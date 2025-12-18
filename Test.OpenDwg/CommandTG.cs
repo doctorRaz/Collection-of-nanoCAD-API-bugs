@@ -14,6 +14,7 @@ using Teigha.DatabaseServices;
 using Db = Teigha.DatabaseServices;
 using dRz.SpecSPDS.Core.Services;
 using System.Diagnostics;
+using cad = HostMgd.ApplicationServices.Application;
 
 namespace dRz.Test.OpenDwg
 {
@@ -36,8 +37,11 @@ namespace dRz.Test.OpenDwg
             Editor ed = doc.Editor;
 
             Stopwatch stw = new Stopwatch();
+            Version version = cad.Version;
 
-            Logger logger = new Logger(nameof(OpenTG));
+            string sender = $"{version.Major.ToString()}.{version.Minor.ToString()}_{nameof(OpenTG)}";
+
+            Logger logger = new Logger(sender);
 
             string folder = Services.Browser();
 
