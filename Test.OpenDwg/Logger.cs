@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
+﻿using System.Globalization;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace dRz.SpecSPDS.Core.Services
 {
@@ -16,7 +10,7 @@ namespace dRz.SpecSPDS.Core.Services
             string date = DateTime.Now.ToString("yyyyMMdd-HH_mm_ss",
                                 CultureInfo.InvariantCulture);
 
-            _appName = $"{date}_{appName}.log"; 
+            _appName = $"{date}_{appName}.log";
 
             //if (File.Exists(_path))
             //{
@@ -49,7 +43,7 @@ namespace dRz.SpecSPDS.Core.Services
 
         string _appName = "";
 
-        private   string _path => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+        private string _path => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
              _appName);
     }
 }

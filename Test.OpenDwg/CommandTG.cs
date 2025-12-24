@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using dRz.SpecSPDS.Core.Services;
 using HostMgd.ApplicationServices;
 using HostMgd.EditorInput;
 using System.ComponentModel;
-using Teigha.Runtime;
-using App = HostMgd.ApplicationServices;
-using static dRz.Test.OpenDwg.ServicesTG;
-using Teigha.DatabaseServices;
-using Db = Teigha.DatabaseServices;
-using dRz.SpecSPDS.Core.Services;
 using System.Diagnostics;
+using Teigha.DatabaseServices;
+using Teigha.Runtime;
+using static dRz.Test.OpenDwg.ServicesTG;
+using App = HostMgd.ApplicationServices;
 using cad = HostMgd.ApplicationServices.Application;
+using Db = Teigha.DatabaseServices;
 
 namespace dRz.Test.OpenDwg
 {
@@ -42,6 +36,7 @@ namespace dRz.Test.OpenDwg
             string sender = $"{version.Major.ToString()}.{version.Minor.ToString()}_{nameof(OpenTG)}";
 
             Logger logger = new Logger(sender);
+            Logger loggerErr = new Logger($"{sender} ERR");
 
             string folder = Services.Browser();
 
@@ -50,15 +45,18 @@ namespace dRz.Test.OpenDwg
 
             logger.Log($"\tTotal {files.Length} files");
 
-            ed.WriteMessage($"\tTotal {files.Length} files");
+            ed.WriteMessage($"Teigha: Total {files.Length} files");
 
             stw.Start();
 
-            int counter = 1;
+            int counter = 0;
+            int total = 0;
+            int totalErr = 0;
+
             foreach (string file in files)
             {
-                logger.Log($"{counter} Opening {file}");
                 counter++;
+                logger.Log($"{counter} Opening {file}");
                 try
                 {
                     using (Database extDBase = new Database(false, true))
@@ -70,6 +68,7 @@ namespace dRz.Test.OpenDwg
                         {
 
                             logger.Log($"\t\tWorking {file}");
+                            total++;
                             // …
                         }
                     }
@@ -77,7 +76,9 @@ namespace dRz.Test.OpenDwg
                 catch (System.Exception ex)
                 {
 
-                    logger.Log($"\n{file} error : {ex.Message} >> {ex.StackTrace}\n");
+                    totalErr++;
+                    loggerErr.Log($"\n{totalErr} {file} error : {ex.Message} >> {ex.StackTrace}\n");
+
 
                     ed.WriteMessage($"\n{file} error : {ex.Message} >> {ex.StackTrace}\n");
                 }
@@ -89,9 +90,9 @@ namespace dRz.Test.OpenDwg
 
             string elapsed = stw.Elapsed.ToString();
 
-            logger.Log($"\tTotal time {elapsed}");
+            logger.Log($"Teigha\tfiles {total}: time {elapsed}");
 
-            ed.WriteMessage($"\tTotal time {elapsed}");
+            ed.WriteMessage($"Teigha\tfiles {total}, errr {totalErr}: time {elapsed}");
         }
 
 
