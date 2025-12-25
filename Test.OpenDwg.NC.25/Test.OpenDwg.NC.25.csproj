@@ -4,24 +4,24 @@
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<RootNamespace>dRz.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		<RootNamespace>dRz.Test.OpenDwg</RootNamespace>
 		<PlatformTarget>x64</PlatformTarget>
-			<UseWindowsForms>true</UseWindowsForms>
+		<UseWindowsForms>true</UseWindowsForms>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<BaseOutputPath>..\bin</BaseOutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <DefineConstants>$(DefineConstants);NC</DefineConstants>
+		<DefineConstants>$(DefineConstants);NC</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <DefineConstants>$(DefineConstants);NC</DefineConstants>
+		<DefineConstants>$(DefineConstants);NC</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="MultiCAD.NET" Version="25.0.6785.4733" />
-	  <PackageReference Include="nanoCAD.Platform.NET" Version="25.0.6785.4733" />
+		<PackageReference Include="MultiCAD.NET" Version="25.0.6785.4733" />
+		<PackageReference Include="nanoCAD.Platform.NET" Version="25.0.6785.4733" />
 	</ItemGroup>
 
 </Project>

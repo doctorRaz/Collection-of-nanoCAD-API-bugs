@@ -1,13 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<OutputType>Library</OutputType>
-		<RootNamespace>Prompts</RootNamespace>
 		<TargetFramework>net8.0-windows</TargetFramework>
-		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<RootNamespace>dRz.Test.OpenDwg</RootNamespace>
+		<PlatformTarget>x64</PlatformTarget>
 		<UseWindowsForms>true</UseWindowsForms>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<BaseOutputPath>..\bin</BaseOutputPath>
-		<AssemblySearchPaths>..\..\..\inc\;$(AssemblySearchPaths)</AssemblySearchPaths>
+		
+		
+		<!--<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<OutputType>Library</OutputType>-->
+		<!--<AssemblySearchPaths>..\..\..\inc\;$(AssemblySearchPaths)</AssemblySearchPaths>-->
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DefineConstants>$(DefineConstants);AC</DefineConstants>

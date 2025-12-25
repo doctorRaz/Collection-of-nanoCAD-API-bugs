@@ -16,7 +16,9 @@ namespace dRz.Test.OpenDwg
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
             {
                 dlg.Description = description;
+#if !AC24
                 dlg.UseDescriptionForTitle = true;
+#endif
                 //dlg.Multiselect  = true;
                 // Остальные настройки
 

@@ -17,7 +17,7 @@ using cad = HostMgd.ApplicationServices.Application;
 
 using Autodesk.AutoCAD.Customization;
 using Autodesk.AutoCAD.Runtime;
-using App = Autodesk.AutoCAD. ApplicationServices;
+using App = Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.EditorInput;
 using cad = Autodesk.AutoCAD.ApplicationServices.Application;// ApplicationServices.Application;
