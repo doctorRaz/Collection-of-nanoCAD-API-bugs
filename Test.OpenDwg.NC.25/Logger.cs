@@ -14,10 +14,6 @@ namespace dRz.Test.OpenDwg
 
             _appName = $"{date}_{appName}.log";
 
-            //if (File.Exists(_path))
-            //{
-            //    File.Delete(_path);
-            //}
         }
 
         public void LogClear()
@@ -45,7 +41,6 @@ namespace dRz.Test.OpenDwg
 
         string _appName = "";
 
-        private string _path => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-             _appName);
+        private string _path => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), _appName);
     }
 }

@@ -2,14 +2,6 @@
 using System.Diagnostics;
 using static dRz.Test.OpenDwg.ServicesTG;
 
-
-using Multicad.DatabaseServices;
-
-
-
-
-
-
 #if NC
 using Teigha.DatabaseServices;
 using Teigha.Runtime;
@@ -19,10 +11,8 @@ using HostMgd.ApplicationServices;
 using HostMgd.EditorInput;
 using Db = Teigha.DatabaseServices;
 
-
-
 #elif AC
-using Db=Autodesk.AutoCAD.DatabaseServices;
+using Db = Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Customization;
 using Autodesk.AutoCAD.Runtime;
@@ -44,7 +34,7 @@ namespace dRz.Test.OpenDwg
         /// </summary>
         [CommandMethod("тдт")]
         [Description("открытие файлов в цикле в Тайге")]
-        public static void OpenTG()
+        public static void TG()
         {
             Document doc = App.Application.DocumentManager.MdiActiveDocument;
             if (doc == null)
@@ -55,23 +45,21 @@ namespace dRz.Test.OpenDwg
             Editor ed = doc.Editor;
 
             Stopwatch stw = new Stopwatch();
-         System.   Version version = cad.Version;
-
-            string sender = $"{version.Major.ToString()}.{version.Minor.ToString()}_{nameof(OpenTG)}";
-
-            Logger logger = new Logger(sender);
-            Logger loggerErr = new Logger($"{sender} ERR");
 
             string folder = Services.Browser();
-
             string[] files = Services.GetFilesOfDir(folder, true);
 
+            string sender = Services.CallerName(files.Length);
+
+            Logger logger = new Logger($"{sender}");
+
+            Logger loggerErr = new Logger($"{sender} ERR");
 
             logger.Log($"\tTotal {files.Length} files");
 
             ed.WriteMessage($"Teigha: Total {files.Length} files");
 
-            stw.Start();
+            stw.Restart();
 
             int counter = 0;
             int total = 0;
@@ -88,7 +76,7 @@ namespace dRz.Test.OpenDwg
 #if NC
                         extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenTryForReadShare/*OpenForReadAndAllShare*/, false /*true*/, "", false);
 #elif AC
-                                extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "");
+                        extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "");
 #endif
                         using (WorkingDatabaseSwitcher dbSwitcher = new WorkingDatabaseSwitcher(extDBase))
                         {

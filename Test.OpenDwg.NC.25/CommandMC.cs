@@ -2,11 +2,7 @@
 using System.Diagnostics;
 using Multicad.DatabaseServices;
 
-
-
-
 #if NC
-
 using HostMgd.ApplicationServices;
 using HostMgd.EditorInput;
 using Teigha.Runtime;
@@ -14,7 +10,6 @@ using App = HostMgd.ApplicationServices;
 using cad = HostMgd.ApplicationServices.Application;
 
 #elif AC
-
 using Autodesk.AutoCAD.Customization;
 using Autodesk.AutoCAD.Runtime;
 using App = Autodesk.AutoCAD.ApplicationServices;
@@ -33,7 +28,7 @@ namespace dRz.Test.OpenDwg
         /// </summary>
         [CommandMethod("тдм")]
         [Description("открытие файлов в цикле в Мультикаде")]
-        public static void OpenMC()
+        public static void MC()
         {
             Document doc = App.Application.DocumentManager.MdiActiveDocument;
             if (doc == null)
@@ -44,23 +39,20 @@ namespace dRz.Test.OpenDwg
             Editor ed = doc.Editor;
 
             Stopwatch stw = new Stopwatch();
-            System.Version version = cad.Version;
-
-            string sender = $"{version.Major.ToString()}.{version.Minor.ToString()}_{nameof(OpenMC)}";
-
-            Logger logger = new Logger(sender);
-            Logger loggerErr = new Logger($"{sender} ERR");
 
             string folder = Services.Browser();
-
             string[] files = Services.GetFilesOfDir(folder, true);
 
+            string sender = Services.CallerName(files.Length);
+
+            Logger logger = new Logger($"{sender}");
+            Logger loggerErr = new Logger($"{sender} ERR");
 
             logger.Log($"\tTotal {files.Length} files");
 
             ed.WriteMessage($"Multicad: Total {files.Length} files");
 
-            stw.Start();
+            stw.Restart();
 
             //запомним рабочий документ на всякий
             McDocument pOldWD = McDocument.WorkingDocument;

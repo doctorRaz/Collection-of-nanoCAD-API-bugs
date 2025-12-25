@@ -9,7 +9,6 @@
 //////////////////////////////////////////////////////////////////////////////
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 //
 // General Information about an assembly is controlled through the following 
@@ -23,7 +22,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyProduct("")]
 [assembly: AssemblyCopyright("Copyright 2023 Autodesk, Inc.  All rights reserved.")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]		
+[assembly: AssemblyCulture("")]
 
 //
 // Version information for an assembly consists of the following four values:

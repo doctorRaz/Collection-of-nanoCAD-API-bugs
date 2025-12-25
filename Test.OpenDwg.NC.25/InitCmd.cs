@@ -1,26 +1,16 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using Multicad.DatabaseServices;
-
-
-
-
-#if NC
-
+﻿#if NC
 using HostMgd.ApplicationServices;
 using HostMgd.EditorInput;
 using Teigha.Runtime;
 using App = HostMgd.ApplicationServices;
 using cad = HostMgd.ApplicationServices.Application;
- 
+
 #elif AC
-
-
+using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.Customization;
+using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
 using App = Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.EditorInput;
 using cad = Autodesk.AutoCAD.ApplicationServices.Application;// ApplicationServices.Application;
 #endif
 
