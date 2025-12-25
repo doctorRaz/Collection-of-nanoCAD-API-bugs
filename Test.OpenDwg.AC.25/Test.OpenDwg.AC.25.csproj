@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<RootNamespace>Prompts</RootNamespace>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<UseWindowsForms>true</UseWindowsForms>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<BaseOutputPath>..\bin</BaseOutputPath>
+		<AssemblySearchPaths>..\..\..\inc\;$(AssemblySearchPaths)</AssemblySearchPaths>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DefineConstants>$(DefineConstants);AC</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DefineConstants>$(DefineConstants);AC</DefineConstants>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Include="..\Test.OpenDwg.NC.25\CommandMC.cs" Link="CommandMC.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.25\CommandTG.cs" Link="CommandTG.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.25\InitCmd.cs" Link="InitCmd.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.25\Logger.cs" Link="Logger.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.25\Services.cs" Link="Services.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.25\ServicesTG.cs" Link="ServicesTG.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoCAD.NET" Version="25.0.1" />
+		<PackageReference Include="AutoCAD.NET.Core" Version="25.0.0" />
+		<PackageReference Include="MultiCAD.NET" Version="25.0.6785.4733" />
+	</ItemGroup>
+</Project>

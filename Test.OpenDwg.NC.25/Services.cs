@@ -1,4 +1,7 @@
-﻿namespace dRz.Test.OpenDwg
+﻿using System.IO;
+using System.Windows.Forms;
+
+namespace dRz.Test.OpenDwg
 {
     public class Services
     {

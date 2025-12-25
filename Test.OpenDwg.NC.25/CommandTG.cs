@@ -1,14 +1,38 @@
-﻿using dRz.SpecSPDS.Core.Services;
-using HostMgd.ApplicationServices;
-using HostMgd.EditorInput;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
+using static dRz.Test.OpenDwg.ServicesTG;
+
+
+using Multicad.DatabaseServices;
+
+
+
+
+
+
+#if NC
 using Teigha.DatabaseServices;
 using Teigha.Runtime;
-using static dRz.Test.OpenDwg.ServicesTG;
 using App = HostMgd.ApplicationServices;
 using cad = HostMgd.ApplicationServices.Application;
+using HostMgd.ApplicationServices;
+using HostMgd.EditorInput;
 using Db = Teigha.DatabaseServices;
+
+
+
+#elif AC
+using Db=Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Customization;
+using Autodesk.AutoCAD.Runtime;
+using App = Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.EditorInput;
+using cad = Autodesk.AutoCAD.ApplicationServices.Application;// ApplicationServices.Application;
+
+#endif
+
 
 namespace dRz.Test.OpenDwg
 {
@@ -31,7 +55,7 @@ namespace dRz.Test.OpenDwg
             Editor ed = doc.Editor;
 
             Stopwatch stw = new Stopwatch();
-            Version version = cad.Version;
+         System.   Version version = cad.Version;
 
             string sender = $"{version.Major.ToString()}.{version.Minor.ToString()}_{nameof(OpenTG)}";
 
@@ -61,9 +85,11 @@ namespace dRz.Test.OpenDwg
                 {
                     using (Database extDBase = new Database(false, true))
                     {
-
+#if NC
                         extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenTryForReadShare/*OpenForReadAndAllShare*/, false /*true*/, "", false);
-
+#elif AC
+                                extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "");
+#endif
                         using (WorkingDatabaseSwitcher dbSwitcher = new WorkingDatabaseSwitcher(extDBase))
                         {
 

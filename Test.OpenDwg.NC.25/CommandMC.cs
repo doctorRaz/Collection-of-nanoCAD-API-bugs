@@ -1,12 +1,28 @@
-﻿using dRz.SpecSPDS.Core.Services;
+﻿using System.ComponentModel;
+using System.Diagnostics;
+using Multicad.DatabaseServices;
+
+
+
+
+#if NC
+
 using HostMgd.ApplicationServices;
 using HostMgd.EditorInput;
-using Multicad.DatabaseServices;
-using System.ComponentModel;
-using System.Diagnostics;
 using Teigha.Runtime;
 using App = HostMgd.ApplicationServices;
 using cad = HostMgd.ApplicationServices.Application;
+
+#elif AC
+
+using Autodesk.AutoCAD.Customization;
+using Autodesk.AutoCAD.Runtime;
+using App = Autodesk.AutoCAD. ApplicationServices;
+using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.EditorInput;
+using cad = Autodesk.AutoCAD.ApplicationServices.Application;// ApplicationServices.Application;
+
+#endif
 
 namespace dRz.Test.OpenDwg
 {
@@ -28,7 +44,7 @@ namespace dRz.Test.OpenDwg
             Editor ed = doc.Editor;
 
             Stopwatch stw = new Stopwatch();
-            Version version = cad.Version;
+            System.Version version = cad.Version;
 
             string sender = $"{version.Major.ToString()}.{version.Minor.ToString()}_{nameof(OpenMC)}";
 
