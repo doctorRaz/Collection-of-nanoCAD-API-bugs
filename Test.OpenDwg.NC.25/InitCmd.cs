@@ -54,7 +54,7 @@ namespace dRz.Test.OpenDwg
 
             Editor ed = doc.Editor;
 
-            ed.WriteMessage($"Hello test \"OpenDwg\"");
+            ed.WriteMessage($"\nHello test \"OpenDwg\"");
         }
     }
 }
