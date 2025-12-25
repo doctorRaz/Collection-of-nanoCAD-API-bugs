@@ -6,7 +6,6 @@ using static dRz.Test.OpenDwg.ServicesTG;
 using Teigha.DatabaseServices;
 using Teigha.Runtime;
 using App = HostMgd.ApplicationServices;
-using cad = HostMgd.ApplicationServices.Application;
 using HostMgd.ApplicationServices;
 using HostMgd.EditorInput;
 using Db = Teigha.DatabaseServices;
@@ -19,7 +18,6 @@ using Autodesk.AutoCAD.Runtime;
 using App = Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.EditorInput;
-using cad = Autodesk.AutoCAD.ApplicationServices.Application;// ApplicationServices.Application;
 
 #endif
 
@@ -49,7 +47,7 @@ namespace dRz.Test.OpenDwg
             string folder = Services.Browser();
             string[] files = Services.GetFilesOfDir(folder, true);
 
-            string sender = Services.CallerName(files.Length);
+            string sender = CallerName(files.Length);
 
             Logger logger = new Logger($"{sender}");
 
