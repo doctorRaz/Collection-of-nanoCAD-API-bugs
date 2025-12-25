@@ -23,6 +23,15 @@ namespace dRz.Test.OpenDwg
 {
     internal class ServicesTG
     {
+        internal static string CallerName(int CountDiles, [CallerMemberName] string caller = null)
+        {
+            System.Version version = cad.Version;
+
+            string appProductName = System.Windows.Forms.Application.ProductName;
+
+            return $"{caller}_{appProductName}_{version.Major.ToString()}.{version.Minor.ToString()}_{CountDiles.ToString()}";
+
+        }
 
         public sealed class WorkingDatabaseSwitcher : IDisposable
         {

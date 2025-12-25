@@ -28,15 +28,7 @@ namespace dRz.Test.OpenDwg
 {
     public class Services
     {
-        internal static string CallerName(int CountDiles, [CallerMemberName] string caller = null)
-        {
-            System.Version version = cad.Version;
 
-            string appProductName = System.Windows.Forms.Application.ProductName;
-
-            return $"{caller}_{appProductName}_{version.Major.ToString()}.{version.Minor.ToString()}_{CountDiles.ToString()}";
-
-        }
 
         /// <summary>
         /// путь к папке
