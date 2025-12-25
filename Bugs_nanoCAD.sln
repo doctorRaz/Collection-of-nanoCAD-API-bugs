@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nanoCAD.Samples.NET", "nano
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{DB3C80A2-CBFA-46A1-82B2-DA41DAB39695}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.OpenDwg.NC.25", "Test.OpenDwg.NC.25\Test.OpenDwg.NC.25.csproj", "{C72090DA-3F2F-42B6-AB76-B9C08E2D2095}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.OpenDwg.NC.25", "OpenDwg\Test.OpenDwg.NC.25\Test.OpenDwg.NC.25.csproj", "{C72090DA-3F2F-42B6-AB76-B9C08E2D2095}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.OpenDwg.AC.25", "Test.OpenDwg.AC.25\Test.OpenDwg.AC.25.csproj", "{B60312D9-E9AB-492C-B53B-019F49234222}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.OpenDwg.AC.25", "OpenDwg\Test.OpenDwg.AC.25\Test.OpenDwg.AC.25.csproj", "{B60312D9-E9AB-492C-B53B-019F49234222}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test.OpenDwg", "Test.OpenDwg", "{D96AB814-75B7-4612-ACD0-1F6945E57141}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.OpenDwg.AC.24", "Test.OpenDwg.AC.24\Test.OpenDwg.AC.24.csproj", "{1DDF2161-1D5B-457A-836B-12ECB7FC2478}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.OpenDwg.AC.24", "OpenDwg\Test.OpenDwg.AC.24\Test.OpenDwg.AC.24.csproj", "{1DDF2161-1D5B-457A-836B-12ECB7FC2478}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
