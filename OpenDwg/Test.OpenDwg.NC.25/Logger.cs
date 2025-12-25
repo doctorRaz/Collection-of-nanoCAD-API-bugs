@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Text;
 
 namespace dRz.Test.OpenDwg
 {
@@ -32,7 +33,7 @@ namespace dRz.Test.OpenDwg
             string text = $"{date}: {message}";
 
             // полная перезапись файла 
-            using (StreamWriter writer = new StreamWriter(_path, true))
+            using (StreamWriter writer = new StreamWriter(_path, true,Encoding.UTF8))
             {
                 await writer.WriteLineAsync(text);
 
