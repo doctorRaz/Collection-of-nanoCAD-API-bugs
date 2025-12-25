@@ -17,6 +17,28 @@ namespace dRz.Test.OpenDwg
 
         }
 
+        public  void LogComplete(string message)
+        {
+            string date = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss.FFFFF",
+                                CultureInfo.InvariantCulture);
+
+            string str;
+            using (StreamReader sreader = new StreamReader(_path))
+            {
+                str = sreader.ReadToEnd();
+            }
+
+
+            string text = $"{date}: {message}";
+
+            using (StreamWriter writer = new StreamWriter(_path, false, Encoding.UTF8))
+            {
+                  writer.WriteLine(text);
+                  writer.WriteLine(str);
+
+            }
+        }
+
         public void LogClear()
         {
             if (File.Exists(_path))
@@ -33,7 +55,7 @@ namespace dRz.Test.OpenDwg
             string text = $"{date}: {message}";
 
             // полная перезапись файла 
-            using (StreamWriter writer = new StreamWriter(_path, true,Encoding.UTF8))
+            using (StreamWriter writer = new StreamWriter(_path, true, Encoding.UTF8))
             {
                 await writer.WriteLineAsync(text);
 

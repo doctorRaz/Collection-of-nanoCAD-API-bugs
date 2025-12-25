@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="..\OpenDwg\Test.OpenDwg.NC.25\Logger.cs" Link="Logger.cs" />
+  </ItemGroup>
+
 </Project>

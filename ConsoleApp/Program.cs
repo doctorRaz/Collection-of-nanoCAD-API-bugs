@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using dRz.Test.OpenDwg;
+using System.Text.RegularExpressions;
 
 namespace ConsoleApp
 {
@@ -7,6 +8,15 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
 
+            Logger logger=new Logger();
+            int i = 0;
+            for(; i<100000; i++)
+            {
+                logger.Log(i.ToString());
+            }
+
+            logger.LogComplete($"total {i}");
+            return;
             constProp cs = constProp.Title;
 
             var ss=cs.ToString();
