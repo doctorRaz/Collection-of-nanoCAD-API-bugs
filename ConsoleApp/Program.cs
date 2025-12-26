@@ -8,18 +8,25 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
 
-            Logger logger=new Logger();
+            Logger logger = new Logger(0);
+
+
+            int count = 10;
+            logger.Log($"Total {count.ToString()} files");
+
             int i = 0;
-            for(; i<100000; i++)
+            for (; i < count; i++)
             {
-                logger.Log(i.ToString());
+                logger.Log($"{i}\t\tWorking c:\\dddd\\dddd\\{i}");
             }
 
-            logger.LogComplete($"total {i}");
-            return;
+            logger.Log($"Teigha\tfiles {count}: time 10:10",1);
             constProp cs = constProp.Title;
 
-            var ss=cs.ToString();
+            Console.WriteLine( $"The END" );
+            Console.ReadKey();
+             return;
+            var ss = cs.ToString();
 
             Dictionary<string, string> customProperties = new Dictionary<string, string>()
          {
@@ -48,31 +55,18 @@ namespace ConsoleApp
                 key = Regex.Replace(key, pattern, "_");
                 key = Regex.Replace(key, @"_+", "_");
 
-               var vkey = key.Split( "\n");
+                var vkey = key.Split("\n");
 
                 var rkey = Regex.Replace(key, "\n", "<<###>>");
                 Console.WriteLine(rkey);
                 var rr = Regex.Replace(rkey, "<<###>>", "\n");
                 Console.WriteLine(rr);
 
-              key=  string.Join( "###",vkey);
+                key = string.Join("###", vkey);
 
                 Console.WriteLine($"{item.Key}:\t{key} ->{item.Value}");
             }
 
-
-
-            //string key = "test<>/\":;?*|,='Ok";
-            //string pattern = @"[\<\>\/\:\\\"";\?\*\|\,\=\']";
-            //key = Regex.Replace(key, pattern, "_");
-
-            //string secondPattern = @"_+"; // Одно или более подчеркиваний
-
-            //// Окончательная строка после второй замены
-            //string finalResult = Regex.Replace(key, secondPattern, "_");
-
-            //key = Regex.Replace(key, @"_+", "_");
-            //Console.WriteLine(finalResult);
         }
     }
 
