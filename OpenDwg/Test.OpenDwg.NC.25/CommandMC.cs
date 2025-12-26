@@ -43,10 +43,11 @@ namespace dRz.Test.OpenDwg
 
             string sender = CallerName(files.Length);
 
+            
             Logger logger = new Logger($"{sender}");
             Logger loggerErr = new Logger($"{sender} ERR");
 
-            logger.Log($"\tTotal {files.Length} files");
+            logger.Log($"Total {files.Length} files");
 
             ed.WriteMessage($"Multicad: Total {files.Length} files");
 
@@ -56,8 +57,8 @@ namespace dRz.Test.OpenDwg
             McDocument pOldWD = McDocument.WorkingDocument;
 
             int counter = 0;
-            int total = 0;
-            int totalErr = 0;
+            int reading = 0;
+            int errors = 0;
             foreach (string file in files)
             {
                 counter++;
@@ -71,18 +72,18 @@ namespace dRz.Test.OpenDwg
                     mcDocument = McDocumentsManager.OpenDocument(file, false, true);
                     if (mcDocument == null)  //проверка на нулл, если нулл то пропуск и записать в лог, что файл пропущен
                     {
-                        totalErr++;
-                        loggerErr.Log($"\n{totalErr} NULL >> {file} >> \n");
+                        errors++;
+                        loggerErr.Log($"{errors} NULL >> {file} >>");
 
 
-                        ed.WriteMessage($"\n NULL >> {file} >> \n");
+                        ed.WriteMessage($"NULL >> {file} >> \n");
                         continue;
                     }
 
                 }
 
                 logger.Log($"\t\tWorking {file}");
-                total++;
+                reading++;
                 // …
 
                 if (mcDocument.IsHidden) mcDocument.Close();//если не открывали не закрывать
@@ -95,11 +96,11 @@ namespace dRz.Test.OpenDwg
 
             stw.Stop();
 
-            string elapsed = stw.Elapsed.ToString();
+            string elapsedTime = stw.Elapsed.ToString();
 
-            logger.Log($"Multicad\tfiles {total}, err {totalErr}: time {elapsed}");
+            logger.Log($"Total {files.Length}, Read {reading}, Err {errors}: time {elapsedTime}", 1);
 
-            ed.WriteMessage($"Multicad\tfiles {total}: time {elapsed}");
+            ed.WriteMessage($"Multicad: Total {files.Length}, Read {reading}, Err {errors}: time {elapsedTime}");
         }
     }
 }
