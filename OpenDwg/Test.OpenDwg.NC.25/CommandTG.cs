@@ -71,12 +71,9 @@ namespace dRz.Test.OpenDwg
                 {
                     using (Database extDBase = new Database(false, true))
                     {
-#if NC
-                        //extDBase.ReadDwgFile(file, Db.FileOpenMode./*OpenTryForReadShare*/OpenForReadAndAllShare, false /*true*/, "", false);
-                        extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false , "");
-#elif AC
+
                         extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "");
-#endif
+
                         using (WorkingDatabaseSwitcher dbSwitcher = new WorkingDatabaseSwitcher(extDBase))
                         {
 
