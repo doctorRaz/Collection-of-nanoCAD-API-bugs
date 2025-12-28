@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using Multicad.DatabaseServices;
 using static dRz.Test.OpenDwg.ServicesTG;
+using System;
+
 
 #if NC
 using HostMgd.ApplicationServices;
@@ -89,6 +91,7 @@ namespace dRz.Test.OpenDwg
                 if (mcDocument.IsHidden) mcDocument.Close();//если не открывали не закрывать
 
                 logger.Log($"\t\tClosed {file}");
+                mcDocument = null;//todo костыль
             }
 
             //вернем рабочий документ мало ли
@@ -96,11 +99,15 @@ namespace dRz.Test.OpenDwg
 
             stw.Stop();
 
+
             string elapsedTime = stw.Elapsed.ToString();
 
             logger.Log($"Total {files.Length}, Read {reading}, Err {errors}: time {elapsedTime}", 1);
 
             ed.WriteMessage($"Multicad: Total {files.Length}, Read {reading}, Err {errors}: time {elapsedTime}");
+            
+            GC.Collect();//todo чистим за собой
+
         }
     }
 }

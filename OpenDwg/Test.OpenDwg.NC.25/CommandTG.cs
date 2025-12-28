@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using static dRz.Test.OpenDwg.ServicesTG;
+using System;
+
 
 #if NC
 using Teigha.DatabaseServices;
@@ -98,11 +100,14 @@ namespace dRz.Test.OpenDwg
 
             stw.Stop();
 
+
             string elapsedTime = stw.Elapsed.ToString();
 
             logger.Log($"Total {files.Length}, Read {reading}, Err {errors}: time {elapsedTime}", 1);
 
             ed.WriteMessage($"Teigha: Total {files.Length}, Read {reading}, Err {errors}: time {elapsedTime}");
+
+            GC.Collect();//todo чистим за собой
         }
 
 
