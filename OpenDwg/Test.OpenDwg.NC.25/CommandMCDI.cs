@@ -24,7 +24,9 @@ namespace dRz.Test.OpenDwg
     public partial class CommandMCDI
     {
         /// <summary>
-        /// открытие файлов в цикле в Мультикаде диспозим
+        /// то же что и MCD
+        /// McDocument mcDocument внутри цикла
+        /// работает так же
         /// </summary>
         [CommandMethod("тдмди")]
         [Description("открытие файлов в цикле в Мультикаде")]

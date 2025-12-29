@@ -7,8 +7,6 @@ using System.IO;
 using System.Collections.Generic;
 
 
-
-
 #if NC
 using HostMgd.ApplicationServices;
 using HostMgd.EditorInput;
@@ -28,7 +26,9 @@ namespace dRz.Test.OpenDwg
     public partial class CommandMCS
     {
         /// <summary>
-        /// открытие одного файла в  цикле дофига итераций в Мультикаде
+        /// открытие одного файла в  цикле 4000 итераций в Мультикаде
+        /// нк 00:23:50.4085506
+        /// ак 00:00:49.5048291
         /// </summary>
         [CommandMethod("тдмс")]
         [Description("открытие файла в цикле в Мультикаде")]
@@ -80,7 +80,7 @@ namespace dRz.Test.OpenDwg
                 McDocument mcDocument = McDocumentsManager.GetDocument(file);
                 if (mcDocument == null)
                 {
-                    //logger.Log($"{counter} Открываем {file}");
+
                     // открываем файл в скрытом режиме
                     mcDocument = McDocumentsManager.OpenDocument(file, false, true);
 

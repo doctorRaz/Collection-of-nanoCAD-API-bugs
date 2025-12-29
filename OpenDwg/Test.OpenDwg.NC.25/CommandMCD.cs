@@ -24,7 +24,10 @@ namespace dRz.Test.OpenDwg
     public partial class CommandMCD
     {
         /// <summary>
-        /// открытие файлов в цикле в Мультикаде диспозим
+        /// тоже что и в МС
+        /// добавлен  mcDocument.Dispose()
+        /// АК 4к файлов 4 минуты
+        /// нк 4к файлов 28 минут, вешает систему, но работу продолжает
         /// </summary>
         [CommandMethod("тдмд")]
         [Description("открытие файлов в цикле в Мультикаде")]
