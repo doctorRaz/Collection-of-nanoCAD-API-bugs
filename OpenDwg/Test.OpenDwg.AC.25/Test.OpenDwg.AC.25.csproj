@@ -22,7 +22,11 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Include="..\Test.OpenDwg.NC.25\CommandMC.cs" Link="CommandMC.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.25\CommandMCD.cs" Link="CommandMCD.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.25\CommandMCDI.cs" Link="CommandMCDI.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.25\CommandMCS.cs" Link="CommandMCS.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.25\CommandTG.cs" Link="CommandTG.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.25\CommandTGMC.cs" Link="CommandTGMC.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.25\InitCmd.cs" Link="InitCmd.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.25\Logger.cs" Link="Logger.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.25\Services.cs" Link="Services.cs" />
