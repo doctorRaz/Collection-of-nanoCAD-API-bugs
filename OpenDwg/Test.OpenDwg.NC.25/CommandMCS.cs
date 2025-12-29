@@ -42,32 +42,22 @@ namespace dRz.Test.OpenDwg
 
             Editor ed = doc.Editor;
 
-            string file = GetFileOpenDocProperties();
+            string file = @"d:\@Developers\Programmers\!NET\!SpecSPDS\res\цикл\тдмс\22724-12004-ЭН.dwg";// GetFileOpenDocProperties();
 
-
-            List<string> tmpFiles = new List<string>();
-
-            for (int i = 0; i <= 4000; i++)
-            {
-                tmpFiles.Add(file);
-            }
 
             Stopwatch stw = new Stopwatch();
 
+            int cicl = 4000;
 
-
-            //string folder = Services.Browser();
-            string[] files = tmpFiles.ToArray(); // Services.GetFilesOfDir(folder, true);
-
-            string sender = CallerName(files.Length);
+            string sender = CallerName(cicl);
 
 
             Logger logger = new Logger($"{sender}");
             Logger loggerErr = new Logger($"{sender} ERR");
 
-            logger.Log($"Total {files.Length} files");
+            logger.Log($"Total {cicl} files");
 
-            ed.WriteMessage($"Multicad: Total {files.Length} files");
+            ed.WriteMessage($"Multicad: Total {cicl} files");
 
             stw.Restart();
 
@@ -80,7 +70,7 @@ namespace dRz.Test.OpenDwg
             //McDocument mcDocument;
 
             //пока не упадет или не повиснет
-            for (int i=0;i<10000 ;i++ )
+            for (int i=0;i<cicl ;i++ )
             {
                 counter++;
                 logger.Log($"{counter} Opening {file}");
@@ -90,9 +80,10 @@ namespace dRz.Test.OpenDwg
                 McDocument mcDocument = McDocumentsManager.GetDocument(file);
                 if (mcDocument == null)
                 {
-                    logger.Log($"{counter} Открываем {file}");
+                    //logger.Log($"{counter} Открываем {file}");
                     // открываем файл в скрытом режиме
                     mcDocument = McDocumentsManager.OpenDocument(file, false, true);
+
                     if (mcDocument == null)  //проверка на нулл, если нулл то пропуск и записать в лог, что файл пропущен
                     {
                         errors++;
@@ -112,8 +103,6 @@ namespace dRz.Test.OpenDwg
                 
                 //mcDocument.Dispose();
 
-                //List<McDocument> mcDocuments = McDocumentsManager.GetDocuments();
-
                 logger.Log($"\t\tClosed {file}");
                
             }
@@ -126,9 +115,9 @@ namespace dRz.Test.OpenDwg
 
             string elapsedTime = stw.Elapsed.ToString();
 
-            logger.Log($"Total {files.Length}, Read {reading}, Err {errors}: time {elapsedTime}", 1);
+            logger.Log($"Total {cicl}, Read {reading}, Err {errors}: time {elapsedTime}", 1);
 
-            ed.WriteMessage($"Multicad: Total {files.Length}, Read {reading}, Err {errors}: time {elapsedTime}");
+            ed.WriteMessage($"Multicad: Total {cicl}, Read {reading}, Err {errors}: time {elapsedTime}");
 
             //GC.Collect();//todo чистим за собой
             GC.Collect();
