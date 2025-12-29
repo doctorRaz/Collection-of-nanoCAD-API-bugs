@@ -9,9 +9,13 @@ namespace ConsoleApp
 {
     internal class Props
     {
+         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
 
        internal void TestProps()
         {
+            Logger.Info("Hello world");
+
             constProp cs = constProp.Title;
             var ss = cs.ToString();
 
@@ -31,6 +35,7 @@ namespace ConsoleApp
             foreach (var item in customProperties)
             {
 
+                Logger.Trace("Hello world");
 
                 string key = item.Key;
                 if (string.IsNullOrWhiteSpace(key))
