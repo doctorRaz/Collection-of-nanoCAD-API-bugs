@@ -3,6 +3,10 @@ using System.Diagnostics;
 using Multicad.DatabaseServices;
 using static dRz.Test.OpenDwg.ServicesTG;
 using System;
+using System.IO;
+using System.Collections.Generic;
+
+
 
 
 #if NC
@@ -21,14 +25,14 @@ using Autodesk.AutoCAD.EditorInput;
 
 namespace dRz.Test.OpenDwg
 {
-    public partial class CommandMC
+    public partial class CommandMC_S
     {
         /// <summary>
-        /// открытие файлов в цикле в Мультикаде
+        /// открытие одного файла в  цикле дофига итераций в Мультикаде
         /// </summary>
-        [CommandMethod("тдм")]
-        [Description("открытие файлов в цикле в Мультикаде")]
-        public static void MC()
+        [CommandMethod("тдмс")]
+        [Description("открытие файла в цикле в Мультикаде")]
+        public static void MCS()
         {
             Document doc = App.Application.DocumentManager.MdiActiveDocument;
             if (doc == null)
@@ -38,10 +42,22 @@ namespace dRz.Test.OpenDwg
 
             Editor ed = doc.Editor;
 
+            string file = GetFileOpenDocProperties();
+
+
+            List<string> tmpFiles = new List<string>();
+
+            for (int i = 0; i <= 4000; i++)
+            {
+                tmpFiles.Add(file);
+            }
+
             Stopwatch stw = new Stopwatch();
 
-            string folder = Services.Browser();
-            string[] files = Services.GetFilesOfDir(folder, true);
+
+
+            //string folder = Services.Browser();
+            string[] files = tmpFiles.ToArray(); // Services.GetFilesOfDir(folder, true);
 
             string sender = CallerName(files.Length);
 
@@ -61,23 +77,22 @@ namespace dRz.Test.OpenDwg
             int counter = 0;
             int reading = 0;
             int errors = 0;
-            McDocument mcDocument;//шаманство
-            foreach (string file in files)
+            //McDocument mcDocument;
+
+            //пока не упадет или не повиснет
+            for (int i=0;i<10000 ;i++ )
             {
                 counter++;
                 logger.Log($"{counter} Opening {file}");
 
                 //если открыт то не нулл
-                /*McDocument*/ mcDocument = McDocumentsManager.GetDocument(file);
+                /*McDocument*/
+                McDocument mcDocument = McDocumentsManager.GetDocument(file);
                 if (mcDocument == null)
                 {
+                    logger.Log($"{counter} Открываем {file}");
                     // открываем файл в скрытом режиме
-                    logger.Log($"\t\tOpen {file}");
-
                     mcDocument = McDocumentsManager.OpenDocument(file, false, true);
-                    
-                    logger.Log($"\t\tOpened {file}");
-
                     if (mcDocument == null)  //проверка на нулл, если нулл то пропуск и записать в лог, что файл пропущен
                     {
                         errors++;
@@ -87,21 +102,20 @@ namespace dRz.Test.OpenDwg
                         ed.WriteMessage($"NULL >> {file} >> \n");
                         continue;
                     }
-
                 }
-
+             
                 logger.Log($"\t\tWorking {file}");
                 reading++;
                 // …
 
                 if (mcDocument.IsHidden) mcDocument.Close();//если не открывали не закрывать
+                
+                //mcDocument.Dispose();
+
+                //List<McDocument> mcDocuments = McDocumentsManager.GetDocuments();
 
                 logger.Log($"\t\tClosed {file}");
-
-                mcDocument.Dispose(); //todo костыль
-
-                //mcDocument = null;
-              
+               
             }
 
             //вернем рабочий документ мало ли
