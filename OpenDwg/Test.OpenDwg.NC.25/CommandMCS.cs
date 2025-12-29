@@ -25,7 +25,7 @@ using Autodesk.AutoCAD.EditorInput;
 
 namespace dRz.Test.OpenDwg
 {
-    public partial class CommandMC_S
+    public partial class CommandMCS
     {
         /// <summary>
         /// открытие одного файла в  цикле дофига итераций в Мультикаде
