@@ -61,22 +61,22 @@ namespace dRz.Test.OpenDwg
             int counter = 0;
             int reading = 0;
             int errors = 0;
-            McDocument mcDocument;//шаманство
+            //McDocument mcDocument;//шаманство
             foreach (string file in files)
             {
                 counter++;
                 logger.Log($"{counter} Opening {file}");
 
                 //если открыт то не нулл
-                /*McDocument*/ mcDocument = McDocumentsManager.GetDocument(file);
+                McDocument mcDocument = McDocumentsManager.GetDocument(file);
                 if (mcDocument == null)
                 {
                     // открываем файл в скрытом режиме
-                    logger.Log($"\t\tOpen {file}");
+                 //   logger.Log($"\t\tOpen {file}");
 
                     mcDocument = McDocumentsManager.OpenDocument(file, false, true);
                     
-                    logger.Log($"\t\tOpened {file}");
+                   // logger.Log($"\t\tOpened {file}");
 
                     if (mcDocument == null)  //проверка на нулл, если нулл то пропуск и записать в лог, что файл пропущен
                     {
@@ -98,14 +98,14 @@ namespace dRz.Test.OpenDwg
 
                 logger.Log($"\t\tClosed {file}");
 
-                mcDocument.Dispose(); //todo костыль
+              //  mcDocument.Dispose(); //todo костыль
 
                 //mcDocument = null;
               
             }
 
             //вернем рабочий документ мало ли
-            McDocument.WorkingDocument = pOldWD;
+          //  McDocument.WorkingDocument = pOldWD;
 
             stw.Stop();
 
@@ -117,9 +117,9 @@ namespace dRz.Test.OpenDwg
             ed.WriteMessage($"Multicad: Total {files.Length}, Read {reading}, Err {errors}: time {elapsedTime}");
 
             //GC.Collect();//todo чистим за собой
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
+            //GC.Collect();
+            //GC.WaitForPendingFinalizers();
+            //GC.Collect();
 
         }
     }
