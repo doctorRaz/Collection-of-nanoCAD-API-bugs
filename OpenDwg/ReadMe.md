@@ -49,7 +49,7 @@
 |AutoCAD|MultiCad|4000|4000|0|<b>00:04:39.5789037</b>|MC|
 |AutoCAD|MultiCad|4000|4000|0|<b>00:04:50.1422993</b>|MCDI|
 |nanoCAD|MultiCad|4000|4000|0|00:28:25.9152691|MCDI|
-|nanoCAD|MultiCad|4000|4000|0|00:06:43.1897441|TGMC 6 файлов не открыл|
+|nanoCAD|MultiCad|4000|394|6|00:06:43.1897441|TGMC 6 файлов не открыл|
 
 т.е. nanoCAD обыграл оригинал на чужом поле Teigha и вчистую слил на своем в Multicad
 
