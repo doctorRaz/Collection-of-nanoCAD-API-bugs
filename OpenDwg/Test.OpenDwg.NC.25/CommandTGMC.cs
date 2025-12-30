@@ -76,9 +76,12 @@ namespace dRz.Test.OpenDwg
                 counter++;
                 logger.Log($"{counter} Opening {file}");
                 McDocument mcDocument = McDocumentsManager.GetDocument(file);
+
+                //var iid = mcDocument.ID;
+
+                //var ff=iid.ToOldIdPtr();
                 if (mcDocument == null)  //проверка на нулл, если нулл то пропуск и записать в лог, что файл пропущен
                 {
-
                     try
                     {
                         using (Database extDBase = new Database(false, true))
@@ -86,15 +89,15 @@ namespace dRz.Test.OpenDwg
 
                             extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "");//получаем базу чертежа
 
+                       
                             if (extDBase != null)
                             {
-                                mcDocument = McDocumentsManager.GetDocument(file);//перекидываем базу чертежа в мультикад 
+                                 mcDocument = McDocumentsManager.GetDocument(file);//перекидываем базу чертежа в мультикад 
 
                                 if (mcDocument == null)  //проверка на нулл, если нулл то пропуск и записать в лог, что файл пропущен
                                 {
                                     errors++;
                                     loggerErr.Log($"{errors} NULL >> {file} >>");
-
 
                                     ed.WriteMessage($"NULL >> {file} >> \n");
                                     continue;
@@ -102,23 +105,19 @@ namespace dRz.Test.OpenDwg
                                 else
                                 {
                                     //  тут работаем с мультикад документом
+                                    reading++;
                                     logger.Log($"\t\tWorking {file}");
 
                                     mcDocument.Close();
                                     mcDocument.Dispose();
-
-
                                 }
                             }
+                            else//тайга не смогла открыть эксепшен не выбросил, вряд ли сюда попадем, но мало ли
+                            {
+                                 errors++;
+                                logger.Log($"{counter} Not Open {file}");
+                            }
 
-
-
-                            //using (WorkingDatabaseSwitcher dbSwitcher = new WorkingDatabaseSwitcher(extDBase))
-                            //{
-
-                            //    reading++;
-                            //    // …
-                            //}
                         }
                     }
                     catch (System.Exception ex)
@@ -130,6 +129,12 @@ namespace dRz.Test.OpenDwg
 
                         ed.WriteMessage($"\n{file} error : {ex.Message} >> {ex.StackTrace}\n");
                     }
+                }
+                else//чертеж уже был открыт
+                {
+                    reading++;
+                    logger.Log($"\t\tWorking {file}");
+
                 }
 
                 logger.Log($"\t\tClosed {file}");
