@@ -16,7 +16,7 @@ namespace ConsoleApp
         internal void Run()
         {
 
-            Logger logger = new Logger(10);
+            Logger logger = new Logger();
 
 
             int count = 10 ;

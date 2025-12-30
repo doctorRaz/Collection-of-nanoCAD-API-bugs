@@ -22,13 +22,26 @@ namespace ConsoleApp
             var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
 
             // Rules for mapping loggers to targets            
-            config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
-            config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
+            //config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
+            config.AddRule(LogLevel.Trace, LogLevel.Fatal, logfile);
 
             // Apply config           
             NLog.LogManager.Configuration = config;
 
-            
+
+            Logger.Info ($"----------------------");
+
+
+            Logger.Info ($"Info");
+            Logger.Trace ($"Trace");
+            Logger.Debug ($"Debug");
+            Logger.Warn ($"Warn");
+            Logger.Fatal ($"Fatal");
+            Logger.Error ($"Error");
+          
+
+
+            return;
             var prop = new Props();
 
             prop.TestProps();
