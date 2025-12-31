@@ -33,14 +33,14 @@ namespace dRz.Test.OpenDwg
 
         /// <summary>
         /// смесь армяна с делаваром
-        /// открытие файлов в цикле в Тайге корявый переброс в мультикад
+        /// открытие файлов в цикле в Тайге переключение на рабочую базу корявый переброс в мультикад
         /// на некоторых файлах в нано в мультикад прилетает null
         /// в АК проверил на файлах которые не смог открыть нана, все ок, полный тест не делал, незачем
         /// нк 4к файлов Total 4000, Read 0, Err 6: time 00:06:43.1897441, 6 ошибок в мультикад нулл
         /// </summary>
-        [CommandMethod("тдм0")]
-        [Description("открытие файлов в цикле в Тайге")]
-        public static void TGMC()
+        [CommandMethod("тдтмп")]
+        [Description("открытие файлов в цикле в Тайге переключение рабочей базы чертежа, переоткрытие файла в мультикад")]
+        public static void TGMCS()
         {
             Document doc = App.Application.DocumentManager.MdiActiveDocument;
             if (doc == null)
@@ -77,9 +77,6 @@ namespace dRz.Test.OpenDwg
                 logger.Log($"{counter} Opening {file}");
                 McDocument mcDocument = McDocumentsManager.GetDocument(file);
 
-                //var iid = mcDocument.ID;
-
-                //var ff=iid.ToOldIdPtr();
                 if (mcDocument == null)  //проверка на нулл, если нулл то пропуск и записать в лог, что файл пропущен
                 {
                     try
@@ -89,35 +86,38 @@ namespace dRz.Test.OpenDwg
 
                             extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "");//получаем базу чертежа
 
-                       
-                            if (extDBase != null)
-                            {
-                                 mcDocument = McDocumentsManager.GetDocument(file);//перекидываем базу чертежа в мультикад 
 
-                                if (mcDocument == null)  //проверка на нулл, если нулл то пропуск и записать в лог, что файл пропущен
+                            using (WorkingDatabaseSwitcher dbSwitcher = new WorkingDatabaseSwitcher(extDBase))
+                            {
+                                if (extDBase != null)
+                                {
+                                    mcDocument = McDocumentsManager.GetDocument(file);//перекидываем базу чертежа в мультикад 
+
+                                    if (mcDocument == null)  //проверка на нулл, если нулл то пропуск и записать в лог, что файл пропущен
+                                    {
+                                        errors++;
+                                        loggerErr.Log($"{errors} NULL >> {file} >>");
+
+                                        ed.WriteMessage($"NULL >> {file} >> \n");
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        //  тут работаем с мультикад документом
+                                        reading++;
+                                        logger.Log($"\t\tWorking {file}");
+
+                                        mcDocument.Close();
+                                        mcDocument.Dispose();
+                                    }
+                                }
+                                else//тайга не смогла открыть эксепшен не выбросил, вряд ли сюда попадем, но мало ли
                                 {
                                     errors++;
-                                    loggerErr.Log($"{errors} NULL >> {file} >>");
-
-                                    ed.WriteMessage($"NULL >> {file} >> \n");
-                                    continue;
+                                    logger.Log($"{counter} Not Open {file}");
                                 }
-                                else
-                                {
-                                    //  тут работаем с мультикад документом
-                                    reading++;
-                                    logger.Log($"\t\tWorking {file}");
 
-                                    mcDocument.Close();
-                                    mcDocument.Dispose();
-                                }
                             }
-                            else//тайга не смогла открыть эксепшен не выбросил, вряд ли сюда попадем, но мало ли
-                            {
-                                 errors++;
-                                logger.Log($"{counter} Not Open {file}");
-                            }
-
                         }
                     }
                     catch (System.Exception ex)
@@ -149,9 +149,7 @@ namespace dRz.Test.OpenDwg
 
             ed.WriteMessage($"Teigha: Total {files.Length}, Read {reading}, Err {errors}: time {elapsedTime}");
 
-            //GC.Collect();//todo чистим за собой
-
-
+            //вызов сборщика мусора сомнительно но пусть пока будет
             GC.Collect();
             GC.WaitForPendingFinalizers();
             GC.Collect();
