@@ -28,7 +28,7 @@ using Autodesk.AutoCAD.EditorInput;
 
 namespace dRz.Test.OpenDwg
 {
-    public partial class CommandTGMC
+    public partial class CommandTGMCS
     {
 
         /// <summary>
