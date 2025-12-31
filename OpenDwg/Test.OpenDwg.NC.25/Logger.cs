@@ -79,11 +79,11 @@ namespace dRz.Test.OpenDwg
                 }
             }
         }
-
+                
         void LogDelToDate()
         {
-            var files = new DirectoryInfo(Path.GetDirectoryName(_path)).GetFiles("*.LOG");
-            foreach (var file in files)
+            FileInfo[] files = new DirectoryInfo(Path.GetDirectoryName(_path)).GetFiles("*.LOG");
+            foreach (FileInfo file in files)
             {
                 if (DateTime.UtcNow - file.LastWriteTimeUtc > TimeSpan.FromDays(_dateSpan))
                 {
