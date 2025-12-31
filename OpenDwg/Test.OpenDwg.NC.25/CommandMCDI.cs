@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using Multicad.DatabaseServices;
 using static dRz.Test.OpenDwg.ServicesTG;
-using System;
 
 
 #if NC
@@ -63,7 +62,7 @@ namespace dRz.Test.OpenDwg
             int counter = 0;
             int reading = 0;
             int errors = 0;
-          //  McDocument mcDocument;//шаманство
+            //  McDocument mcDocument;//шаманство
             foreach (string file in files)
             {
                 counter++;
@@ -74,11 +73,11 @@ namespace dRz.Test.OpenDwg
                 if (mcDocument == null)
                 {
                     // открываем файл в скрытом режиме
-                   // logger.Log($"\t\tOpen {file}");
+                    // logger.Log($"\t\tOpen {file}");
 
                     mcDocument = McDocumentsManager.OpenDocument(file, false, true);
-                    
-                   // logger.Log($"\t\tOpened {file}");
+
+                    // logger.Log($"\t\tOpened {file}");
 
                     if (mcDocument == null)  //проверка на нулл, если нулл то пропуск и записать в лог, что файл пропущен
                     {
@@ -92,7 +91,7 @@ namespace dRz.Test.OpenDwg
 
                 }
 
-              //  logger.Log($"\t\tWorking {file}");
+                //  logger.Log($"\t\tWorking {file}");
                 reading++;
                 // …
 
@@ -103,7 +102,7 @@ namespace dRz.Test.OpenDwg
                 mcDocument.Dispose(); //todo костыль
 
                 //mcDocument = null;
-              
+
             }
 
             //вернем рабочий документ мало ли

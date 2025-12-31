@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using System.Text;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace dRz.Test.OpenDwg
 {
@@ -79,7 +79,7 @@ namespace dRz.Test.OpenDwg
                 }
             }
         }
-                
+
         void LogDelToDate()
         {
             FileInfo[] files = new DirectoryInfo(Path.GetDirectoryName(_path)).GetFiles("*.LOG");
@@ -89,8 +89,8 @@ namespace dRz.Test.OpenDwg
                 {
                     try
                     {
-                    File.Delete(file.FullName);
-                    Console.WriteLine($"{file.LastWriteTimeUtc/*CreationTimeUtc*/} deleted:\t{file.Name}");
+                        File.Delete(file.FullName);
+                        Console.WriteLine($"{file.LastWriteTimeUtc/*CreationTimeUtc*/} deleted:\t{file.Name}");
 
                     }
                     catch { }

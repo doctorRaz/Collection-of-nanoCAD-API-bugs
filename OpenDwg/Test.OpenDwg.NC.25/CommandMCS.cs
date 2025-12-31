@@ -2,9 +2,6 @@
 using System.Diagnostics;
 using Multicad.DatabaseServices;
 using static dRz.Test.OpenDwg.ServicesTG;
-using System;
-using System.IO;
-using System.Collections.Generic;
 
 
 #if NC
@@ -70,7 +67,7 @@ namespace dRz.Test.OpenDwg
             //McDocument mcDocument;
 
             //пока не упадет или не повиснет
-            for (int i=0;i<cicl ;i++ )
+            for (int i = 0; i < cicl; i++)
             {
                 counter++;
                 logger.Log($"{counter} Opening {file}");
@@ -94,17 +91,17 @@ namespace dRz.Test.OpenDwg
                         continue;
                     }
                 }
-             
+
                 logger.Log($"\t\tWorking {file}");
                 reading++;
                 // …
 
                 if (mcDocument.IsHidden) mcDocument.Close();//если не открывали не закрывать
-                
+
                 //mcDocument.Dispose();
 
                 logger.Log($"\t\tClosed {file}");
-               
+
             }
 
             //вернем рабочий документ мало ли

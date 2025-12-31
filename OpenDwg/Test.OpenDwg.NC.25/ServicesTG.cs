@@ -28,7 +28,7 @@ namespace dRz.Test.OpenDwg
             PromptOpenFileOptions options = new PromptOpenFileOptions(title);
             options.Filter = "Файлы dwg (*.dwg)|*.dwg|Файлы dfx (*.dfx)|*.dfx";
             options.FilterIndex = 0;
-           
+
             options.PreferCommandLine = IsCmdActive();
             options.InitialFileName =
                 Path.GetFileNameWithoutExtension(Application.GetSystemVariable("dwgname").ToString());
