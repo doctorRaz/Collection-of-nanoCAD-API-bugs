@@ -72,12 +72,7 @@ namespace dRz.Test.OpenDwg
                 McDocument mcDocument = McDocumentsManager.GetDocument(file);
                 if (mcDocument == null)
                 {
-                    // открываем файл в скрытом режиме
-                    //   logger.Log($"\t\tOpen {file}");
-
                     mcDocument = McDocumentsManager.OpenDocument(file, false, true);
-
-                    // logger.Log($"\t\tOpened {file}");
 
                     if (mcDocument == null)  //проверка на нулл, если нулл то пропуск и записать в лог, что файл пропущен
                     {
@@ -99,9 +94,7 @@ namespace dRz.Test.OpenDwg
 
                 logger.Log($"\t\tClosed {file}");
 
-                //  mcDocument.Dispose(); //todo костыль
-
-                //mcDocument = null;
+                //  mcDocument.Dispose(); //todo костыль рабочий
 
             }
 

@@ -74,18 +74,13 @@ namespace dRz.Test.OpenDwg
                 mcDocument = McDocumentsManager.GetDocument(file);
                 if (mcDocument == null)
                 {
-                    // открываем файл в скрытом режиме
-                    logger.Log($"\t\tOpen {file}");
 
                     mcDocument = McDocumentsManager.OpenDocument(file, false, true);
-
-                    logger.Log($"\t\tOpened {file}");
 
                     if (mcDocument == null)  //проверка на нулл, если нулл то пропуск и записать в лог, что файл пропущен
                     {
                         errors++;
                         loggerErr.Log($"{errors} NULL >> {file} >>");
-
 
                         ed.WriteMessage($"NULL >> {file} >> \n");
                         continue;
@@ -103,15 +98,12 @@ namespace dRz.Test.OpenDwg
 
                 mcDocument.Dispose(); //todo костыль
 
-                //mcDocument = null;
-
             }
 
             //вернем рабочий документ мало ли
             McDocument.WorkingDocument = pOldWD;
 
             stw.Stop();
-
 
             string elapsedTime = stw.Elapsed.ToString();
 

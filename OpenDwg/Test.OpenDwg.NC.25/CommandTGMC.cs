@@ -115,7 +115,6 @@ namespace dRz.Test.OpenDwg
                                 logger.Log($"{counter} Not Open {file}");
                             }
 
-
                         }
                     }
                     catch (System.Exception ex)

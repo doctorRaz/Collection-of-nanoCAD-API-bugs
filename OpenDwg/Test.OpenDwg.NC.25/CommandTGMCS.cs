@@ -141,7 +141,6 @@ namespace dRz.Test.OpenDwg
 
             stw.Stop();
 
-
             string elapsedTime = stw.Elapsed.ToString();
 
             logger.Log($"Total {files.Length}, Read {reading}, Err {errors}: time {elapsedTime}", 1);
