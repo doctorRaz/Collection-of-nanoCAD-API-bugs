@@ -118,10 +118,10 @@ namespace dRz.Test.OpenDwg
 
             ed.WriteMessage($"Multicad: Total {files.Length}, Read {reading}, Err {errors}: time {elapsedTime}");
 
-            //GC.Collect();//todo чистим за собой
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
+            ////GC.Collect();//todo чистим за собой
+            //GC.Collect();
+            //GC.WaitForPendingFinalizers();
+            //GC.Collect();
 
         }
     }

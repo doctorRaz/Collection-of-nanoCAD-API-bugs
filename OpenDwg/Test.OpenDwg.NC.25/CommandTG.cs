@@ -113,9 +113,9 @@ namespace dRz.Test.OpenDwg
             //GC.Collect();//todo чистим за собой
 
 
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
+            //GC.Collect();
+            //GC.WaitForPendingFinalizers();
+            //GC.Collect();
         }
 
 

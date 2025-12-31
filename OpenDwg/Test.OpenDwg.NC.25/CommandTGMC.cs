@@ -149,9 +149,9 @@ namespace dRz.Test.OpenDwg
             ed.WriteMessage($"Teigha: Total {files.Length}, Read {reading}, Err {errors}: time {elapsedTime}");
 
             //вызов сборщика мусора сомнительно но пусть пока будет
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
+            //GC.Collect();
+            //GC.WaitForPendingFinalizers();
+            //GC.Collect();
         }
 
 
