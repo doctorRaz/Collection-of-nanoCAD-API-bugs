@@ -16,7 +16,8 @@
 ### Батл нового nanoCAD 26 vs проверенный nanoCAD 23.1
 
 
-![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/memory%20004.png)
+
+![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/перед_тестом_тд_загружен.png)
 
 23
 31-12-2025 17:36:53.58861: TGMC Total 11376, Read 11365, Err 11: time 00:13:29.9008262
