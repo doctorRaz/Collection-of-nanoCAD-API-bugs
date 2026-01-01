@@ -2,22 +2,16 @@
 
 ## .NET6.0
 
-
-
-
-
-
-
 ### Батл нового nanoCAD 26 vs nanoCAD 23.1 
 
-nanoCad`ы работают одновременно \
+nanoCad`ы работают одновременно
 
 #### в работе 1к файлов
 
-- Использованные ресурсы перед тестом, аддон загружен\
+1. Использованные ресурсы перед тестом, аддон загружен\
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/перед_тестом_тд_загружен.png)
 
-- - MC - открыть файл в `MultiCad`, закрыть\
+1. MC - открыть файл в `MultiCad`, закрыть\
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/MC.png)
 
 - MCD - открыть файл в `MultiCad`, закрыть, dispose\
