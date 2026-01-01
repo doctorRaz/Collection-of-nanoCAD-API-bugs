@@ -2,42 +2,53 @@
 
 ## .NET6.0
 
-### MCD vs MCDI nc23.1 на автозаполнялка.dwg (5к одинаковых файлов)
-
-> [!WARNING]
-> нано 23,1 бага: первый запуск в нк23,1 всегда не может прочитать мультикад сыплет ошибками
-> второй запуск работает Ок, возможно что то не прогружается (наномодуль?)
-> уже неважно никто чинить не будет
-
-
-- MCD -  `McDocument mcDocument; ` -- вне цикла
-- MCDI -  `McDocument mcDocument; ` -- внутри цикла
-- MC -  `McDocument mcDocument; ` -- внутри цикла, файл не диспозим по окончании, 23,1 фаталит на 7-м файле
-
-
-|CAD|Reader|Всего|Прочитано|Ошибок|Время|Примечание|
-|---|---|---|---|---|---|---|
-|nc23.1|MultiCad|5000|5000|0|000:16:15.5516999|MCD|
-|nc23.1|MultiCad|5000|5000|0|00:16:07.1505257|MCDI|
-
-31-12-2025 19:50:35.24983: MCDI Total 1000, Read 1000, Err 0: time 00:03:53.4231029
-31-12-2025 19:51:28.84361: MCD Total 1000, Read 1000, Err 0: time 00:04:17.4456428
-
-
-### Батл нового nanoCAD 26 vs проверенный nanoCAD 23.1
 
 
 
+
+
+
+### Батл нового nanoCAD 26 vs nanoCAD 23.1 
+
+nanoCad`ы работают одновременно \
+
+#### в работе 1к файлов
+
+- Использованные ресурсы перед тестом, аддон загружен\
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/перед_тестом_тд_загружен.png)
 
-23
-31-12-2025 17:36:53.58861: TGMC Total 11376, Read 11365, Err 11: time 00:13:29.9008262
-31-12-2025 17:58:26.45077: TG Total 11376, Read 11374, Err 2: time 00:13:27.5906732
+- - MC - открыть файл в `MultiCad`, закрыть\
+![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/MC.png)
+
+- MCD - открыть файл в `MultiCad`, закрыть, dispose\
+![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/MCD.png)
+
+- TG -  открыть файл в `Teigha`, закрыть\
+![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/TG.png)
+
+- TGMC - открыть файл в `Teigha`, получить открытый в `MultiCad`, закрыть\
+![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/TGMC.png)
+
+#### 4к файлов
+
+- TGMC - открыть файл в `Teigha`, получить открытый в `MultiCad`, закрыть
+![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/TGMG_4000.png)
+
+- MCD - открыть файл в `MultiCad`, закрыть, dispose\
+-> [!Note]
+> nannoCAD26 на 3572 файле завис напрочь, тест не завершен \
+![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/MCD_4000.png)
 
 
-Имя J nano360.exe	ИД пр... 15044	Состояние Выполняется	Имя польз... helper	ЦП 00	Память (акт... 38 348 К	Память (об... 42 348 К	Выделенная памя... 44 396 К	Путь к образу C:\Users\dRz\AppData\Roaming\Nanosoft\nano360\nano360.exe
-©nCadS.exe	18240	Выполняется	helper	00	727 800 К	243 236 К	1 162 692 К	C:\Program Files\Nanosoft\nanoCAD х64 23.1\nCadS.exe
-©nCadS.exe	16356	Выполняется	helper	00	5 187 984 К	302 740 К	5 805 728 К	C:\Program Files\Nanosoft\nanoCAD х64 26.0\nCadS.exe
+> [!WARNING]
+> нано 23,1 бага: первый запуск в нк23,1 всегда не может открыть файлы сыплет ошибками
+> второй запуск работает Ок (если при первом не упадет), возможно что то не прогружается (наномодуль?)
+> уже неважно никто чинить не будет
+
+> [!IMPORTANT]
+> по всей видимости в nanoCAD26 есть проблемы с утечкой памяти.\
+> несмотря на это целом nanoCAD26 мне показался более стабильным при работе с мультикад, \
+> если мультикад не требуется то nanoCAD23 более предпочтителен, как более быстрый и стабильный
 
 
 
@@ -60,3 +71,31 @@
 
 
 походу утечка памяти в NC26 все же имеет место быть
+
+
+---
+
+
+### MCD vs MCDI nc23.1 на автозаполнялка.dwg (5к одинаковых файлов)
+
+мои персональные тараканы
+
+> [!WARNING]
+> нано 23,1 бага: первый запуск в нк23,1 всегда не может прочитать средствами мультикад сыплет ошибками
+> второй запуск работает Ок, возможно что то не прогружается (наномодуль?)
+> уже неважно никто чинить не будет
+
+
+- MCD -  `McDocument mcDocument; ` -- вне цикла
+- MCDI -  `McDocument mcDocument; ` -- внутри цикла
+- MC -  `McDocument mcDocument; ` -- внутри цикла, файл не диспозим по окончании, 23,1 фаталит на 7-м файле \
+но можно запустить после предыдущих тестов
+
+
+|CAD|Reader|Всего|Прочитано|Ошибок|Время|Примечание|
+|---|---|---|---|---|---|:---:|
+|nc23.1|MultiCad|5000|5000|0|000:16:15.5516999|MCD|
+|nc23.1|MultiCad|5000|5000|0|00:16:07.1505257|MCDI|
+|nc23.1|MultiCad|1000|1000|0|00:02:33.5982096|MCD|
+|nc23.1|MultiCad|1000|1000|0|00:02:34.2624314|MCDI|
+|nc23.1|MultiCad|1000|1000|0|00:02:35.0562535|MC|
