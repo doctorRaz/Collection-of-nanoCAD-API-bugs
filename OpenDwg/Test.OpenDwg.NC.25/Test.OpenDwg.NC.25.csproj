@@ -20,8 +20,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MultiCAD.NET" Version="25.0.6785.4733" />
-		<PackageReference Include="nanoCAD.Platform.NET" Version="25.0.6785.4733" />
+		<PackageReference Include="MultiCAD.NET" Version="23.1.6324.4405" />
+		<PackageReference Include="nanoCAD.Platform.NET" Version="23.1.6324.4405" />
 	</ItemGroup>
 
 </Project>
