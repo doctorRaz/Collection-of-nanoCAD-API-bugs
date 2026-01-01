@@ -35,7 +35,8 @@
 
 1. MC 
 - открыть файл в `MultiCad`
-- закрыть\
+- закрыть
+
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/MC.png)
 
 1. MCD - открыть файл в `MultiCad`, закрыть, dispose\
