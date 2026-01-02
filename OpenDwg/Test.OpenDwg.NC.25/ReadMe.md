@@ -30,7 +30,8 @@
 
 ### 1к файлов
 
-1. Использованные ресурсы перед тестом, аддон загружен\
+1. Использованные ресурсы перед тестом, аддон загружен
+
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/перед_тестом_тд_загружен.png)
 
 1. MC 
@@ -39,21 +40,40 @@
 
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/MC.png)
 
-1. MCD - открыть файл в `MultiCad`, закрыть, dispose\
+1. MCD 
+- открыть файл в `MultiCad`
+- закрыть
+- dispose
+
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/MCD.png)
 
-1. TG -  открыть файл в `Teigha`, закрыть\
+1. TG 
+- открыть файл в `Teigha` `extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")`
+- закрыть
+
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/TG.png)
 
-1. TGMC - открыть файл в `Teigha`, получить открытый в `MultiCad`, закрыть\
+1. TGMC 
+- открыть файл в `Teigha` `extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")`
+- получить открытый в `MultiCad` `mcDocument = McDocumentsManager.GetDocument(file);`
+- закрыть
+
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/TGMC.png)
 
 ### 4к файлов
 
-1. TGMC - открыть файл в `Teigha`, получить открытый в `MultiCad`, закрыть
+1. TGMC 
+- открыть файл в `Teigha` `extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")`
+- получить открытый в `MultiCad` `mcDocument = McDocumentsManager.GetDocument(file);`
+- закрыть
+
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/TGMG_4000.png)
 
-1. MCD - открыть файл в `MultiCad`, закрыть, dispose\
+1. MCD 
+- открыть файл в `MultiCad`
+- закрыть
+- dispose
+
 > [!Note]
 > nannoCAD26 на 3572 файле завис напрочь, тест не завершен 
 
@@ -62,7 +82,7 @@
 
 > [!IMPORTANT]
 > на скринах видно, что по всей видимости в nanoCAD26 есть проблемы с утечкой памяти.\
-> несмотря на это в целом nanoCAD26 мне показался более стабильным, если не требуется обрабатывать тысяци файлов
+> несмотря на это в целом nanoCAD26 мне показался более стабильным, если не требуется обрабатывать тысячи файлов
 
 
 ### Результаты
