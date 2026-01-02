@@ -54,7 +54,10 @@
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/TG.png)
 
 1. TGMC 
-- открыть файл в `Teigha` `extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")`
+- открыть файл в `Teigha` 
+```csharp
+extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")
+```
 - получить открытый в `MultiCad` `mcDocument = McDocumentsManager.GetDocument(file);`
 - закрыть
 
@@ -63,7 +66,7 @@
 ### 4к файлов
 
 1. TGMC 
-- открыть файл в `Teigha` ```extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")```
+- открыть файл в `Teigha` `extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")`
 - получить открытый в `MultiCad` `mcDocument = McDocumentsManager.GetDocument(file);`
 - закрыть
 
