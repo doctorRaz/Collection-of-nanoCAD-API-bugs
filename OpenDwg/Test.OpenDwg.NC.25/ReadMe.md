@@ -35,30 +35,27 @@
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/перед_тестом_тд_загружен.png)
 
 1. MC 
-- открыть файл в `MultiCad`
+- открыть файл в *MultiCad*
 - закрыть
 
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/MC.png)
 
 1. MCD 
-- открыть файл в `MultiCad`
+- открыть файл в *MultiCad*
 - закрыть
 - dispose
 
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/MCD.png)
 
 1. TG 
-- открыть файл в `Teigha` `extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")`
+- открыть файл в *Teigha* `extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")`
 - закрыть
 
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/TG.png)
 
 1. TGMC 
-- открыть файл в `Teigha` 
-```csharp
-extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")
-```
-- получить открытый в `MultiCad` `mcDocument = McDocumentsManager.GetDocument(file);`
+- открыть файл в *Teigha* `extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")`
+- получить открытый в *MultiCad* `mcDocument = McDocumentsManager.GetDocument(file);`
 - закрыть
 
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/TGMC.png)
@@ -66,14 +63,14 @@ extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")
 ### 4к файлов
 
 1. TGMC 
-- открыть файл в `Teigha` `extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")`
-- получить открытый в `MultiCad` `mcDocument = McDocumentsManager.GetDocument(file);`
+- открыть файл в *Teigha* `extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")`
+- получить открытый в *MultiCad* `mcDocument = McDocumentsManager.GetDocument(file);`
 - закрыть
 
 ![memory](https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs/blob/main/OpenDwg/img/TGMG_4000.png)
 
 1. MCD 
-- открыть файл в `MultiCad`
+- открыть файл в *MultiCad*
 - закрыть
 - dispose
 
@@ -91,18 +88,20 @@ extDBase.ReadDwgFile(file, Db.FileOpenMode.OpenForReadAndAllShare, false, "")
 ### Результаты
 
 
-> [!WARNING]
-> Заготовка
-
-
 |CAD|Reader|Всего|Прочитано|Ошибок|Время|Примечание|
 |---|---|---|---|---|---|---|
-|23.1|Teigha|4000|4000|0|00:08:17.3445218|TG|
-|26|Teigha|4000|4000|0|<b>00:06:19.6759072</b> |TG|
-|AutoCAD|MultiCad|4000|4000|0|<b>00:04:39.5789037</b>|MC|
-|AutoCAD|MultiCad|4000|4000|0|<b>00:04:50.1422993</b>|MCDI|
-|nanoCAD|MultiCad|4000|4000|0|00:28:25.9152691|MCDI|
-|nanoCAD|Teigha->MultiCad|4000|3994|6|00:06:43.1897441|TGMC 6 файлов не открыл|
+|26.0|MultiCad|1000|1000|0|00:02:56.1310068|MC|
+|26.0|MultiCad|1000|1000|0|00:03:06.0906721|MCD|
+|23.1|MultiCad|1000|1000|0|00:02:54.5055909|MCD|
+|23.1|Teigha|1000|1000|0|00:00:51.3800222|TG|
+|26.0|Teigha|1000|1000|0|00:01:46.0101870|TG|
+|23.1|Teigha→MultiCad|1000|1000|0|00:00:55.2368675|TGMC|
+|26.0|Teigha→MultiCad|1000|1000|0|00:01:47.5935899|TGMC|
+|23.1|Teigha→MultiCad|4000|4000|0|00:04:17.9052528|TGMC|
+|26.0|Teigha→MultiCad|4000|4000|0|00:07:52.1370046|TGMC|
+|23.1|MultiCad|4000|4000|0|00:27:43.8395370|MCD|
+|26.0|MultiCad|4000|3572|-|-|MCD , завис|
+
 
 
 
