@@ -1,9 +1,4 @@
 ﻿using dRz.Test.OpenDwg;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
@@ -19,8 +14,8 @@ namespace ConsoleApp
             Logger logger = new Logger();
 
 
-            int count = 10 ;
-         //   logger.Log($"Total {count.ToString()} files");
+            int count = 10;
+            //   logger.Log($"Total {count.ToString()} files");
             Logger.Info($"Total {count.ToString()} files");
 
             int i = 0;
