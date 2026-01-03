@@ -29,16 +29,16 @@ namespace ConsoleApp
             NLog.LogManager.Configuration = config;
 
 
-            Logger.Info ($"----------------------");
+            Logger.Info($"----------------------");
 
 
-            Logger.Info ($"Info");
-            Logger.Trace ($"Trace");
-            Logger.Debug ($"Debug");
-            Logger.Warn ($"Warn");
-            Logger.Fatal ($"Fatal");
-            Logger.Error ($"Error");
-          
+            Logger.Info($"Info");
+            Logger.Trace($"Trace");
+            Logger.Debug($"Debug");
+            Logger.Warn($"Warn");
+            Logger.Fatal($"Fatal");
+            Logger.Error($"Error");
+
 
 
             return;
@@ -47,14 +47,14 @@ namespace ConsoleApp
             prop.TestProps();
 
 
-        
+
 
             #region Logger
 
 
-          var runnner = new LoggerRun();
+            var runnner = new LoggerRun();
 
-          runnner.Run();
+            runnner.Run();
 
             #endregion
 
