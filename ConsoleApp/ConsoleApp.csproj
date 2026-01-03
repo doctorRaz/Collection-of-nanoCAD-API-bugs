@@ -10,10 +10,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="..\OpenDwg\Test.OpenDwg.NC.25\Logger.cs" Link="Logger.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <PackageReference Include="NLog" Version="6.0.7" />
 	</ItemGroup>
 
