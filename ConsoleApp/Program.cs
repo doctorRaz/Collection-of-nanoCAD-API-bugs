@@ -1,6 +1,7 @@
 ﻿using NLog;
 using NLog.Config;
 using NLog.Targets;
+using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
@@ -8,33 +9,45 @@ namespace ConsoleApp
 {
     internal class Program
     {
+        internal static  int count = 10;
 
-        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 
         public static void ConfigureNLog([CallerMemberName] string caller = null)
         {
-            string date = DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture);
+            //string date = DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture);
 
-            var config = new LoggingConfiguration();
+            LoggingConfiguration config = new LoggingConfiguration();
 
             // Target для отдельного класса
-            var fileTarget = new FileTarget
+            FileTarget fileTarget = new FileTarget
             {
                 Name = $"{caller}",
-                FileName = $"{date}_{caller}.log",
-                //Layout = "${longdate} ${level:uppercase=true} ${message}"
+                FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}.log",
+                Layout = "${longdate} | " +
+                         "${level:uppercase=true} | " +
+                         "${callsite:className=true:methodName=true:includeSourcePath=false} | " +
+                         "Line:${callsite-linenumber} | " +
+                         "${message} | " +
+                         "${exception:format=ToString}"
             };
 
-            var fileTargetErr = new FileTarget
+            FileTarget fileTargetErr = new FileTarget
             {
                 Name = $"{caller}",
-                FileName = $"{date}_{caller}_Err.log",
-                //Layout = "${longdate} ${level:uppercase=true} ${message}"
+                FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}_Err.log",
+                Layout = "${longdate} | ${level:uppercase=true} | " +
+                         "${callsite:methodName=true} | " +
+                         "User:${aspnet-user-identity} | " +
+                         "Session:${aspnet-sessionid} | " +
+                         "Request:${aspnet-request-url} | " +
+                         "${message} | " +
+                         "${when:when=length('${exception}')>0:Inner=${newline}StackTrace: ${exception:format=StackTrace}}"
             };
 
             config.AddRule(LogLevel.Trace, LogLevel.Warn, fileTarget);
-             config.AddRule(LogLevel.Error, LogLevel.Fatal, fileTargetErr);
+            config.AddRule(LogLevel.Error, LogLevel.Fatal, fileTargetErr);
 
             //config.AddTarget(fileTarget);
 
@@ -50,6 +63,7 @@ namespace ConsoleApp
             ConfigureNLog();
 
             //https://nlog-project.org/
+
             /*
 
             LoggingConfiguration config = new NLog.Config.LoggingConfiguration();
@@ -71,6 +85,14 @@ namespace ConsoleApp
             LogManager.Configuration = config;
             */
 
+
+            var sw = new  Stopwatch();
+
+            sw.Start();
+
+            for(int i=0;i<=count;i++)
+          {            
+            log.Warn($"************  {count} *************");
             log.Info("This is a message from {User}", "Mickey Donovan");
 
             var msg = new LogEventInfo(LogLevel.Info, "", "This is a message");
@@ -78,7 +100,6 @@ namespace ConsoleApp
             log.Info(msg);
 
             log.Info(string.Format("This is a message from {0}", "Mickey Donovan"));
-
 
             log.Trace($"Trace");
             log.Debug($"Debug");
@@ -88,11 +109,25 @@ namespace ConsoleApp
             log.Fatal($"Fatal");
 
             log.Error(new Exception(), "This is an error message");
+            }
 
             Class1 class1 = new Class1();
+
             class1.test1();
 
+            class1.test2();
 
+            class1.test3();
+
+             sw.Stop();
+
+
+            var elapsed = sw.Elapsed;
+
+
+            Console.WriteLine(elapsed.ToString());
+
+            Console.ReadKey();
         }
     }
 

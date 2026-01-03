@@ -10,9 +10,10 @@ namespace ConsoleApp
 
         //private static readonly Logger log = NLog.LogManager.GetCurrentClassLogger();
 
-        internal void test1()
+        internal void test3()
         {
             //Program.ConfigureNLog();
+
 
             for (int i = 0; i <= Program.count; i++)
             {
