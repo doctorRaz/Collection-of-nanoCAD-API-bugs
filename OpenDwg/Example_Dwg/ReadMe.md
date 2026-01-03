@@ -1,3 +1,4 @@
+# Проблемные файлы
 На этих файлах в nanoCAD, такая конструкция 
 `mcDocument = McDocumentsManager.GetDocument(file);` всегда возвращает null
 
