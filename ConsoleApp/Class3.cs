@@ -15,9 +15,9 @@ namespace ConsoleApp
             //Program.ConfigureNLog();
 
 
-            for (int i = 0; i <= Program.count; i++)
+            for (int i = 1; i <= Program.count; i++)
             {
-                log.Warn($"************  {Program.count} *************");
+                log.Warn($"************  {i} *************");
 
                 log.Trace($"Trace");
                 log.Info($"Info");

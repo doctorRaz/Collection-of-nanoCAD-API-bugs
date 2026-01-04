@@ -9,22 +9,30 @@ namespace ConsoleApp
 {
     internal class Program
     {
-        internal static  int count = 10;
+        internal static int count = 3;
 
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 
         public static void ConfigureNLog([CallerMemberName] string caller = null)
         {
-            //string date = DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture);
+            string date = DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture);
+
+            string appName = Services.CallerName(count);    
+
+            string name = "${callsite:className=false:methodName=true:includeSourcePath=false}";
+
+            string fileName = $"${{basedir}}/logs/{date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}_{appName}";
 
             LoggingConfiguration config = new LoggingConfiguration();
 
             // Target для отдельного класса
             FileTarget fileTarget = new FileTarget
             {
-                Name = $"{caller}",
-                FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}.log",
+                //Name = $"{caller}",
+                Name =name,// "${callsite:className=false:methodName=true:includeSourcePath=false}",
+                //FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}.log",
+                FileName =$"{fileName}.log",// $"${{basedir}}/logs/{date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}.log",
                 Layout = "${longdate} | " +
                          "${level:uppercase=true} | " +
                          "${callsite:className=true:methodName=true:includeSourcePath=false} | " +
@@ -35,11 +43,13 @@ namespace ConsoleApp
 
             FileTarget fileTargetErr = new FileTarget
             {
-                Name = $"{caller}",
-                FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}_Err.log",
+                //Name = $"{caller}",
+                Name =name,// "${callsite:className=false:methodName=true:includeSourcePath=false}_Err",
+                //FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}_Err.log",
+                FileName =$"{fileName}_Err.log",// $"${{basedir}}/logs/${date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}_Err.log",
                 Layout = "${longdate} | ${level:uppercase=true} | " +
                          "${callsite:methodName=true} | " +
-                         "User:${aspnet-user-identity} | " +
+                         "User[${windows-identity}] | " +
                          "Session:${aspnet-sessionid} | " +
                          "Request:${aspnet-request-url} | " +
                          "${message} | " +
@@ -86,29 +96,29 @@ namespace ConsoleApp
             */
 
 
-            var sw = new  Stopwatch();
+            var sw = new Stopwatch();
 
             sw.Start();
 
-            for(int i=0;i<=count;i++)
-          {            
-            log.Warn($"************  {count} *************");
-            log.Info("This is a message from {User}", "Mickey Donovan");
+            for (int i = 1; i <= count; i++)
+            {
+                log.Warn($"************  {i} *************");
+                log.Info("This is a message from {User}", "Mickey Donovan");
 
-            var msg = new LogEventInfo(LogLevel.Info, "", "This is a message");
-            msg.Properties.Add("User", "Ray Donovan");
-            log.Info(msg);
+                var msg = new LogEventInfo(LogLevel.Info, "", "This is a message");
+                msg.Properties.Add("User", "Ray Donovan");
+                log.Info(msg);
 
-            log.Info(string.Format("This is a message from {0}", "Mickey Donovan"));
+                log.Info(string.Format("This is a message from {0}", "Mickey Donovan"));
 
-            log.Trace($"Trace");
-            log.Debug($"Debug");
-            log.Info($"Info");
-            log.Warn($"Warn");
-            log.Error($"Error");
-            log.Fatal($"Fatal");
+                log.Trace($"Trace");
+                log.Debug($"Debug");
+                log.Info($"Info");
+                log.Warn($"Warn");
+                log.Error($"Error");
+                log.Fatal($"Fatal");
 
-            log.Error(new Exception(), "This is an error message");
+                log.Error(new Exception(), "This is an error message");
             }
 
             Class1 class1 = new Class1();
@@ -119,7 +129,7 @@ namespace ConsoleApp
 
             class1.test3();
 
-             sw.Stop();
+            sw.Stop();
 
 
             var elapsed = sw.Elapsed;
