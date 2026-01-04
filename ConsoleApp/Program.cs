@@ -14,11 +14,13 @@ namespace ConsoleApp
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 
-        public static void ConfigureNLog([CallerMemberName] string caller = null)
+
+
+        static void ConfigureNLog([CallerMemberName] string caller = null)
         {
             string date = DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture);
 
-            string appName = Services.CallerName(count);    
+            string appName = Services.CallerName(count);
 
             string name = "${callsite:className=false:methodName=true:includeSourcePath=false}";
 
@@ -30,9 +32,9 @@ namespace ConsoleApp
             FileTarget fileTarget = new FileTarget
             {
                 //Name = $"{caller}",
-                Name =name,// "${callsite:className=false:methodName=true:includeSourcePath=false}",
+                Name = name,// "${callsite:className=false:methodName=true:includeSourcePath=false}",
                 //FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}.log",
-                FileName =$"{fileName}.log",// $"${{basedir}}/logs/{date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}.log",
+                FileName = $"{fileName}.log",// $"${{basedir}}/logs/{date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}.log",
                 Layout = "${longdate} | " +
                          "${level:uppercase=true} | " +
                          "${callsite:className=true:methodName=true:includeSourcePath=false} | " +
@@ -44,9 +46,9 @@ namespace ConsoleApp
             FileTarget fileTargetErr = new FileTarget
             {
                 //Name = $"{caller}",
-                Name =name,// "${callsite:className=false:methodName=true:includeSourcePath=false}_Err",
+                Name = name,// "${callsite:className=false:methodName=true:includeSourcePath=false}_Err",
                 //FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}_Err.log",
-                FileName =$"{fileName}_Err.log",// $"${{basedir}}/logs/${date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}_Err.log",
+                FileName = $"{fileName}_Err.log",// $"${{basedir}}/logs/${date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}_Err.log",
                 Layout = "${longdate} | ${level:uppercase=true} | " +
                          "${callsite:methodName=true} | " +
                          "User[${windows-identity}] | " +

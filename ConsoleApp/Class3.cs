@@ -1,8 +1,4 @@
-﻿using NLog;
-using NLog.Config;
-using System;
-
-namespace ConsoleApp
+﻿namespace ConsoleApp
 {
 
     public partial class Class1
