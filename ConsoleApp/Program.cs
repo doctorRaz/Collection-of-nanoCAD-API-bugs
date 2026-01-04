@@ -1,22 +1,25 @@
 ﻿using NLog;
 using NLog.Config;
 using NLog.Targets;
+using NLog.Targets.Wrappers;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Xml;
 
 namespace ConsoleApp
 {
     internal class Program
     {
-        internal static int count = 3;
+        internal static int count = 100000;
 
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 
 
 
-        static void ConfigureNLog([CallerMemberName] string caller = null)
+        static void ConfigureNLog()
         {
             string date = DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture);
 
@@ -58,8 +61,36 @@ namespace ConsoleApp
                          "${when:when=length('${exception}')>0:Inner=${newline}StackTrace: ${exception:format=StackTrace}}"
             };
 
-            config.AddRule(LogLevel.Trace, LogLevel.Warn, fileTarget);
-            config.AddRule(LogLevel.Error, LogLevel.Fatal, fileTargetErr);
+            // Оборачиваем таргеты в асинхронные обертки
+            AsyncTargetWrapper asyncFileTarget = new AsyncTargetWrapper
+            {
+                Name = "async_" + name,
+                WrappedTarget = fileTarget,
+                QueueLimit = 10000,                     // Максимальный размер очереди
+                OverflowAction = AsyncTargetWrapperOverflowAction.Discard, // Действие при переполнении
+                TimeToSleepBetweenBatches = 50,         // Пауза между пакетами (мс)
+                BatchSize = 100                         // Размер пакета для записи
+            };
+
+            AsyncTargetWrapper asyncFileTargetErr = new AsyncTargetWrapper
+            {
+                Name = "async_" + name + "_Err",
+                WrappedTarget = fileTargetErr,
+                QueueLimit = 10000,
+                OverflowAction = AsyncTargetWrapperOverflowAction.Discard,
+                TimeToSleepBetweenBatches = 50,
+                BatchSize = 100
+            };
+
+
+
+
+
+
+            //config.AddRule(LogLevel.Trace, LogLevel.Warn, fileTarget);
+            //config.AddRule(LogLevel.Error, LogLevel.Fatal, fileTargetErr);
+            config.AddRule(LogLevel.Trace, LogLevel.Warn, asyncFileTarget);
+            config.AddRule(LogLevel.Error, LogLevel.Fatal, asyncFileTargetErr);
 
             //config.AddTarget(fileTarget);
 
@@ -73,6 +104,9 @@ namespace ConsoleApp
         {
 
             ConfigureNLog();
+
+            //NLog.GlobalDiagnosticsContext.Set("appName", Services.CallerName(count));
+
 
             //https://nlog-project.org/
 
