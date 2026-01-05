@@ -12,7 +12,7 @@ namespace ConsoleApp
 {
     internal class Program
     {
-        internal static int count = 100000;
+        internal static int count =  100000;
 
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
@@ -38,27 +38,36 @@ namespace ConsoleApp
                 Name = name,// "${callsite:className=false:methodName=true:includeSourcePath=false}",
                 //FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}.log",
                 FileName = $"{fileName}.log",// $"${{basedir}}/logs/{date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}.log",
-                Layout = "${longdate} | " +
-                         "${level:uppercase=true} | " +
-                         "${callsite:className=true:methodName=true:includeSourcePath=false} | " +
-                         "Line:${callsite-linenumber} | " +
-                         "${message} | " +
-                         "${exception:format=ToString}"
+                //Layout = "${longdate} | " +
+                //         "${level:uppercase=true} | " +
+                //         "${callsite:className=true:methodName=true:includeSourcePath=false} | " +
+                //         "Line:${callsite-linenumber} | " +
+                //         "${message} | " +
+                //         "${exception:format=ToString}"
             };
 
             FileTarget fileTargetErr = new FileTarget
             {
                 //Name = $"{caller}",
-                Name = name,// "${callsite:className=false:methodName=true:includeSourcePath=false}_Err",
+                Name = $"{name}_err",// "${callsite:className=false:methodName=true:includeSourcePath=false}_Err",
                 //FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}_Err.log",
                 FileName = $"{fileName}_Err.log",// $"${{basedir}}/logs/${date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}_Err.log",
-                Layout = "${longdate} | ${level:uppercase=true} | " +
-                         "${callsite:methodName=true} | " +
-                         "User[${windows-identity}] | " +
-                         "Session:${aspnet-sessionid} | " +
-                         "Request:${aspnet-request-url} | " +
-                         "${message} | " +
-                         "${when:when=length('${exception}')>0:Inner=${newline}StackTrace: ${exception:format=StackTrace}}"
+                //Layout = "${longdate} | ${level:uppercase=true} | " +
+                //         "${callsite:methodName=true} | " +
+                //         "User[${windows-identity}] | " +
+                //         "Session:${aspnet-sessionid} | " +
+                //         "Request:${aspnet-request-url} | " +
+                //         "${message} | " +
+                //         "${when:when=length('${exception}')>0:Inner=${newline}StackTrace: ${exception:format=StackTrace}}"
+            };
+
+
+            FileTarget fileTargetResult = new FileTarget
+            {
+                Name = $"{name}_result",
+
+                FileName ="${basedir}/logs/${shortdate}_result.log", // $"{fileName}_result.log",
+
             };
 
             // Оборачиваем таргеты в асинхронные обертки
@@ -83,14 +92,25 @@ namespace ConsoleApp
             };
 
 
+            AsyncTargetWrapper asyncFileTargetResult = new AsyncTargetWrapper
+            {
+                Name = "async_" + name + "_result",
+                WrappedTarget = fileTargetResult,
+                QueueLimit = 10000,
+                OverflowAction = AsyncTargetWrapperOverflowAction.Discard,
+                TimeToSleepBetweenBatches = 50,
+                BatchSize = 100
+            };
 
 
 
+            config.AddRule(LogLevel.Trace, LogLevel.Warn, fileTarget);
+            config.AddRule(LogLevel.Error, LogLevel.Fatal, fileTargetErr);
+            config.AddRuleForOneLevel(LogLevel.Warn, fileTargetResult);
 
-            //config.AddRule(LogLevel.Trace, LogLevel.Warn, fileTarget);
-            //config.AddRule(LogLevel.Error, LogLevel.Fatal, fileTargetErr);
-            config.AddRule(LogLevel.Trace, LogLevel.Warn, asyncFileTarget);
-            config.AddRule(LogLevel.Error, LogLevel.Fatal, asyncFileTargetErr);
+            //config.AddRule(LogLevel.Trace, LogLevel.Info, asyncFileTarget);
+            //config.AddRule(LogLevel.Error, LogLevel.Fatal, asyncFileTargetErr);
+            //config.AddRuleForOneLevel(LogLevel.Warn, asyncFileTargetResult);
 
             //config.AddTarget(fileTarget);
 
@@ -138,7 +158,7 @@ namespace ConsoleApp
 
             for (int i = 1; i <= count; i++)
             {
-                log.Warn($"************  {i} *************");
+                log.Trace($"************  {i} *************");
                 log.Info("This is a message from {User}", "Mickey Donovan");
 
                 var msg = new LogEventInfo(LogLevel.Info, "", "This is a message");
@@ -150,7 +170,7 @@ namespace ConsoleApp
                 log.Trace($"Trace");
                 log.Debug($"Debug");
                 log.Info($"Info");
-                log.Warn($"Warn");
+                //log.Warn($"Warn");
                 log.Error($"Error");
                 log.Fatal($"Fatal");
 
@@ -169,11 +189,13 @@ namespace ConsoleApp
 
 
             var elapsed = sw.Elapsed;
+            log.Warn($"total time: {elapsed.ToString()}");
 
+            LogManager.Shutdown();
 
             Console.WriteLine(elapsed.ToString());
 
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 
