@@ -23,10 +23,10 @@ namespace dRz.Test.OpenDwg
     public partial class CommandMCD
     {
         /// <summary>
-        /// тоже что и в МС
-        /// добавлен  mcDocument.Dispose()
-        /// АК 4к файлов 4 минуты
-        /// нк 4к файлов 28 минут, вешает систему, но работу продолжает
+        /// тоже что и в МС<br/>
+        /// добавлен  mcDocument.Dispose()<br/>
+        /// АК 4к файлов 4 минуты<br/>
+        /// нк 4к файлов 28 минут, вешает систему, но работу продолжает<br/>
         /// </summary>
         [CommandMethod("тдмд")]
         [Description("открытие файлов в цикле в Мультикаде")]
@@ -70,7 +70,6 @@ namespace dRz.Test.OpenDwg
                 logger.Log($"{counter} Opening {file}");
 
                 //если открыт то не нулл
-                /*McDocument*/
                 mcDocument = McDocumentsManager.GetDocument(file);
                 if (mcDocument == null)
                 {

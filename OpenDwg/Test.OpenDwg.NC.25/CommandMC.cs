@@ -23,12 +23,12 @@ namespace dRz.Test.OpenDwg
     public partial class CommandMC
     {
         /// <summary>
-        /// открытие файлов в цикле в Мультикаде
-        /// в АК 4к файлов 4минуты
-        /// в нк 4к файлов вылетает или виснет
+        /// открытие файлов в цикле в Мультикаде<br/>
+        /// в АК 4к файлов 4минуты<br/>
+        /// в нк 4к файлов вылетает или виснет<br/>
         /// </summary>
         [CommandMethod("тдм")]
-        [Description("открытие файлов в цикле в Мультикаде")]
+        [Description("открытие файлов в Multicad")]
         public static void MC()
         {
             Document doc = App.Application.DocumentManager.MdiActiveDocument;
@@ -40,6 +40,8 @@ namespace dRz.Test.OpenDwg
             Editor ed = doc.Editor;
 
             Stopwatch stw = new Stopwatch();
+
+
 
             string folder = Services.Browser();
             string[] files = Services.GetFilesOfDir(folder, true);
@@ -62,14 +64,14 @@ namespace dRz.Test.OpenDwg
             int counter = 0;
             int reading = 0;
             int errors = 0;
-            //McDocument mcDocument;//шаманство
+            McDocument mcDocument;//шаманство
             foreach (string file in files)
             {
                 counter++;
                 logger.Log($"{counter} Opening {file}");
 
                 //если открыт то не нулл
-                McDocument mcDocument = McDocumentsManager.GetDocument(file);
+                mcDocument = McDocumentsManager.GetDocument(file);
                 if (mcDocument == null)
                 {
                     mcDocument = McDocumentsManager.OpenDocument(file, false, true);
