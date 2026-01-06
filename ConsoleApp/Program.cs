@@ -11,6 +11,30 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
+
+
+
+            //string folder = @"c:\Users\dRz\AppData\Roaming\Nanosoft\nanoCAD x64 26.0\";
+            string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+            string Ppath = Path.Combine(appData, @"Nanosoft\nanoCAD x64 26.0\");
+
+            int a = 4000;//сколько файлов хотим прогнать
+                       
+            int b = 43;
+
+            int c = (a + b - 1) / b;
+
+
+            double ff =(double) a / b;
+
+
+
+            int numberRepeats = (int)Math.Ceiling( ff);//повторов в цикле
+
+
+
+
             //https://nlog-project.org/
 
             string date = DateTime.Now.ToString("yyyyMMdd", CultureInfo.InvariantCulture);

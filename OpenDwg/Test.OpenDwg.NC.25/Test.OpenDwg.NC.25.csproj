@@ -22,6 +22,7 @@
 	<ItemGroup>
 		<PackageReference Include="MultiCAD.NET" Version="23.1.6324.4405" />
 		<PackageReference Include="nanoCAD.Platform.NET" Version="23.1.6324.4405" />
+		<PackageReference Include="NLog" Version="6.0.7" />
 	</ItemGroup>
 
 </Project>
