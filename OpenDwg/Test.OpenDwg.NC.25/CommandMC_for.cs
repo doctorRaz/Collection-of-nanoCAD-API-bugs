@@ -3,6 +3,8 @@ using System.Diagnostics;
 using Multicad.DatabaseServices;
 using static dRz.Test.OpenDwg.ServicesTG;
 using System;
+using System.IO;
+
 
 
 
@@ -48,8 +50,8 @@ namespace dRz.Test.OpenDwg
 
             int manyFiles = 10000;//сколько файлов хотим прогнать
 
-            //string folder = @"c:\Users\dRz\AppData\Roaming\Nanosoft\nanoCAD x64 26.0\";
-            string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            //string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            //string folder = Path.Combine(appData, @"Nanosoft\nanoCAD x64 26.0\");
 
             string folder = Services.Browser();
 

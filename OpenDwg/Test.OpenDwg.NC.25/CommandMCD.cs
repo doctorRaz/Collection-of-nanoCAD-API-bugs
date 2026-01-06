@@ -95,7 +95,7 @@ namespace dRz.Test.OpenDwg
 
                 logger.Log($"\t\tClosed {file}");
 
-                mcDocument.Dispose(); //todo костыль
+                mcDocument.Dispose(); //todo костыль диспозить если открывали
 
             }
 
