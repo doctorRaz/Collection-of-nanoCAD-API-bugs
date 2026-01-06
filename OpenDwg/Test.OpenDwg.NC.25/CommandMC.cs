@@ -18,6 +18,16 @@ using Autodesk.AutoCAD.EditorInput;
 
 #endif
 
+/*
+    рекомендую этот тест запустить на наборе dwg\4к\2k\1k1\500_\
+    
+    с mcDocument.Dispose() тест пройдет??
+
+*/
+
+
+
+
 namespace dRz.Test.OpenDwg
 {
     public partial class CommandMC
@@ -64,7 +74,7 @@ namespace dRz.Test.OpenDwg
             int counter = 0;
             int reading = 0;
             int errors = 0;
-            McDocument mcDocument;//шаманство
+            McDocument mcDocument;
             foreach (string file in files)
             {
                 counter++;
