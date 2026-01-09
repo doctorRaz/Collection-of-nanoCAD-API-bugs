@@ -12,7 +12,7 @@ namespace ConsoleApp
 {
     internal class Program
     {
-        internal static int count =  100000;
+        internal static int count = 1000000;
 
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
@@ -66,7 +66,7 @@ namespace ConsoleApp
             {
                 Name = $"{name}_result",
 
-                FileName ="${basedir}/logs/${shortdate}_result.log", // $"{fileName}_result.log",
+                FileName = "${basedir}/logs/${shortdate}_result.log", // $"{fileName}_result.log",
 
             };
 
@@ -123,9 +123,14 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
 
-            ConfigureNLog();
+            //ConfigureNLog();
 
-            //NLog.GlobalDiagnosticsContext.Set("appName", Services.CallerName(count));
+            GlobalDiagnosticsContext.Set("appName", Services.CallerName(count));
+
+            string logTimestamp = $"{DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture)}_";
+
+            GlobalDiagnosticsContext.Set("logTimestamp", logTimestamp);
+
 
 
             //https://nlog-project.org/
@@ -170,7 +175,7 @@ namespace ConsoleApp
                 log.Trace($"Trace");
                 log.Debug($"Debug");
                 log.Info($"Info");
-                //log.Warn($"Warn");
+                log.Warn($"Warn");
                 log.Error($"Error");
                 log.Fatal($"Fatal");
 
@@ -179,23 +184,43 @@ namespace ConsoleApp
 
             Class1 class1 = new Class1();
 
+            //Thread.Sleep(1000);
+            //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
             class1.test1();
 
+            //Thread.Sleep(1000);
+            //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
             class1.test2();
 
+            //Thread.Sleep(1000);
+            //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
             class1.test3();
+
 
             sw.Stop();
 
 
             var elapsed = sw.Elapsed;
-            log.Warn($"total time: {elapsed.ToString()}");
+            log.Info($"total time: {elapsed.ToString()}");
 
-            LogManager.Shutdown();
+            
+            int x = 0;
+            try
+            {
+                int y = 10 / x;
 
-            Console.WriteLine(elapsed.ToString());
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, ex.Message);
+            }
 
-            //Console.ReadKey();
+          
+            //LogManager.Shutdown();
+
+            Console.WriteLine($"the end {elapsed.ToString()}");
+
+            Console.ReadKey();
         }
     }
 

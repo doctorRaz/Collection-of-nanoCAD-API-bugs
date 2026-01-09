@@ -18,7 +18,7 @@
                 log.Trace($"Trace");
                 log.Info($"Info");
                 log.Debug($"Debug");
-                //log.Warn($"Warn");
+                log.Warn($"Warn");
                 log.Error($"Error");
                 log.Fatal($"Fatal");
             }

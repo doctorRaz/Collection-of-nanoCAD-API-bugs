@@ -10,13 +10,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="NLog" Version="6.0.7" />
+		<PackageReference Include="NLog" Version="6.0.7" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Update="nlog.config">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="@echo off&#xD;&#xA;IF $(ConfigurationName)==Debug (&#xD;&#xA;    copy &quot;$(ProjectDir)\Config\NLog.debug.config&quot; &quot;$(OutDir)\NLog.config&quot;&#xD;&#xA;)&#xD;&#xA;IF $(ConfigurationName)==Release (&#xD;&#xA;    copy &quot;$(ProjectDir)\Config\NLog.release.config&quot; &quot;$(OutDir)\NLog.config&quot;&#xD;&#xA;)" />
+	</Target>
+
+
 
 </Project>
