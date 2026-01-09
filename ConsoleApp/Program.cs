@@ -5,6 +5,7 @@ using NLog.Targets.Wrappers;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
 
@@ -12,6 +13,8 @@ namespace ConsoleApp
 {
     internal class Program
     {
+          //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(AppDomain_CurrentDomain_UnhandledException);
+
         internal static int count = 1;
 
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
@@ -209,11 +212,10 @@ namespace ConsoleApp
             }
             catch (Exception ex)
             {
-                log.Error(ex/*, ex.Message*/);
-                log.Error("-------------------------");
+                log.Error(ex);
+                log.Info("---------------");
+                log.Error($"{ex.Message}: {ex.StackTrace}");
 
-                log.Error("-------------------------");
-                log.Error($"{ex.StackTrace}|{ex.Message}");
             }
 
             log.Info("Performance metrics: " +
@@ -234,7 +236,17 @@ namespace ConsoleApp
         }
 
 
+
+        static void AppDomain_CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            // use logger here to log the events exception object
+            // before the application quits
+
+            log.Error(  e/*, ex.Message*/);
+        }
+
     }
+      
 
 
 }
