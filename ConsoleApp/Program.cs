@@ -12,12 +12,9 @@ namespace ConsoleApp
 {
     internal class Program
     {
-        internal static int count = 1000000;
+        internal static int count = 1;
 
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
-
-
-
 
         static void ConfigureNLog()
         {
@@ -203,7 +200,7 @@ namespace ConsoleApp
             var elapsed = sw.Elapsed;
             log.Info($"total time: {elapsed.ToString()}");
 
-            
+
             int x = 0;
             try
             {
@@ -212,16 +209,31 @@ namespace ConsoleApp
             }
             catch (Exception ex)
             {
-                log.Error(ex, ex.Message);
+                log.Error(ex/*, ex.Message*/);
+                log.Error("-------------------------");
+
+                log.Error("-------------------------");
+                log.Error($"{ex.StackTrace}|{ex.Message}");
             }
 
-          
+            log.Info("Performance metrics: " +
+        "Memory: {MemoryUsage}MB, " +
+        /*   "CPU: {CpuUsage}%, " +*/
+        "Threads: {ThreadCount}, " +
+        "Handles: {HandleCount}",
+        Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024,
+        /*GetCpuUsage(),*/
+        Process.GetCurrentProcess().Threads.Count,
+        Process.GetCurrentProcess().HandleCount);
+
             //LogManager.Shutdown();
 
             Console.WriteLine($"the end {elapsed.ToString()}");
 
             Console.ReadKey();
         }
+
+
     }
 
 
