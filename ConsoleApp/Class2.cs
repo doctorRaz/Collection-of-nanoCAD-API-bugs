@@ -12,6 +12,8 @@ namespace ConsoleApp
         {
             //Program.ConfigureNLog();
 
+            test3();
+
             for (int i = 1; i <= Program.count; i++)
             {
                 log.Trace($"************  {i} *************");

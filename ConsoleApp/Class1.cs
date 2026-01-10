@@ -13,6 +13,8 @@ namespace ConsoleApp
         {
             //Program.ConfigureNLog();
 
+            test2();
+
             //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
 
             for (int i = 1; i <= Program.count; i++)

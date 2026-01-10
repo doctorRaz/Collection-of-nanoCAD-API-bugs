@@ -13,7 +13,7 @@ namespace ConsoleApp
 {
     internal class Program
     {
-          //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(AppDomain_CurrentDomain_UnhandledException);
+        //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(AppDomain_CurrentDomain_UnhandledException);
 
         internal static int count = 1;
 
@@ -161,6 +161,18 @@ namespace ConsoleApp
 
             sw.Start();
 
+
+            log.Info("Performance metrics: " +
+                    "Memory: {MemoryUsage}MB, " +
+                    /*   "CPU: {CpuUsage}%, " +*/
+                    "Threads: {ThreadCount}, " +
+                    "Handles: {HandleCount}",
+                    Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024,
+                    /*GetCpuUsage(),*/
+                    Process.GetCurrentProcess().Threads.Count,
+                    Process.GetCurrentProcess().HandleCount);
+
+
             for (int i = 1; i <= count; i++)
             {
                 log.Trace($"************  {i} *************");
@@ -184,18 +196,40 @@ namespace ConsoleApp
 
             Class1 class1 = new Class1();
 
-            //Thread.Sleep(1000);
-            //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
-            class1.test1();
+            try
+            {
 
-            //Thread.Sleep(1000);
-            //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
-            class1.test2();
 
-            //Thread.Sleep(1000);
-            //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
-            class1.test3();
+                //Thread.Sleep(1000);
+                //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
+                class1.test1();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
 
+            try
+            {
+                //Thread.Sleep(1000);
+                //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
+                class1.test2();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            try
+            {
+                //Thread.Sleep(1000);
+                //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
+                class1.test3();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
 
             sw.Stop();
 
@@ -213,20 +247,19 @@ namespace ConsoleApp
             catch (Exception ex)
             {
                 log.Error(ex);
-                log.Info("---------------");
-                log.Error($"{ex.Message}: {ex.StackTrace}");
-
             }
 
+             int y0 = 10 / x;
+
             log.Info("Performance metrics: " +
-        "Memory: {MemoryUsage}MB, " +
-        /*   "CPU: {CpuUsage}%, " +*/
-        "Threads: {ThreadCount}, " +
-        "Handles: {HandleCount}",
-        Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024,
-        /*GetCpuUsage(),*/
-        Process.GetCurrentProcess().Threads.Count,
-        Process.GetCurrentProcess().HandleCount);
+                    "Memory: {MemoryUsage}MB, " +
+                    /*   "CPU: {CpuUsage}%, " +*/
+                    "Threads: {ThreadCount}, " +
+                    "Handles: {HandleCount}",
+                    Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024,
+                    /*GetCpuUsage(),*/
+                    Process.GetCurrentProcess().Threads.Count,
+                    Process.GetCurrentProcess().HandleCount);
 
             //LogManager.Shutdown();
 
@@ -242,11 +275,11 @@ namespace ConsoleApp
             // use logger here to log the events exception object
             // before the application quits
 
-            log.Error(  e/*, ex.Message*/);
+            log.Error(e/*, ex.Message*/);
         }
 
     }
-      
+
 
 
 }
