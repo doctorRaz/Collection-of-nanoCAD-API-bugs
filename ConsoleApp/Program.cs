@@ -1,5 +1,6 @@
 ﻿using NLog;
 using NLog.Config;
+
 using NLog.Targets;
 using NLog.Targets.Wrappers;
 using System.Diagnostics;
@@ -131,7 +132,37 @@ namespace ConsoleApp
 
             GlobalDiagnosticsContext.Set("logTimestamp", logTimestamp);
 
+            try
+            {
+                log.ForInfoEvent()
+                   .Message("Начало работы")
+                   .Property("userId", "u42")
+                   .Property("property1", 123)
+                   .Log();
 
+                int e=0 ;
+
+                int ii=10/e;
+            }
+            catch (Exception ex)
+            {
+                log.ForErrorEvent()       
+                   .Exception(ex)
+                   .Property("userId", "u42")
+                   .Property("property1", 123)
+                   .Log();
+
+                log.Info("Продолжение работы после ошибки");
+
+                log.Error(ex);
+
+            }
+            finally
+            {
+                LogManager.Shutdown();
+            }
+
+            return;
 
             //https://nlog-project.org/
 
