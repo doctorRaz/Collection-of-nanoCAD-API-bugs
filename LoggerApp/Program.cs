@@ -159,10 +159,10 @@ namespace ConsoleApp
             }
             finally
             {
-                LogManager.Shutdown();
+                //LogManager.Shutdown();
             }
 
-            return;
+            //return;
 
             //https://nlog-project.org/
 
