@@ -246,10 +246,14 @@ namespace ConsoleApp
             }
             catch (Exception ex)
             {
-                log.Error(ex);
+                using (ScopeContext.PushProperty("property1", $"{x} err"))
+                {
+                    log.Error(ex);
+
+                }
             }
 
-             int y0 = 10 / x;
+
 
             log.Info("Performance metrics: " +
                     "Memory: {MemoryUsage}MB, " +
