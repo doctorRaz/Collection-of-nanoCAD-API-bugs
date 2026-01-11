@@ -16,7 +16,7 @@ namespace ConsoleApp
     {
         //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(AppDomain_CurrentDomain_UnhandledException);
 
-        internal static int count = 1;
+        internal static int count = 1000;
 
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
@@ -262,11 +262,9 @@ namespace ConsoleApp
                 log.Error(ex);
             }
 
-            sw.Stop();
 
 
-            var elapsed = sw.Elapsed;
-            log.Info($"total time: {elapsed.ToString()}");
+        
 
 
             int x = 0;
@@ -297,6 +295,9 @@ namespace ConsoleApp
                     Process.GetCurrentProcess().HandleCount);
 
             //LogManager.Shutdown();
+            sw.Stop();
+            var elapsed = sw.Elapsed;
+            log.Info($"total time: {elapsed.ToString()}");
 
             Console.WriteLine($"the end {elapsed.ToString()}");
 
