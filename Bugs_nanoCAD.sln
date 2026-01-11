@@ -5,17 +5,17 @@ VisualStudioVersion = 18.3.11312.210
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nanoCAD.Samples.NET", "nanoCAD.Samples.NET\nanoCAD.Samples.NET.csproj", "{5118133C-9DDD-49F6-9BF3-F45A95387AE3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.OpenDwg.NC.25", "OpenDwg\Test.OpenDwg.NC.25\Test.OpenDwg.NC.25.csproj", "{C72090DA-3F2F-42B6-AB76-B9C08E2D2095}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.OpenDwg.AC.25", "OpenDwg\Test.OpenDwg.AC.25\Test.OpenDwg.AC.25.csproj", "{B60312D9-E9AB-492C-B53B-019F49234222}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenDwg", "OpenDwg", "{D96AB814-75B7-4612-ACD0-1F6945E57141}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{8D4CCC2E-41DE-414A-A332-7C50B8F6393B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerApp", "LoggerApp\LoggerApp.csproj", "{DE2619C4-B9B6-FC40-FF19-C324824F095D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{B8A3FBFD-A877-AB3A-3856-A3E51268C209}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.OpenDwg.NC.26.0", "OpenDwg\Test.OpenDwg.NC.26.0\Test.OpenDwg.NC.26.0.csproj", "{C47632A2-C5B7-840C-DA33-489EBD557227}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.OpenDwg.NC.23.1", "OpenDwg\Test.OpenDwg.NC.23.1\Test.OpenDwg.NC.23.1.csproj", "{F7042D62-F981-8306-7CE2-2295E5BE2A27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,6 @@ Global
 		{5118133C-9DDD-49F6-9BF3-F45A95387AE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5118133C-9DDD-49F6-9BF3-F45A95387AE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5118133C-9DDD-49F6-9BF3-F45A95387AE3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C72090DA-3F2F-42B6-AB76-B9C08E2D2095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C72090DA-3F2F-42B6-AB76-B9C08E2D2095}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C72090DA-3F2F-42B6-AB76-B9C08E2D2095}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C72090DA-3F2F-42B6-AB76-B9C08E2D2095}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B60312D9-E9AB-492C-B53B-019F49234222}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B60312D9-E9AB-492C-B53B-019F49234222}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B60312D9-E9AB-492C-B53B-019F49234222}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -43,13 +39,22 @@ Global
 		{B8A3FBFD-A877-AB3A-3856-A3E51268C209}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8A3FBFD-A877-AB3A-3856-A3E51268C209}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8A3FBFD-A877-AB3A-3856-A3E51268C209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C47632A2-C5B7-840C-DA33-489EBD557227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C47632A2-C5B7-840C-DA33-489EBD557227}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C47632A2-C5B7-840C-DA33-489EBD557227}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C47632A2-C5B7-840C-DA33-489EBD557227}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7042D62-F981-8306-7CE2-2295E5BE2A27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7042D62-F981-8306-7CE2-2295E5BE2A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7042D62-F981-8306-7CE2-2295E5BE2A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7042D62-F981-8306-7CE2-2295E5BE2A27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C72090DA-3F2F-42B6-AB76-B9C08E2D2095} = {D96AB814-75B7-4612-ACD0-1F6945E57141}
 		{B60312D9-E9AB-492C-B53B-019F49234222} = {D96AB814-75B7-4612-ACD0-1F6945E57141}
+		{C47632A2-C5B7-840C-DA33-489EBD557227} = {D96AB814-75B7-4612-ACD0-1F6945E57141}
+		{F7042D62-F981-8306-7CE2-2295E5BE2A27} = {D96AB814-75B7-4612-ACD0-1F6945E57141}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {738997BF-643B-45EC-8F2F-C718B1430A7A}

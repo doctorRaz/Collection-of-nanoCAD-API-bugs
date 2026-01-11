@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
+		<TargetFramework>net6.0-windows7.0</TargetFramework>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<RootNamespace>dRz.Test.OpenDwg</RootNamespace>
@@ -15,10 +15,10 @@
 		<!--<AssemblySearchPaths>..\..\..\inc\;$(AssemblySearchPaths)</AssemblySearchPaths>-->
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DefineConstants>$(DefineConstants);AC</DefineConstants>
+		<DefineConstants>$(DefineConstants);NC</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DefineConstants>$(DefineConstants);AC</DefineConstants>
+		<DefineConstants>$(DefineConstants);NC</DefineConstants>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Include="..\Test.OpenDwg.NC.23.1\CommandMC.cs" Link="CommandMC.cs" />
@@ -26,18 +26,25 @@
 		<Compile Include="..\Test.OpenDwg.NC.23.1\CommandMC_for.cs" Link="CommandMC_for.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.23.1\CommandTG.cs" Link="CommandTG.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.23.1\CommandTGMC.cs" Link="CommandTGMC.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.23.1\ConfigNLog.cs" Link="ConfigNLog.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.23.1\InitCmd.cs" Link="InitCmd.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.23.1\Logger.cs" Link="Logger.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.23.1\Logging.cs" Link="Logging.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.23.1\Services.cs" Link="Services.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.23.1\ServicesTG.cs" Link="ServicesTG.cs" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="AutoCAD.NET" Version="25.0.1" />
-		<PackageReference Include="AutoCAD.NET.Core" Version="25.0.0" />
 		<PackageReference Include="MultiCAD.NET" Version="25.0.6785.4733" />
+		<PackageReference Include="nanoCAD.Platform.NET" Version="25.0.6785.4733" />
 		<PackageReference Include="NLog" Version="6.0.7" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Test.OpenDwg.NC.26.0\Test.OpenDwg.NC.26.0.csproj" />
+	  <Folder Include="Config\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="..\Test.OpenDwg.NC.23.1\Config\NLog - Копировать.config" Link="Config\NLog - Копировать.config" />
+	  <None Include="..\Test.OpenDwg.NC.23.1\Config\NLog.debug.config" Link="Config\NLog.debug.config" />
+	  <None Include="..\Test.OpenDwg.NC.23.1\Config\NLog.release.config" Link="Config\NLog.release.config" />
+	  <None Include="..\Test.OpenDwg.NC.23.1\Config\Target_AutoCadCommandLine.config" Link="Config\Target_AutoCadCommandLine.config" />
 	</ItemGroup>
 </Project>

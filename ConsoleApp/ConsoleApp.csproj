@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="..\OpenDwg\Test.OpenDwg.NC.25\Logger.cs" Link="Logger.cs" />
+		<Compile Include="..\OpenDwg\Test.OpenDwg.NC.23.1\Logger.cs" Link="Logger.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
