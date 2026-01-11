@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.IO;
 
-#if NC
+#if NC||NC26
 using cad = HostMgd.ApplicationServices.Application;
 using Teigha.DatabaseServices;
 using HostMgd.EditorInput;
@@ -18,7 +18,7 @@ using cad = Autodesk.AutoCAD.ApplicationServices.Application;// ApplicationServi
 
 namespace dRz.Test.OpenDwg
 {
-    internal class ServicesTG
+    internal class ServicesCAD
     {
 
         internal static string GetFileOpenDocProperties(string title = "Выберите файл для открытия")

@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using Multicad.DatabaseServices;
-using static dRz.Test.OpenDwg.ServicesTG;
+using static dRz.Test.OpenDwg.ServicesCAD;
 using System;
 using System.IO;
 
 
 
 
-#if NC
+#if NC||NC26
 using HostMgd.ApplicationServices;
 using HostMgd.EditorInput;
 using Teigha.Runtime;
@@ -84,7 +84,7 @@ namespace dRz.Test.OpenDwg
             //пока не упадет или не повиснет
             for (int i = 0; i < numberRepeats; i++)
             {
-                McDocument mcDocument;
+
                 foreach (string file in files)
                 {
 
@@ -92,7 +92,7 @@ namespace dRz.Test.OpenDwg
                     logger.Log($"{counter} Opening {file}");
 
                     //если открыт то не нулл
-                    mcDocument = McDocumentsManager.GetDocument(file);
+                    McDocument mcDocument = McDocumentsManager.GetDocument(file);
 
                     if (mcDocument == null)
                     {

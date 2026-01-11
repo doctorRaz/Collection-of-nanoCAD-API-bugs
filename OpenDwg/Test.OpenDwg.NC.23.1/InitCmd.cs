@@ -1,4 +1,4 @@
-﻿#if NC
+﻿#if NC||NC26
 using HostMgd.ApplicationServices;
 using HostMgd.EditorInput;
 using Teigha.Runtime;

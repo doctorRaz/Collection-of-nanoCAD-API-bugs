@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
-using static dRz.Test.OpenDwg.ServicesTG;
+using static dRz.Test.OpenDwg.ServicesCAD;
 using Multicad.DatabaseServices;
 
 
 
-#if NC
+#if NC||NC26
 using Teigha.DatabaseServices;
 using Teigha.Runtime;
 using App = HostMgd.ApplicationServices;

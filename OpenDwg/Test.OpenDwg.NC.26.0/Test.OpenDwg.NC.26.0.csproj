@@ -15,10 +15,10 @@
 		<!--<AssemblySearchPaths>..\..\..\inc\;$(AssemblySearchPaths)</AssemblySearchPaths>-->
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DefineConstants>$(DefineConstants);NC</DefineConstants>
+		<DefineConstants>$(DefineConstants);NC26</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DefineConstants>$(DefineConstants);NC</DefineConstants>
+		<DefineConstants>$(DefineConstants);NC26</DefineConstants>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Include="..\Test.OpenDwg.NC.23.1\CommandMC.cs" Link="CommandMC.cs" />
@@ -31,7 +31,7 @@
 		<Compile Include="..\Test.OpenDwg.NC.23.1\Logger.cs" Link="Logger.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.23.1\Logging.cs" Link="Logging.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.23.1\Services.cs" Link="Services.cs" />
-		<Compile Include="..\Test.OpenDwg.NC.23.1\ServicesTG.cs" Link="ServicesTG.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.23.1\ServicesCAD.cs" Link="ServicesCAD.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="MultiCAD.NET" Version="25.0.6785.4733" />

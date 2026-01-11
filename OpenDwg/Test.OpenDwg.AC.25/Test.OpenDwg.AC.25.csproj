@@ -29,7 +29,7 @@
 		<Compile Include="..\Test.OpenDwg.NC.23.1\InitCmd.cs" Link="InitCmd.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.23.1\Logger.cs" Link="Logger.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.23.1\Services.cs" Link="Services.cs" />
-		<Compile Include="..\Test.OpenDwg.NC.23.1\ServicesTG.cs" Link="ServicesTG.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.23.1\ServicesCAD.cs" Link="ServicesCAD.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="AutoCAD.NET" Version="25.0.1" />
