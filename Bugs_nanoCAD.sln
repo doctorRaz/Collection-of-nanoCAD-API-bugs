@@ -5,7 +5,7 @@ VisualStudioVersion = 18.3.11312.210
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nanoCAD.Samples.NET", "nanoCAD.Samples.NET\nanoCAD.Samples.NET.csproj", "{5118133C-9DDD-49F6-9BF3-F45A95387AE3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.OpenDwg.AC.25", "OpenDwg\Test.OpenDwg.AC.25\Test.OpenDwg.AC.25.csproj", "{B60312D9-E9AB-492C-B53B-019F49234222}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDwg.AC.25", "OpenDwg\OpenDwg.AC.25\OpenDwg.AC.25.csproj", "{B60312D9-E9AB-492C-B53B-019F49234222}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenDwg", "OpenDwg", "{D96AB814-75B7-4612-ACD0-1F6945E57141}"
 EndProject
@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerApp", "LoggerApp\Logg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{B8A3FBFD-A877-AB3A-3856-A3E51268C209}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.OpenDwg.NC.26.0", "OpenDwg\Test.OpenDwg.NC.26.0\Test.OpenDwg.NC.26.0.csproj", "{C47632A2-C5B7-840C-DA33-489EBD557227}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDwg.NC.26.0", "OpenDwg\OpenDwg.NC.26.0\OpenDwg.NC.26.0.csproj", "{C47632A2-C5B7-840C-DA33-489EBD557227}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.OpenDwg.NC.23.1", "OpenDwg\Test.OpenDwg.NC.23.1\Test.OpenDwg.NC.23.1.csproj", "{F7042D62-F981-8306-7CE2-2295E5BE2A27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDwg.NC.23.1", "OpenDwg\OpenDwg.NC.23.1\OpenDwg.NC.23.1.csproj", "{F7042D62-F981-8306-7CE2-2295E5BE2A27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

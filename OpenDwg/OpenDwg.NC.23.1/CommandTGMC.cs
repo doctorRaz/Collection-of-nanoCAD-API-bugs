@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
-using static dRz.Test.OpenDwg.ServicesCAD;
 using Multicad.DatabaseServices;
 using System;
 
@@ -56,7 +55,7 @@ namespace dRz.Test.OpenDwg
             string folder = Services.Browser();
             string[] files = Services.GetFilesOfDir(folder, true);
 
-            string sender = CallerName(files.Length);
+            string sender = ServicesCAD.CallerName(files.Length);
 
             Logger logger = new Logger($"{sender}");
 

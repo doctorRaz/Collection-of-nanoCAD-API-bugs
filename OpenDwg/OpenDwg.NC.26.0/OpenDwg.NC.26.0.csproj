@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows7.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<RootNamespace>dRz.Test.OpenDwg</RootNamespace>
+		<PlatformTarget>x64</PlatformTarget>
+		<UseWindowsForms>true</UseWindowsForms>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<BaseOutputPath>..\..\bin</BaseOutputPath>
+
+
+		<!--<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<OutputType>Library</OutputType>-->
+		<!--<AssemblySearchPaths>..\..\..\inc\;$(AssemblySearchPaths)</AssemblySearchPaths>-->
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DefineConstants>$(DefineConstants);NC26</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DefineConstants>$(DefineConstants);NC26</DefineConstants>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Include="..\OpenDwg.NC.23.1\CommandMC.cs" Link="CommandMC.cs" />
+		<Compile Include="..\OpenDwg.NC.23.1\CommandMCD.cs" Link="CommandMCD.cs" />
+		<Compile Include="..\OpenDwg.NC.23.1\CommandMC_for.cs" Link="CommandMC_for.cs" />
+		<Compile Include="..\OpenDwg.NC.23.1\CommandTG.cs" Link="CommandTG.cs" />
+		<Compile Include="..\OpenDwg.NC.23.1\CommandTGMC.cs" Link="CommandTGMC.cs" />
+		<Compile Include="..\OpenDwg.NC.23.1\InitCmd.cs" Link="InitCmd.cs" />
+		<Compile Include="..\OpenDwg.NC.23.1\Logger.cs" Link="Logger.cs" />
+		<Compile Include="..\OpenDwg.NC.23.1\Logging.cs" Link="Logging.cs" />
+		<Compile Include="..\OpenDwg.NC.23.1\Services.cs" Link="Services.cs" />
+		<Compile Include="..\OpenDwg.NC.23.1\ServicesCAD.cs" Link="ServicesCAD.cs" />
+		<Compile Include="..\OpenDwg.NC.23.1\McNotificationServise.cs" Link="McNotificationServise.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MultiCAD.NET" Version="25.0.6785.4733" />
+		<PackageReference Include="nanoCAD.Platform.NET" Version="25.0.6785.4733" />
+		<PackageReference Include="NLog" Version="6.0.7" />
+	</ItemGroup>
+
+</Project>

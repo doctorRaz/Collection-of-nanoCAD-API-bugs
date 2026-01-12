@@ -18,10 +18,12 @@ namespace ConsoleApp
 
         internal static int count = 1;
 
-        private static readonly Logger log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger log = LogManager.GetCurrentClassLogger();
 
         static void ConfigureNLog()
         {
+             
+
             string date = DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture);
 
             string appName = Services.CallerName(count);
@@ -123,7 +125,7 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
-
+  
             //ConfigureNLog();
 
             GlobalDiagnosticsContext.Set("appName", Services.CallerName(count));
@@ -134,11 +136,11 @@ namespace ConsoleApp
 
             try
             {
-                //log.ForInfoEvent()
-                //   .Message("Начало работы")
-                //   .Property("userId", "wwweew")
-                //   .Property("property1", 123)
-                //   .Log();
+                log.ForInfoEvent()
+                   .Message("Начало работы")
+                   .Property("userId", "wwweew")
+                   .Property("property1", 123)
+                   .Log();
 
                 int e=0 ;
 
@@ -311,7 +313,7 @@ namespace ConsoleApp
             // use logger here to log the events exception object
             // before the application quits
 
-            log.Error(e/*, ex.Message*/);
+            //log.Error(e/*, ex.Message*/);
         }
 
     }

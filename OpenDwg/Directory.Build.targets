@@ -24,7 +24,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<SharedConfigDir>$(SolutionDir)\OpenDwg\Test.OpenDwg.NC.23.1\Config</SharedConfigDir>
+		<SharedConfigDir>$(SolutionDir)\OpenDwg\Shared</SharedConfigDir>
 	</PropertyGroup>
 
 	<Target Name="CopyNLogConfig" AfterTargets="Build">

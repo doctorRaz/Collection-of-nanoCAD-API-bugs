@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
@@ -12,9 +12,15 @@
 	<ItemGroup>
 		<PackageReference Include="NLog" Version="6.0.7" />
 	</ItemGroup>
-
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="@echo off&#xD;&#xA;IF $(ConfigurationName)==Debug (&#xD;&#xA;    copy &quot;$(ProjectDir)\Config\NLog.debug.config&quot; &quot;$(OutDir)\NLog.config&quot;&#xD;&#xA;)&#xD;&#xA;IF $(ConfigurationName)==Release (&#xD;&#xA;    copy &quot;$(ProjectDir)\Config\NLog.release.config&quot; &quot;$(OutDir)\NLog.config&quot;&#xD;&#xA;)" />
+	<PropertyGroup>
+		<SharedConfigDir>$(SolutionDir)\OpenDwg\Shared</SharedConfigDir>
+	</PropertyGroup>
+	<Target Name="CopyNLogConfig" AfterTargets="Build">
+		<Copy
+		  SourceFiles="$(SharedConfigDir)\NLog.$(Configuration).config"
+		  DestinationFiles="$(OutDir)NLog.config"
+		  SkipUnchangedFiles="true"
+		  Condition="Exists('$(SharedConfigDir)\NLog.$(Configuration).config')" />
 	</Target>
 
 
