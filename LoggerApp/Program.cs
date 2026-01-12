@@ -16,7 +16,7 @@ namespace ConsoleApp
     {
         //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(AppDomain_CurrentDomain_UnhandledException);
 
-        internal static int count = 1000;
+        internal static int count = 1;
 
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
@@ -134,11 +134,11 @@ namespace ConsoleApp
 
             try
             {
-                log.ForInfoEvent()
-                   .Message("Начало работы")
-                   .Property("userId", "u42")
-                   .Property("property1", 123)
-                   .Log();
+                //log.ForInfoEvent()
+                //   .Message("Начало работы")
+                //   .Property("userId", "wwweew")
+                //   .Property("property1", 123)
+                //   .Log();
 
                 int e=0 ;
 
@@ -148,7 +148,7 @@ namespace ConsoleApp
             {
                 log.ForErrorEvent()       
                    .Exception(ex)
-                   .Property("userId", "u42")
+                   .Property("userId", 50000)
                    .Property("property1", 123)
                    .Log();
 
