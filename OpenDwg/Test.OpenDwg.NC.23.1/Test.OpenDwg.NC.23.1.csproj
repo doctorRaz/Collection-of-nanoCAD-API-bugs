@@ -25,4 +25,11 @@
 		<PackageReference Include="NLog" Version="6.0.7" />
 	</ItemGroup>
 
+	<!--<Target Name="CopyNLogConfig" AfterTargets="Build">
+		<Copy
+		  SourceFiles="..\Test.OpenDwg.NC.23.1\Config\NLog.$(Configuration).config"
+		  DestinationFiles="$(OutDir)NLog.config"
+		  SkipUnchangedFiles="true" />
+	</Target>-->
+
 </Project>

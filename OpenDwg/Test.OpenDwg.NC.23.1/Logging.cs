@@ -1,7 +1,16 @@
-﻿using HostMgd.ApplicationServices;
-using HostMgd.EditorInput;
-using NLog;
+﻿using NLog;
 using NLog.Targets;
+
+#if NC||NC26
+using HostMgd.ApplicationServices;
+using HostMgd.EditorInput;
+
+#elif AC
+
+using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.EditorInput;
+
+#endif
 
 namespace MyPlugin.Logging
 {

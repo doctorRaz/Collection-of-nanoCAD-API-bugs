@@ -8,8 +8,8 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<BaseOutputPath>..\..\bin</BaseOutputPath>
-		
-		
+
+
 		<!--<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
 		<OutputType>Library</OutputType>-->
 		<!--<AssemblySearchPaths>..\..\..\inc\;$(AssemblySearchPaths)</AssemblySearchPaths>-->
@@ -32,19 +32,26 @@
 		<Compile Include="..\Test.OpenDwg.NC.23.1\Logging.cs" Link="Logging.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.23.1\Services.cs" Link="Services.cs" />
 		<Compile Include="..\Test.OpenDwg.NC.23.1\ServicesCAD.cs" Link="ServicesCAD.cs" />
+		<Compile Include="..\Test.OpenDwg.NC.23.1\McNotificationServise.cs" Link="McNotificationServise.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="MultiCAD.NET" Version="25.0.6785.4733" />
 		<PackageReference Include="nanoCAD.Platform.NET" Version="25.0.6785.4733" />
 		<PackageReference Include="NLog" Version="6.0.7" />
 	</ItemGroup>
+	<!--<ItemGroup>
+		<Folder Include="Config\" />
+	</ItemGroup>-->
 	<ItemGroup>
-	  <Folder Include="Config\" />
+		<None Include="..\Test.OpenDwg.NC.23.1\Config\NLog - Копировать.config" Link="Config\NLog - Копировать.config" />
+		<None Include="..\Test.OpenDwg.NC.23.1\Config\NLog.debug.config" Link="Config\NLog.debug.config" />
+		<None Include="..\Test.OpenDwg.NC.23.1\Config\NLog.release.config" Link="Config\NLog.release.config" />
+		<None Include="..\Test.OpenDwg.NC.23.1\Config\Target_AutoCadCommandLine.config" Link="Config\Target_AutoCadCommandLine.config" />
 	</ItemGroup>
-	<ItemGroup>
-	  <None Include="..\Test.OpenDwg.NC.23.1\Config\NLog - Копировать.config" Link="Config\NLog - Копировать.config" />
-	  <None Include="..\Test.OpenDwg.NC.23.1\Config\NLog.debug.config" Link="Config\NLog.debug.config" />
-	  <None Include="..\Test.OpenDwg.NC.23.1\Config\NLog.release.config" Link="Config\NLog.release.config" />
-	  <None Include="..\Test.OpenDwg.NC.23.1\Config\Target_AutoCadCommandLine.config" Link="Config\Target_AutoCadCommandLine.config" />
-	</ItemGroup>
+	<!--<Target Name="CopyNLogConfig" AfterTargets="Build">
+		<Copy
+		  SourceFiles="..\Test.OpenDwg.NC.23.1\Config\NLog.$(Configuration).config"
+		  DestinationFiles="$(OutDir)NLog.config"
+		  SkipUnchangedFiles="true" />
+	</Target>-->
 </Project>

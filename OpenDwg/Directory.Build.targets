@@ -1,0 +1,37 @@
+﻿<Project>
+	<PropertyGroup>
+		<!-- не фурычит	 -->
+		<!-- <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath> -->
+		<!--<Version />-->
+		<Deterministic>false</Deterministic>
+		<AssemblyVersion>0.1.*</AssemblyVersion>
+		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+		<GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+		<!--<Version />-->
+		<!--<Name space />-->
+		<!--	<RootUser>drz</RootUser>-->
+		<!--<RootNamespace>$(RootUser).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>-->
+		<!--<Name space />-->
+		<!-- Description -->
+		<Product>OpenDwg</Product>
+		<Company>dRz</Company>
+		<Authors>Разыграев Андрей</Authors>
+		<Description>Пакетное открытие файлов</Description>
+		<Copyright>Разыграев Андрей</Copyright>
+		<Trademark>©doctorRAZ 2014-2026</Trademark>
+		<!-- Description -->
+		<!--<BaseOutputPath>..\bin.NET\</BaseOutputPath>-->
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<SharedConfigDir>$(SolutionDir)\OpenDwg\Test.OpenDwg.NC.23.1\Config</SharedConfigDir>
+	</PropertyGroup>
+
+	<Target Name="CopyNLogConfig" AfterTargets="Build">
+		<Copy
+		  SourceFiles="$(SharedConfigDir)\NLog.$(Configuration).config"
+		  DestinationFiles="$(OutDir)NLog.config"
+		  SkipUnchangedFiles="true"
+		  Condition="Exists('$(SharedConfigDir)\NLog.$(Configuration).config')" />
+	</Target>
+</Project>
