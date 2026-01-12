@@ -2,9 +2,11 @@
 using System.Diagnostics;
 using Multicad.DatabaseServices;
 using static dRz.Test.OpenDwg.ServicesCAD;
+using System;
 
 
-#if NC||NC26
+
+#if NC || NC26
 using HostMgd.ApplicationServices;
 using HostMgd.EditorInput;
 using Teigha.Runtime;
@@ -102,9 +104,23 @@ namespace dRz.Test.OpenDwg
                 reading++;
                 // …
 
-                if (mcDocument.IsHidden) mcDocument.Close();//если не открывали не закрывать
+                if (mcDocument.IsHidden)
+                {
+                    mcDocument.Close();//если не открывали не закрывать
+                    mcDocument.Dispose();
+                    mcDocument = null;
+                }
 
                 logger.Log($"\t\tClosed {file}");
+
+                if (counter % 50 == 0)
+                {
+
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    GC.Collect();
+                }
+
 
                 //  mcDocument.Dispose(); //todo костыль рабочий
 

@@ -2,10 +2,12 @@
 using System.Diagnostics;
 using static dRz.Test.OpenDwg.ServicesCAD;
 using Multicad.DatabaseServices;
+using System;
 
 
 
-#if NC||NC26
+
+#if NC || NC26
 using Teigha.DatabaseServices;
 using Teigha.Runtime;
 using App = HostMgd.ApplicationServices;
@@ -135,6 +137,14 @@ namespace dRz.Test.OpenDwg
                 }
 
                 logger.Log($"\t\tClosed {file}");
+
+                if (counter % 50 == 0)
+                {
+
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    GC.Collect();
+                }
             }
 
             stw.Stop();
