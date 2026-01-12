@@ -54,7 +54,7 @@ namespace dRz.Test.OpenDwg
             //ConfigureNLog
 
             string fil = @"d:\@Developers\Programmers\!NET\!nanoCAD-API-bugs\Collection-of-nanoCAD-API-bugs\bin\Debug\NLog.dll";
-                      
+
 
             LogBootstrap.Init();
 

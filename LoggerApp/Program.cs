@@ -235,7 +235,7 @@ namespace ConsoleApp
 
                 //Thread.Sleep(1000);
                 //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
-                class1.test1();
+                //class1.test1();
             }
             catch (Exception ex)
             {
@@ -246,7 +246,7 @@ namespace ConsoleApp
             {
                 //Thread.Sleep(1000);
                 //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
-                class1.test2();
+                //class1.test2();
             }
             catch (Exception ex)
             {
@@ -257,7 +257,7 @@ namespace ConsoleApp
             {
                 //Thread.Sleep(1000);
                 //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
-                class1.test3();
+                //class1.test3();
             }
             catch (Exception ex)
             {

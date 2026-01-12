@@ -43,14 +43,20 @@ namespace dRz.Test.OpenDwg
         }
 
 
-
-        internal static string CallerName(int CountFiles, [CallerMemberName] string caller = null)
+        /// <summary>
+        /// Callers the name. частный случай именования логов
+        /// </summary>
+        /// <param name="CountFiles">The count files.</param>
+        /// <returns></returns>
+        internal static string CallerName(int CountFiles)
         {
             Version version = cad.Version;
 
-            string appProductName = System.Windows.Forms.Application.ProductName;
+            string? profile = Application.GetSystemVariable("CPROFILE") as string;
 
-            return $"{caller}_{appProductName}_{version.Major.ToString()}.{version.Minor.ToString()}_{CountFiles.ToString()}";
+            string? appProductName = System.Windows.Forms.Application.ProductName;
+
+            return $"{appProductName}({profile})_{version.Major.ToString()}.{version.Minor.ToString()}_{CountFiles.ToString()}";
 
         }
 
