@@ -50,6 +50,12 @@ namespace dRz.Test.OpenDwg
         /// <returns></returns>
         internal static string CallerName(int CountFiles)
         {
+			/*
+			using Multicad.Runtime;
+
+				string profile = (string)HostApplicationServices.WorkingProfile;
+			*/
+			
             Version version = cad.Version;
 
             string? profile = Application.GetSystemVariable("CPROFILE") as string;

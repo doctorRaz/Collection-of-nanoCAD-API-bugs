@@ -164,6 +164,20 @@ namespace dRz.Test.OpenDwg
 
             LogManager.Configuration = new XmlLoggingConfiguration(configPath);
         }
+
+        //GPT
+        public static void LogProcessMetrics(ILogger log)
+        {
+            var p = Process.GetCurrentProcess();
+
+            log.ForInfoEvent()
+               .Message("Process performance metrics")
+               .Property("memoryMb", Math.Round(p.WorkingSet64 / 1024d / 1024d, 2))
+               .Property("threadCount", p.Threads.Count)
+               .Property("pid", p.Id)
+               .Property("processName", p.ProcessName)
+               .Log();
+        }
     }
 }
 
