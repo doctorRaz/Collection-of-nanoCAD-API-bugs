@@ -1,14 +1,14 @@
 ﻿#if DEBUG
 
-
 using System.ComponentModel;
 using System.Diagnostics;
-using static dRz.Test.OpenDwg.ServicesCAD;
 using NLog;
 using System;
 using System.Globalization;
 using System.IO;
 using NLog.Config;
+using NLog.Common;
+
 
 
 
@@ -17,12 +17,7 @@ using NLog.Config;
 
 
 #if NC || NC26
-using Teigha.DatabaseServices;
 using Teigha.Runtime;
-using App = HostMgd.ApplicationServices;
-using HostMgd.ApplicationServices;
-using HostMgd.EditorInput;
-using Db = Teigha.DatabaseServices;
 
 #elif AC
 using Db = Autodesk.AutoCAD.DatabaseServices;
@@ -49,20 +44,35 @@ namespace dRz.Test.OpenDwg
         /// </summary>
         [CommandMethod("лог")]
         [Description("проверка работы лога")]
-        public static void Log()
+        public static void TestLog()
         {
-            //ConfigureNLog
 
-            string fil = @"d:\@Developers\Programmers\!NET\!nanoCAD-API-bugs\Collection-of-nanoCAD-API-bugs\bin\Debug\NLog.dll";
+            //подумать куда удобнее писать логи???
+            //  addonDir/logs - рядом с адоном
+            //      плюс, не сорим больше нигде,
+            //      минус юзер не помнит куда положил аддон
+            //      
+            //  %appdata%/addonName/logs
+            //      плюс - всегда можно сказать юзеру где брать логи, заодно там будет %appdata%/addonName/settings,
+            //      можно забрать  все одним зипом и не искать по всему диску
+            //      минус? - надо подумать
+
+            // как получать имя аддона??
+            //  1. asembly?
+            //  2. задавать в коде
+            //  3. ??
 
 
-            LogBootstrap.Init();
+
+            //по хорошему этот метод вызывать из инициализации аддона
+            //заодно можно писать в sys.log диагностическую инфу о системе, что б меньше вопросов юзерам задавать
+            LogBootstrap.Init();//грузим nlog.config принудительно
+                                //можно сюда вынести управление диагностикой логера
+                                //и установку переменных в конфиге
 
 
-            //deb
-            NLog.Common.InternalLogger.LogLevel = LogLevel.Trace;
 
-            NLog.Common.InternalLogger.LogFile = Path.Combine(Path.GetTempPath(), "nlog-internal.log");
+
 
             GlobalDiagnosticsContext.Set("appName", ServicesCAD.CallerName(count));
 
@@ -155,14 +165,33 @@ namespace dRz.Test.OpenDwg
 
     public static class LogBootstrap
     {
+        public static void InternalLoggerOn_OFF(bool enabled = false)
+        {
+            #region диагностика nLog
+
+            InternalLogger.LogLevel = LogLevel.Trace;
+
+            InternalLogger.LogToConsole = enabled;
+
+            #endregion
+        }
+
         public static void Init()
         {
-            var dllDir = Path.GetDirectoryName(
+
+            #region load  nlog.config
+
+            string? dllDir = Path.GetDirectoryName(
                 typeof(LogBootstrap).Assembly.Location);
 
-            var configPath = Path.Combine(dllDir, "nlog.config");
+            string configPath = Path.Combine(dllDir, "nlog.config");
 
             LogManager.Configuration = new XmlLoggingConfiguration(configPath);
+
+            #endregion
+
+            InternalLogger.LogFile = Path.Combine(dllDir, "${shortdate}_nlog-internal.log");
+
         }
 
         //GPT

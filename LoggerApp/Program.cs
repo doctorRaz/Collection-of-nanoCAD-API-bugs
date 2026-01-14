@@ -1,4 +1,5 @@
 ﻿using NLog;
+using NLog.Common;
 using NLog.Config;
 
 using NLog.Targets;
@@ -18,114 +19,21 @@ namespace ConsoleApp
 
         internal static int count = 1;
 
-        private static readonly ILogger log = LogManager.GetCurrentClassLogger();
-
-        static void ConfigureNLog()
-        {
-             
-
-            string date = DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture);
-
-            string appName = Services.CallerName(count);
-
-            string name = "${callsite:className=false:methodName=true:includeSourcePath=false}";
-
-            string fileName = $"${{basedir}}/logs/{date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}_{appName}";
-
-            LoggingConfiguration config = new LoggingConfiguration();
-
-            // Target для отдельного класса
-            FileTarget fileTarget = new FileTarget
-            {
-                //Name = $"{caller}",
-                Name = name,// "${callsite:className=false:methodName=true:includeSourcePath=false}",
-                //FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}.log",
-                FileName = $"{fileName}.log",// $"${{basedir}}/logs/{date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}.log",
-                //Layout = "${longdate} | " +
-                //         "${level:uppercase=true} | " +
-                //         "${callsite:className=true:methodName=true:includeSourcePath=false} | " +
-                //         "Line:${callsite-linenumber} | " +
-                //         "${message} | " +
-                //         "${exception:format=ToString}"
-            };
-
-            FileTarget fileTargetErr = new FileTarget
-            {
-                //Name = $"{caller}",
-                Name = $"{name}_err",// "${callsite:className=false:methodName=true:includeSourcePath=false}_Err",
-                //FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}_Err.log",
-                FileName = $"{fileName}_Err.log",// $"${{basedir}}/logs/${date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}_Err.log",
-                //Layout = "${longdate} | ${level:uppercase=true} | " +
-                //         "${callsite:methodName=true} | " +
-                //         "User[${windows-identity}] | " +
-                //         "Session:${aspnet-sessionid} | " +
-                //         "Request:${aspnet-request-url} | " +
-                //         "${message} | " +
-                //         "${when:when=length('${exception}')>0:Inner=${newline}StackTrace: ${exception:format=StackTrace}}"
-            };
-
-
-            FileTarget fileTargetResult = new FileTarget
-            {
-                Name = $"{name}_result",
-
-                FileName = "${basedir}/logs/${shortdate}_result.log", // $"{fileName}_result.log",
-
-            };
-
-            // Оборачиваем таргеты в асинхронные обертки
-            AsyncTargetWrapper asyncFileTarget = new AsyncTargetWrapper
-            {
-                Name = "async_" + name,
-                WrappedTarget = fileTarget,
-                QueueLimit = 10000,                     // Максимальный размер очереди
-                OverflowAction = AsyncTargetWrapperOverflowAction.Discard, // Действие при переполнении
-                TimeToSleepBetweenBatches = 50,         // Пауза между пакетами (мс)
-                BatchSize = 100                         // Размер пакета для записи
-            };
-
-            AsyncTargetWrapper asyncFileTargetErr = new AsyncTargetWrapper
-            {
-                Name = "async_" + name + "_Err",
-                WrappedTarget = fileTargetErr,
-                QueueLimit = 10000,
-                OverflowAction = AsyncTargetWrapperOverflowAction.Discard,
-                TimeToSleepBetweenBatches = 50,
-                BatchSize = 100
-            };
-
-
-            AsyncTargetWrapper asyncFileTargetResult = new AsyncTargetWrapper
-            {
-                Name = "async_" + name + "_result",
-                WrappedTarget = fileTargetResult,
-                QueueLimit = 10000,
-                OverflowAction = AsyncTargetWrapperOverflowAction.Discard,
-                TimeToSleepBetweenBatches = 50,
-                BatchSize = 100
-            };
-
-
-
-            config.AddRule(LogLevel.Trace, LogLevel.Warn, fileTarget);
-            config.AddRule(LogLevel.Error, LogLevel.Fatal, fileTargetErr);
-            config.AddRuleForOneLevel(LogLevel.Warn, fileTargetResult);
-
-            //config.AddRule(LogLevel.Trace, LogLevel.Info, asyncFileTarget);
-            //config.AddRule(LogLevel.Error, LogLevel.Fatal, asyncFileTargetErr);
-            //config.AddRuleForOneLevel(LogLevel.Warn, asyncFileTargetResult);
-
-            //config.AddTarget(fileTarget);
-
-            //// Правило только для конкретного класса
-            //config.AddRuleForOneLevel(LogLevel.Trace, fileTarget, "MyNamespace.MyClass");
-
-            LogManager.Configuration = config;
-        }
+        private static readonly ILogger log = LogManager.GetCurrentClassLogger();      
 
         static void Main(string[] args)
         {
-  
+            //InternalLogger.LogToConsole = true;
+            InternalLogger.LogLevel = LogLevel.Error;
+
+            string? dllDir = Path.GetDirectoryName(
+              typeof(Program).Assembly.Location);
+
+            string shortDate = DateTime.Now. ToString("yyyyMMdd");
+
+            InternalLogger.LogFile = Path.Combine(dllDir,  $"{shortDate}_nlog-internal.log"); 
+
+
             //ConfigureNLog();
 
             GlobalDiagnosticsContext.Set("appName", Services.CallerName(count));
@@ -134,12 +42,18 @@ namespace ConsoleApp
 
             GlobalDiagnosticsContext.Set("logTimestamp", logTimestamp);
 
+            if(log.IsDebugEnabled)
+             log.Info("This is a message from {Calc}", calcs());
+
+            int i0 = 0;
             try
             {
-                log.ForInfoEvent()
+
+            if(log.IsDebugEnabled)
+                log.ForTraceEvent()
                    .Message("Начало работы")
-                   .Property("userId", "wwweew")
-                   .Property("property1", 123)
+                   .Property("prop1",calcs())
+                   .Property("prop2", 123)
                    .Log();
 
                 int e=0 ;
@@ -150,8 +64,8 @@ namespace ConsoleApp
             {
                 log.ForErrorEvent()       
                    .Exception(ex)
-                   .Property("userId", 50000)
-                   .Property("property1", 123)
+                   .Property("prop1", 50000)
+                   .Property("prop2", 123)
                    .Log();
 
                 log.Info("Продолжение работы после ошибки");
@@ -235,7 +149,7 @@ namespace ConsoleApp
 
                 //Thread.Sleep(1000);
                 //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
-                //class1.test1();
+                class1.test1();
             }
             catch (Exception ex)
             {
@@ -246,7 +160,7 @@ namespace ConsoleApp
             {
                 //Thread.Sleep(1000);
                 //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
-                //class1.test2();
+                class1.test2();
             }
             catch (Exception ex)
             {
@@ -257,18 +171,13 @@ namespace ConsoleApp
             {
                 //Thread.Sleep(1000);
                 //GlobalDiagnosticsContext.Set("logTimestamp", DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture));
-                //class1.test3();
+                class1.test3();
             }
             catch (Exception ex)
             {
                 log.Error(ex);
             }
-
-
-
-        
-
-
+            
             int x = 0;
             try
             {
@@ -277,14 +186,12 @@ namespace ConsoleApp
             }
             catch (Exception ex)
             {
-                using (ScopeContext.PushProperty("property1", $"{x} err"))
+                using (ScopeContext.PushProperty("prop2", $"{x} err"))
                 {
                     log.Error(ex);
 
                 }
             }
-
-
 
             log.Info("Performance metrics: " +
                     "Memory: {MemoryUsage}MB, " +
@@ -299,14 +206,30 @@ namespace ConsoleApp
             //LogManager.Shutdown();
             sw.Stop();
             var elapsed = sw.Elapsed;
-            log.Info($"total time: {elapsed.ToString()}");
 
-            Console.WriteLine($"the end {elapsed.ToString()}");
+            string logTimestamp2 = $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff", CultureInfo.InvariantCulture)}";
 
-            Console.ReadKey();
+            log.Info($"{logTimestamp2} total time: { elapsed}");
+
+            Console.WriteLine($"{logTimestamp2} the end {elapsed}");
+
+          //  int s = 100 / x;
+
+             Console.ReadKey();
         }
 
 
+        /// <summary>
+        /// Calcses this instance. Ленивое вычисление
+        /// </summary>
+        /// <returns></returns>
+        static int calcs()
+
+        {
+           Thread.Sleep(1000);
+            return 10;
+
+        }
 
         static void AppDomain_CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
@@ -316,6 +239,108 @@ namespace ConsoleApp
             //log.Error(e/*, ex.Message*/);
         }
 
+        static void ConfigureNLog()
+        {
+
+
+            string date = DateTime.Now.ToString("yyyyMMdd-HH_mm_ss", CultureInfo.InvariantCulture);
+
+            string appName = Services.CallerName(count);
+
+            string name = "${callsite:className=false:methodName=true:includeSourcePath=false}";
+
+            string fileName = $"${{basedir}}/logs/{date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}_{appName}";
+
+            LoggingConfiguration config = new LoggingConfiguration();
+
+            // Target для отдельного класса
+            FileTarget fileTarget = new FileTarget
+            {
+                //Name = $"{caller}",
+                Name = name,// "${callsite:className=false:methodName=true:includeSourcePath=false}",
+                            //FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}.log",
+                FileName = $"{fileName}.log",// $"${{basedir}}/logs/{date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}.log",
+                                             //Layout = "${longdate} | " +
+                                             //         "${level:uppercase=true} | " +
+                                             //         "${callsite:className=true:methodName=true:includeSourcePath=false} | " +
+                                             //         "Line:${callsite-linenumber} | " +
+                                             //         "${message} | " +
+                                             //         "${exception:format=ToString}"
+            };
+
+            FileTarget fileTargetErr = new FileTarget
+            {
+                //Name = $"{caller}",
+                Name = $"{name}_err",// "${callsite:className=false:methodName=true:includeSourcePath=false}_Err",
+                                     //FileName = "${date:format=yyyyMMdd-HH_mm_ss}_${callsite:className=false:methodName=true:includeSourcePath=false}_Err.log",
+                FileName = $"{fileName}_Err.log",// $"${{basedir}}/logs/${date}_${{callsite:className=false:methodName=true:includeSourcePath=false}}_Err.log",
+                                                 //Layout = "${longdate} | ${level:uppercase=true} | " +
+                                                 //         "${callsite:methodName=true} | " +
+                                                 //         "User[${windows-identity}] | " +
+                                                 //         "Session:${aspnet-sessionid} | " +
+                                                 //         "Request:${aspnet-request-url} | " +
+                                                 //         "${message} | " +
+                                                 //         "${when:when=length('${exception}')>0:Inner=${newline}StackTrace: ${exception:format=StackTrace}}"
+            };
+
+
+            FileTarget fileTargetResult = new FileTarget
+            {
+                Name = $"{name}_result",
+
+                FileName = "${basedir}/logs/${shortdate}_result.log", // $"{fileName}_result.log",
+
+            };
+
+            // Оборачиваем таргеты в асинхронные обертки
+            AsyncTargetWrapper asyncFileTarget = new AsyncTargetWrapper
+            {
+                Name = "async_" + name,
+                WrappedTarget = fileTarget,
+                QueueLimit = 10000,                     // Максимальный размер очереди
+                OverflowAction = AsyncTargetWrapperOverflowAction.Discard, // Действие при переполнении
+                TimeToSleepBetweenBatches = 50,         // Пауза между пакетами (мс)
+                BatchSize = 100                         // Размер пакета для записи
+            };
+
+            AsyncTargetWrapper asyncFileTargetErr = new AsyncTargetWrapper
+            {
+                Name = "async_" + name + "_Err",
+                WrappedTarget = fileTargetErr,
+                QueueLimit = 10000,
+                OverflowAction = AsyncTargetWrapperOverflowAction.Discard,
+                TimeToSleepBetweenBatches = 50,
+                BatchSize = 100
+            };
+
+
+            AsyncTargetWrapper asyncFileTargetResult = new AsyncTargetWrapper
+            {
+                Name = "async_" + name + "_result",
+                WrappedTarget = fileTargetResult,
+                QueueLimit = 10000,
+                OverflowAction = AsyncTargetWrapperOverflowAction.Discard,
+                TimeToSleepBetweenBatches = 50,
+                BatchSize = 100
+            };
+
+
+
+            config.AddRule(LogLevel.Trace, LogLevel.Warn, fileTarget);
+            config.AddRule(LogLevel.Error, LogLevel.Fatal, fileTargetErr);
+            config.AddRuleForOneLevel(LogLevel.Warn, fileTargetResult);
+
+            //config.AddRule(LogLevel.Trace, LogLevel.Info, asyncFileTarget);
+            //config.AddRule(LogLevel.Error, LogLevel.Fatal, asyncFileTargetErr);
+            //config.AddRuleForOneLevel(LogLevel.Warn, asyncFileTargetResult);
+
+            //config.AddTarget(fileTarget);
+
+            //// Правило только для конкретного класса
+            //config.AddRuleForOneLevel(LogLevel.Trace, fileTarget, "MyNamespace.MyClass");
+
+            LogManager.Configuration = config;
+        }
     }
 
 

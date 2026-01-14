@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-#if NC26 || AC
+#if NC260 || AC0
 using Multicad.ApplicationServices;// mapimgd.dll
 
 #else
