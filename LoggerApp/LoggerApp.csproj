@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net6.0-windows7.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<BaseOutputPath>..\bin</BaseOutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -16,11 +16,7 @@
 		<SharedConfigDir>$(SolutionDir)\OpenDwg\Shared</SharedConfigDir>
 	</PropertyGroup>
 	<Target Name="CopyNLogConfig" AfterTargets="Build">
-		<Copy
-		  SourceFiles="$(SharedConfigDir)\NLog.$(Configuration).config"
-		  DestinationFiles="$(OutDir)NLog.config"
-		  SkipUnchangedFiles="true"
-		  Condition="Exists('$(SharedConfigDir)\NLog.$(Configuration).config')" />
+		<Copy SourceFiles="$(SharedConfigDir)\NLog.$(Configuration).config" DestinationFiles="$(OutDir)NLog.config" SkipUnchangedFiles="true" Condition="Exists('$(SharedConfigDir)\NLog.$(Configuration).config')" />
 	</Target>
 
 
