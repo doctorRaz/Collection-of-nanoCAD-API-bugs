@@ -1,0 +1,39 @@
+﻿<Project>
+	<PropertyGroup>
+		<!--************* только при сборке из решения ******************-->
+		<LangVersion>latest</LangVersion>
+		<!--<DateTime -->
+		<StartYear>2014</StartYear>
+		<CurrentYear>$([System.DateTime]::Now.Year)</CurrentYear>
+		<!--<Version />-->
+		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+		<Deterministic>false</Deterministic>
+		<AssemblyVersion>0.1.*</AssemblyVersion>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<!--<Version />-->
+		<!-- ***********путь сборки -->
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<BaseOutputPath>..\bin\</BaseOutputPath>
+		<!-- ***************** Постоянные свойства ***************** -->
+		<!-- CompanyName -->
+		<Company>doctorRaz@gmail.com</Company>
+		<!-- LegalCopyright -->
+		<Copyright>Разыграев Андрей</Copyright>
+		<!-- LegalTrademarks -->
+		<Trademark>©doctorRaz $(StartYear)-$(CurrentYear)</Trademark>
+		<!-- ***************** Переопределяются в проекте ***************** -->
+		<!-- ProductName -->
+		<Product>ClipboardInserter</Product>
+		<!-- FileDescription он жэж Title-->
+		<!-- если все закоментить то в титул пойдет имя сборки -->
+		<AssemblyTitle>ClipboardInserter.NET.26</AssemblyTitle>
+		<!-- Comments -->
+		<Description>Вставка из буфера, nanoCAD 26</Description>
+		<!-- ProductVersion он жэж AssemblyInformationalVersion-->
+		<InformationalVersion>ClipboardInserter for nanoCAD</InformationalVersion>
+		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+		<NeutralLanguage>ru-RU</NeutralLanguage>
+		<RepositoryUrl>https://github.com/doctorRaz/Collection-of-nanoCAD-API-bugs</RepositoryUrl>
+
+	</PropertyGroup>
+</Project>

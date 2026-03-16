@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 18
-VisualStudioVersion = 18.3.11312.210
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nanoCAD.Samples.NET", "nanoCAD.Samples.NET\nanoCAD.Samples.NET.csproj", "{5118133C-9DDD-49F6-9BF3-F45A95387AE3}"
 EndProject
@@ -9,13 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDwg.AC.25", "OpenDwg\Op
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenDwg", "OpenDwg", "{D96AB814-75B7-4612-ACD0-1F6945E57141}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerApp", "LoggerApp\LoggerApp.csproj", "{DE2619C4-B9B6-FC40-FF19-C324824F095D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggerApp", "LoggerApp\LoggerApp.csproj", "{DE2619C4-B9B6-FC40-FF19-C324824F095D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{B8A3FBFD-A877-AB3A-3856-A3E51268C209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{B8A3FBFD-A877-AB3A-3856-A3E51268C209}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDwg.NC.26.0", "OpenDwg\OpenDwg.NC.26.0\OpenDwg.NC.26.0.csproj", "{C47632A2-C5B7-840C-DA33-489EBD557227}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDwg.NC.26.0", "OpenDwg\OpenDwg.NC.26.0\OpenDwg.NC.26.0.csproj", "{C47632A2-C5B7-840C-DA33-489EBD557227}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDwg.NC.23.1", "OpenDwg\OpenDwg.NC.23.1\OpenDwg.NC.23.1.csproj", "{F7042D62-F981-8306-7CE2-2295E5BE2A27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDwg.NC.23.1", "OpenDwg\OpenDwg.NC.23.1\OpenDwg.NC.23.1.csproj", "{F7042D62-F981-8306-7CE2-2295E5BE2A27}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClipboardInserter.nCad.26.0", "PASTECLIPDWG\ClipboardInserter.nCad.26.0.csproj", "{9746A635-4D0E-4131-8285-C0B39A92DE37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{F7042D62-F981-8306-7CE2-2295E5BE2A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7042D62-F981-8306-7CE2-2295E5BE2A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7042D62-F981-8306-7CE2-2295E5BE2A27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9746A635-4D0E-4131-8285-C0B39A92DE37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9746A635-4D0E-4131-8285-C0B39A92DE37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9746A635-4D0E-4131-8285-C0B39A92DE37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9746A635-4D0E-4131-8285-C0B39A92DE37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
